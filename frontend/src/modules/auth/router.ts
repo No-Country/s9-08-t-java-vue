@@ -3,6 +3,7 @@ import { type RouteRecordRaw } from 'vue-router'
 const moduleRoute: RouteRecordRaw = {
   path: '/auth',
   name: 'auth',
+  redirect: '/auth/login',
   component: () => import('./Module.vue'),
   children: [
     {
