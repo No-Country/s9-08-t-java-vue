@@ -7,7 +7,7 @@ import { registerRoute } from './register-routes'
 import { plugin, defaultConfig } from '@formkit/vue'
 import config from './../formkit.config'
 import homeRouter from './modules/home/router'
-import dashRouter from './modules/dashboard/router'
+import dashRouter from './modules/Dashboard/router'
 import authRouter from './modules/auth/router'
 
 const app = createApp(App)
