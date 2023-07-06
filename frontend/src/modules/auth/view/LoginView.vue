@@ -1,3 +1,9 @@
 <template>
-  <h1>LOGIN</h1>
+  <section class="flex justify-center items-center h-screen">
+    <LoginForm />
+  </section>
 </template>
+
+<script setup lang="ts">
+import LoginForm from '../components/LoginForm.vue'
+</script>

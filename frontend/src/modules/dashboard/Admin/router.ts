@@ -8,7 +8,7 @@ const moduleRoute: RouteRecordRaw = {
     {
       path: '',
       name: 'admin',
-      component: () => import('./views/HomeView.vue')
+      component: () => import('./views/AdminView.vue')
     }
   ]
 }

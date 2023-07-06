@@ -8,7 +8,11 @@ export default {
     './node_modules/@formkit/themes/dist/tailwindcss/genesis/index.cjs'
   ],
   theme: {
-    extend: {}
+    extend: {
+      colors: {
+        'primary-blue': '#2825E4'
+      }
+    }
   },
   plugins: [FormKitVariants]
 }
