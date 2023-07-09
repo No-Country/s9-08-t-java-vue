@@ -11,7 +11,12 @@ export default {
     extend: {
       colors: {
         'primary-blue': '#2825E4',
+        'primary-orange': '#FF6935',
+        'primary-text': '#100E34',
         'blue-night': '#291D89'
+      },
+      screen: {
+        'mv' : {'max' : '550px'}
       }
     }
   },
