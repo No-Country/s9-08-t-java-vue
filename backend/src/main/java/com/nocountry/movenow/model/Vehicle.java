@@ -1,0 +1,32 @@
+package com.nocountry.movenow.model;
+
+
+import com.nocountry.movenow.model.enums.VehicleType;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Data
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+public class Vehicle {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
+
+    @Enumerated(EnumType.STRING)
+    private VehicleType type;
+
+    private int dimension;
+
+    private double weight;
+
+    private int model;
+
+    private boolean status;
+
+}
