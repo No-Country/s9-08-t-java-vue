@@ -2,7 +2,7 @@ import { type RouteRecordRaw } from 'vue-router'
 
 const moduleRoute: RouteRecordRaw = {
   path: '/',
-  name: 'homeview',
+  name: 'home',
   component: () => import('./Module.vue'),
   children: [
     {
