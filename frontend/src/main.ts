@@ -5,7 +5,7 @@ import { createPinia } from 'pinia'
 import { router } from './router/router'
 import { registerRoute } from './register-routes'
 import homeRouter from './modules/home/router'
-import dashRouter from './modules/Dashboard/router'
+import dashRouter from './modules/dashboard/router'
 import authRouter from './modules/auth/router'
 
 const app = createApp(App)
