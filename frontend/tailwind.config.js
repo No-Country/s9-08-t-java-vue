@@ -11,9 +11,6 @@ export default {
     fontFamily: {
       montserrat: ['Montserrat', 'sans-serif']
     },
-    borderRadius: {
-      '4xl': '50px'
-    },
     extend: {
       colors: {
         'primary-blue': '#2825E4',
@@ -24,6 +21,9 @@ export default {
       },
       screen: {
         mv: { max: '550px' }
+      },
+      borderRadius: {
+        '4xl': '50px'
       }
     }
   },

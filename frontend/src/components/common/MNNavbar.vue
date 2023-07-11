@@ -1,5 +1,7 @@
 <template>
-  <nav class="sticky flex h-14 items-center justify-between border-b border-black px-3 md:px-10">
+  <nav
+    class="sticky mb-px flex h-14 items-center justify-between border-b border-black px-3 md:px-10"
+  >
     <div class="flex gap-5">
       <div class="flex h-14 items-center">
         <p class="text-lg font-semibold text-primary-orange">MoveNow</p>
