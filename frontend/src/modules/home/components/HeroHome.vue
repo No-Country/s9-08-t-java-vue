@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative flex w-full items-center rounded-b-4xl bg-light-blue p-16 pb-40 font-montserrat lg:mx-6"
+    class="relative mb-40 flex w-full items-center rounded-b-4xl bg-light-blue p-16 pb-40 font-montserrat lg:mx-6"
   >
     <div class="lg:w-2/4">
       <h1 class="text-4xl font-normal uppercase leading-tight text-black">
