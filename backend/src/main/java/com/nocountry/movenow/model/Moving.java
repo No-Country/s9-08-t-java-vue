@@ -1,5 +1,6 @@
 package com.nocountry.movenow.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nocountry.movenow.model.enums.Package;
 import lombok.AllArgsConstructor;
 
@@ -19,32 +20,38 @@ public class Moving {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    Long id;
+    private Long id;
 
-    String detinationPoint;
+    private String destinationPoint;
 
-    String loadingPoint;
+    private String loadingPoint;
 
     @Enumerated(EnumType.STRING)
-    Package packageType;
+    private Package packageType;
 
-    @OneToMany(mappedBy = "moving")
-    Map<Vehicle,Schedule> schedules;
+    private boolean insurance;
+
+    @Column(name = "id_user")
+    private Long idUser;
 
     @ManyToOne
-    Invoice invoice;
+    @JoinColumn(name = "id_user", insertable = false, updatable = false)
+    @JsonIgnore
+    private UserEntity user;
 
-    @ManyToOne
-    Comment comment;
+    @OneToOne(mappedBy = "moving")
+    @JsonIgnore
+    private Invoice invoice;
+
+    @OneToOne(mappedBy = "moving")
+    @JsonIgnore
+    private Comment comment;
 
     @OneToMany(mappedBy = "moving")
-    List<CrewMember> crew;
+    private List<Schedule> schedules;
 
-    boolean insurance;
-
-    Long idUser;
-
-
+    @ManyToMany(mappedBy = "movings")
+    private List<CrewMember> crew;
 
 
 }

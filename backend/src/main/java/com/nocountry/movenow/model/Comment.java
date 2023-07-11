@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -15,14 +12,20 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class Comment {
 
-
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    Long id;
+    private Long id;
 
-    int star;
+    private int stars;
 
-    String userName;
+    private String userName;
 
-    String feedBack;
+    private String feedBack;
+
+    @Column(name = "id_moving")
+    private Long idMoving;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_moving", referencedColumnName = "id")
+    private Moving moving;
 }

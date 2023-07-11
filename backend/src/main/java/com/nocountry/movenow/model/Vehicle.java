@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -29,4 +30,6 @@ public class Vehicle {
 
     private boolean status;
 
+    @OneToMany(mappedBy = "vehicle")
+    private List<Schedule> schedules;
 }
