@@ -50,3 +50,41 @@ const setType = (type: string) => typeSelected.value = type
   
 </script>
 ```
+
+components/common/MNInput.vue
+
+- props that can be used in MNInput.vue
+```js
+<template>
+  <MNInput v-model="email" border="" class=""></MNInput>
+</template>
+
+{
+  modelValue: String,
+  type: {
+    default: 'text',
+    type: String
+  },
+  placeholder: {
+    type: String,
+    required: true
+  },
+  errorMsg: {
+    type: String,
+    default: 'error'
+  },
+  showError: {
+    type: Boolean,
+    default: false,
+    required: false
+  },
+  border: {
+    type: String,
+    default: ''
+  },
+  class: {
+    type: String,
+    default: ''
+  }
+})
+``` 
