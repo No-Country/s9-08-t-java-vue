@@ -1,19 +1,23 @@
 <template>
   <button
-    :class="[
-      'bg-primary-blue w-full text-white font-medium rounded-full hover:bg-second my-2',
-      props.class
-    ]"
+    :class="
+      twMerge(
+        'hover:bg-second my-2 w-full rounded-full bg-primary-blue font-medium text-white',
+        props.class
+      )
+    "
   >
     {{ text }}
   </button>
 </template>
 
 <script setup lang="ts">
+import { twMerge } from 'tailwind-merge'
+
 const props = defineProps({
   text: String,
   class: {
-    default: 'w-52 h-10',
+    default: 'h-10',
     type: String
   }
 })

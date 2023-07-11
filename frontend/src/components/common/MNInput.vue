@@ -1,22 +1,26 @@
 <template>
   <div class="h-16">
-    <div :class="['border-zinc-300 border-[2px] rounded-full', props.border]">
+    <div :class="['rounded-full border-[2px] border-zinc-300', props.border]">
       <input
-        :class="[
-          'h-10 px-3 bg-low-ligth text-low-dark w-full outline-none rounded-full',
-          props.class
-        ]"
+        :class="
+          twMerge(
+            'bg-low-ligth text-low-dark rounded-full h-10 w-full px-3 outline-none',
+            props.class
+          )
+        "
         :value="modelValue"
         @input="updateValue"
         :type="type"
         :placeholder="placeholder"
       />
     </div>
-    <p class="text-sm ml-2 text-red-400" v-show="showError">{{ errorMsg }}</p>
+    <p class="ml-2 text-sm text-red-400" v-show="showError">{{ errorMsg }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
+import { twMerge } from 'tailwind-merge'
+
 const props = defineProps({
   modelValue: String,
   type: {

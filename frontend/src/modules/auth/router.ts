@@ -8,11 +8,11 @@ const moduleRoute: RouteRecordRaw = {
   children: [
     {
       path: 'login',
-      component: () => import('./view/LoginView.vue')
+      component: () => import('./views/LoginView.vue')
     },
     {
       path: 'register',
-      component: () => import('./view/RegisterView.vue')
+      component: () => import('./views/RegisterView.vue')
     }
   ]
 }
