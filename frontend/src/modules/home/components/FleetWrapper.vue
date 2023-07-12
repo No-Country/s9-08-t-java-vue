@@ -2,7 +2,7 @@
   <section class="flex h-full w-full flex-col items-center justify-center gap-24">
     <h1 class="mt-12 text-4xl uppercase text-primary-orange">Conozca nuestra flota</h1>
     <div class="flex items-center justify-center gap-8">
-      <FleetCard v-for="item in data" :prop="item" />
+      <FleetCard :key="item.id" v-for="item in data" :prop="item" />
     </div>
   </section>
 </template>
