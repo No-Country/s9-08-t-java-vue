@@ -10,6 +10,7 @@
             placeholder="Origen"
             type="text"
             class="h-16 w-max rounded-3xl border border-primary-orange px-4"
+            border="border-none"
           />
           <img
             class="absolute right-4 top-2/4 -translate-y-2/4"
@@ -22,6 +23,7 @@
             placeholder="Destino"
             type="text"
             class="h-16 w-max rounded-3xl border border-primary-orange px-4"
+            border="border-none"
           />
           <img
             class="absolute right-4 top-2/4 -translate-y-2/4"
@@ -34,6 +36,7 @@
             placeholder="Fecha"
             type="text"
             class="h-16 w-max rounded-3xl border border-primary-orange px-4"
+            border="border-none"
           />
           <img
             class="absolute right-4 top-2/4 -translate-y-2/4"
