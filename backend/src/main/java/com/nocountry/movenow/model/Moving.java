@@ -19,7 +19,7 @@ import java.util.Map;
 public class Moving {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     private String destinationPoint;
