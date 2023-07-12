@@ -3,7 +3,11 @@
     class="absolute -bottom-1/4 left-2/4 flex w-11/12 -translate-x-2/4 flex-col gap-2 rounded-4xl bg-white shadow-2xl"
   >
     <form class="relative h-full w-full flex-col rounded-4xl bg-white p-16">
-      <MNDropdownInput @selected="setType" :items="['Mudanza']" :text="typeSelected" />
+      <MNDropdownInput
+        @selected="setType"
+        :items="['Enviar paquete', 'Mudanza']"
+        :text="typeSelected"
+      />
       <div class="flex w-full items-center justify-between gap-2">
         <div class="relative">
           <MNInput
