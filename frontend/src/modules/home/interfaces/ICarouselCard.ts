@@ -3,4 +3,5 @@ export interface ICarouselCard {
   heading: string
   description: string
   img: string
+  link: string
 }
