@@ -17,7 +17,8 @@ export default {
         'primary-orange': '#FF6935',
         'primary-text': '#100E34',
         'blue-night': '#291D89',
-        'light-blue': '#E1ECFF'
+        'light-blue': '#E1ECFF',
+        'gray-card': '#FBFAFA'
       },
       screen: {
         mv: { max: '550px' }
