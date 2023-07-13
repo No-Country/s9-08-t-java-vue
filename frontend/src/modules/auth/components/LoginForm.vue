@@ -25,6 +25,9 @@
         v-model="password"
       ></MNInput>
       <MNButton @click="handdlelogin" text="Continuar"></MNButton>
+      <div class="h-7">
+        <p v-if="errorLogin" class="text-center text-sm text-red-400">Error de autenticacion</p>
+      </div>
     </div>
     <div>
       <p class="text-center text-sm text-zinc-400">
@@ -38,15 +41,52 @@
 import { ref } from 'vue'
 import MNInput from '@/components/common/MNInput.vue'
 import MNButton from '@/components/common/MNButton.vue'
+import { useAuthStore } from '../store/auth'
+import { authenticate } from '../services/authServices'
+import { getAuthProfile, setAuhProfile } from '../helpers/localStorage'
+import { useRouter } from 'vue-router'
+import { decodeJWT } from '../helpers/decodeJWT'
 
+const store = useAuthStore()
+const router = useRouter()
 const email = ref('')
 const password = ref('')
 
-const emailError = ref(true)
-const passError = ref(true)
+const errorLogin = ref(false)
+const emailError = ref(false)
+const passError = ref(false)
 
-const handdlelogin = () => {
-  console.log('login')
+const handdlelogin = async () => {
+  if (validInputs() == false) return
+  try {
+    const response = await authenticate({ username: email.value, password: password.value })
+    const profile = decodeJWT(response.token)
+    setAuhProfile({ profile })
+    store.setAuthProfile()
+    router.push('/')
+  } catch (error) {
+    errorLogin.value = true
+    setTimeout(() => {
+      errorLogin.value = false
+    }, 1000)
+  }
+}
+
+const validInputs = () => {
+  let areValid = true
+
+  if (email.value.length < 3) {
+    emailError.value = true
+    areValid = false
+    setTimeout(() => (emailError.value = false), 1000)
+  }
+  if (password.value.length < 5) {
+    passError.value = true
+    areValid = false
+    setTimeout(() => (passError.value = false), 1000)
+  }
+
+  return areValid
 }
 </script>
 
