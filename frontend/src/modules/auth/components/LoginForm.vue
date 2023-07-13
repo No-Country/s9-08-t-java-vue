@@ -1,13 +1,13 @@
 <template>
-  <form @submit.prevent class="bg-white w-80 px-[40px] py-[20px] rounded-[30px]">
-    <h2 class="font-bold text-center text-2xl">¡Hola!</h2>
-    <p class="text-zinc-400 text-[1rem] text-center">Incia sesión con</p>
+  <form @submit.prevent class="w-80 rounded-[30px] bg-white px-[40px] py-[20px]">
+    <h2 class="text-center text-2xl font-bold">¡Hola!</h2>
+    <p class="text-center text-[1rem] text-zinc-400">Incia sesión con</p>
 
-    <div class="flex justify-center gap-4 w-full mt-2 lines">
+    <div class="lines mt-2 flex w-full justify-center gap-4">
       <img src="../../../assets/img/icon-gm.svg" alt="" />
       <img src="../../../assets/img/icon-fb.svg" alt="" />
     </div>
-    <p class="text-zinc-400 text-[1rem] text-center">ó</p>
+    <p class="text-center text-[1rem] text-zinc-400">ó</p>
 
     <div class="mt-1">
       <MNInput
@@ -25,9 +25,12 @@
         v-model="password"
       ></MNInput>
       <MNButton @click="handdlelogin" text="Continuar"></MNButton>
+      <div class="h-7">
+        <p v-if="errorLogin" class="text-center text-sm text-red-400">Error de autenticacion</p>
+      </div>
     </div>
     <div>
-      <p class="text-zinc-400 text-sm text-center">
+      <p class="text-center text-sm text-zinc-400">
         ¿No tienes cuenta? <RouterLink class="underline" to="/auth/register">Registrate</RouterLink>
       </p>
     </div>
@@ -38,15 +41,52 @@
 import { ref } from 'vue'
 import MNInput from '@/components/common/MNInput.vue'
 import MNButton from '@/components/common/MNButton.vue'
+import { useAuthStore } from '../store/auth'
+import { authenticate } from '../services/authServices'
+import { getAuthProfile, setAuhProfile } from '../helpers/localStorage'
+import { useRouter } from 'vue-router'
+import { decodeJWT } from '../helpers/decodeJWT'
 
+const store = useAuthStore()
+const router = useRouter()
 const email = ref('')
 const password = ref('')
 
-const emailError = ref(true)
-const passError = ref(true)
+const errorLogin = ref(false)
+const emailError = ref(false)
+const passError = ref(false)
 
-const handdlelogin = () => {
-  console.log('login')
+const handdlelogin = async () => {
+  if (validInputs() == false) return
+  try {
+    const response = await authenticate({ username: email.value, password: password.value })
+    const profile = decodeJWT(response.token)
+    setAuhProfile({ profile })
+    store.setAuthProfile()
+    router.push('/')
+  } catch (error) {
+    errorLogin.value = true
+    setTimeout(() => {
+      errorLogin.value = false
+    }, 1000)
+  }
+}
+
+const validInputs = () => {
+  let areValid = true
+
+  if (email.value.length < 3) {
+    emailError.value = true
+    areValid = false
+    setTimeout(() => (emailError.value = false), 1000)
+  }
+  if (password.value.length < 5) {
+    passError.value = true
+    areValid = false
+    setTimeout(() => (passError.value = false), 1000)
+  }
+
+  return areValid
 }
 </script>
 

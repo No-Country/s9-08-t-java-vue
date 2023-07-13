@@ -1,5 +1,5 @@
 <template>
-  <section class="flex justify-center items-center h-screen">
+  <section class="flex h-screen items-center justify-center">
     <RegisterForm></RegisterForm>
   </section>
 </template>
