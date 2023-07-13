@@ -1,3 +1,7 @@
+import camioneta from '@/assets/img/camioneta.webp'
+import camion from '@/assets/img/camion.webp'
+import camion2 from '@/assets/img/camion-2.webp'
+
 export const flota = [
   {
     id: 1,
@@ -6,7 +10,7 @@ export const flota = [
     info1: 'Capacidad de carga hasta de 1000kg',
     info2: 'Ideal para distancias cortas y medias.',
     selectable: false,
-    img: './src/assets/img/camioneta.webp'
+    img: camioneta
   },
   {
     id: 2,
@@ -15,7 +19,7 @@ export const flota = [
     info1: 'Capacidad de carga hasta de 1000kg',
     info2: 'Ideal para distancias cortas y medias.',
     selectable: false,
-    img: '/src/assets/img/camion.webp'
+    img: camion
   },
   {
     id: 3,
@@ -24,6 +28,6 @@ export const flota = [
     info1: 'Capacidad de carga hasta de 1000kg',
     info2: 'Ideal para distancias cortas y medias.',
     selectable: false,
-    img: '/src/assets/img/camion-2.webp'
+    img: camion2
   }
 ]
