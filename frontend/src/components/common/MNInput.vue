@@ -4,7 +4,7 @@
       <input
         :class="
           twMerge(
-            'bg-low-ligth text-low-dark rounded-full h-10 w-full px-3 outline-none',
+            'bg-low-ligth text-low-dark h-10 w-full rounded-full px-3 outline-none',
             props.class
           )
         "

@@ -29,7 +29,7 @@
         <p v-if="errorLogin" class="text-center text-sm text-red-400">Error de autenticacion</p>
       </div>
     </div>
-    <div class="">
+    <div>
       <p class="text-center text-sm text-zinc-400">
         ¿No tienes cuenta? <RouterLink class="underline" to="/auth/register">Registrate</RouterLink>
       </p>

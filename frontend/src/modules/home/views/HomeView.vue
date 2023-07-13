@@ -1,15 +1,17 @@
 <template>
-  <main class="container mx-auto font-montserrat">
+  <main class="container mx-auto overflow-x-hidden font-montserrat">
     <MNNavbar />
     <HeroHome />
-    <FleetSection />
+    <FleetWrapper />
+    <MoreOptions />
     <MNFooter />
   </main>
 </template>
 
 <script setup lang="ts">
 import HeroHome from '../components/HeroHome.vue'
-import FleetSection from '../components/FleetSection.vue'
+import FleetWrapper from '../components/FleetWrapper.vue'
+import MoreOptions from '../components/MoreOptions.vue'
 import MNNavbar from '@/components/common/MNNavbar.vue'
 import MNFooter from '@/components/common/MNFooter.vue'
 </script>

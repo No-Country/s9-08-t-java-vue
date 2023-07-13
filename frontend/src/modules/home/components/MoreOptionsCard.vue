@@ -1,14 +1,19 @@
 <template>
-  <div class="relative flex w-56 flex-col rounded-3xl bg-gray-card shadow-2xl">
-    <div class="absolute z-10 mt-6 inline rounded-r-lg bg-primary-orange px-3">
-      <p class="inline py-1 text-sm text-white">{{ prop.name }}</p>
+  <div
+    class="relative flex h-96 w-96 flex-col items-end justify-start overflow-hidden rounded-4xl bg-gray-card shadow-3xl"
+  >
+    <div class="absolute left-0 top-4 z-10 mt-6 flex flex-col items-start gap-4">
+      <h4 class="inline rounded-r-lg bg-primary-orange px-3 py-1 text-lg font-semibold text-white">
+        {{ prop.name }}
+      </h4>
+      <p class="px-6 text-2xl font-semibold text-blue-night">{{ prop.info }}</p>
     </div>
-    <div class="mt-14 h-16 px-5">
-      <p class="font-bold text-blue-night">{{ prop.info }}</p>
-    </div>
-    <div class="self-end">
-      <img class="h-40 w-36 object-cover" :src="prop.img" alt="" />
-    </div>
+    <img
+      class="absolute bottom-2 object-cover"
+      :class="prop.center ? 'left-2/4 -translate-x-2/4 ' : 'right-0'"
+      :src="prop.img"
+      alt=""
+    />
   </div>
 </template>
 
@@ -19,5 +24,5 @@ interface IMoreOptionsProp {
   prop: IMoreOptionsCard
 }
 
-const { prop } = defineProps<IMoreOptionsProp>()
+const props = defineProps<IMoreOptionsProp>()
 </script>
