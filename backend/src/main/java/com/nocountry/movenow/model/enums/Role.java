@@ -1,4 +1,4 @@
-package com.nocountry.movenow.model;
+package com.nocountry.movenow.model.enums;
 
 public enum Role {
 

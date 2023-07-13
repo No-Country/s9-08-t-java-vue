@@ -36,24 +36,31 @@ components/common/MNDropdownInput.vue
 
 ```html
 <template>
-  <main class="flex justify-center items-center h-screen">
-    <MNDropdownInput @selected="setType" :items="['Enviar paquete', 'Mudanza']" :text="typeSelected"></MNDropdownInput>
-  </main>
+   
+  <main class="flex h-screen items-center justify-center">
+       
+    <MNDropdownInput
+      @selected="setType"
+      :items="['Enviar paquete', 'Mudanza']"
+      :text="typeSelected"
+    ></MNDropdownInput>
+     
+  </main>
 </template>
 
 <script setup lang="ts">
-import MNDropdownInput from '@/components/common/MNDropdownInput.vue';
-import { ref } from 'vue';
+  import MNDropdownInput from '@/components/common/MNDropdownInput.vue'
+  import { ref } from 'vue'
 
-const typeSelected = ref('Tipo de envio')
-const setType = (type: string) => typeSelected.value = type
-  
+  const typeSelected = ref('Tipo de envio')
+  const setType = (type: string) => (typeSelected.value = type)
 </script>
 ```
 
 components/common/MNInput.vue
 
 - props that can be used in MNInput.vue
+
 ```js
 <template>
   <MNInput v-model="email" border="" class=""></MNInput>
@@ -87,4 +94,22 @@ components/common/MNInput.vue
     default: ''
   }
 })
-``` 
+```
+
+home/components/MoreOptionsCard.vue
+
+```html
+<template>
+  <section class="flex gap-4">
+    <MoreOptionsCard v-for="item in items" :prop="item"></MoreOptionsCard>
+  </section>
+</template>
+<script setup lang="ts">
+  import MoreOptionsCard from '../components/MoreOptionsCard.vue'
+  import { IMoreOptionsCard } from '../interfaces/IMoreOptionaCard'
+  import { data } from './options-info'
+  import { ref } from 'vue'
+
+  const items: Ref<IMoreOptionsCard[]> = ref(data)
+</script>
+```
