@@ -1,33 +1,40 @@
 <template>
-  <div class="absolute -bottom-2/4 left-2/4 -translate-y-2/4 translate-x-40">
-    <swiper
-      :centered-slides="true"
-      :slides-per-view="'auto'"
-      @swiper="onSwiper"
-      @slideChange="onSlideChange"
-    >
-      <swiper-slide v-for="item in data" :key="item.id">
-        <carousel-card :prop="item" />
-      </swiper-slide>
-    </swiper>
-  </div>
+  <swiper
+    :slides-per-view="'auto'"
+    :space-between="20"
+    :center-insufficient-slides="true"
+    class="h-full w-3/5"
+    @swiper="onSwiper"
+    @slideChange="onSlideChange"
+    :modules="modules"
+  >
+    <swiper-slide v-for="item in data" :key="item.id" :style="{ flexShrink: 'unset' }">
+      <carousel-card :prop="item" />
+    </swiper-slide>
+  </swiper>
 </template>
 
 <script setup lang="ts">
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import CarouselCard from './CarouselCard.vue'
+import { Pagination } from 'swiper/modules'
 import 'swiper/css'
+import 'swiper/css/pagination'
 import type { Swiper as TSwiper } from 'swiper/types'
+
 import { ref } from 'vue'
 import type { Ref } from 'vue'
+
+import CarouselCard from './CarouselCard.vue'
 import { carousel } from '../data/carousel-data'
 import type { ICarouselCard } from '../interfaces/ICarouselCard'
+
+const modules = [Pagination]
 
 const onSwiper = (swiper: TSwiper) => {
   console.log(swiper)
 }
-const onSlideChange = () => {
-  console.log('slide change')
+const onSlideChange = (swiper: TSwiper) => {
+  console.log(swiper)
 }
 const data: Ref<ICarouselCard[]> = ref(carousel)
 </script>

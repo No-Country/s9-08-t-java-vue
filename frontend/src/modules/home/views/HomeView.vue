@@ -1,5 +1,5 @@
 <template>
-  <main class="container mx-auto font-montserrat">
+  <main class="container mx-auto overflow-x-hidden font-montserrat">
     <MNNavbar />
     <HeroHome />
     <FleetWrapper />

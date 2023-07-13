@@ -25,6 +25,9 @@ export default {
       },
       borderRadius: {
         '4xl': '50px'
+      },
+      boxShadow: {
+        '3xl': '0 5px 15px rgba(0, 0, 0, 0.35)'
       }
     }
   },
