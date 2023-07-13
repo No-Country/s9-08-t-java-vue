@@ -13,6 +13,7 @@
         ]"
       >
         <li class="p-1 text-lg font-semibold text-primary-text">Mis mudanzas</li>
+        <li class="text-lg font-semibold text-primary-text">Mis envios</li>
         <li class="text-lg font-semibold text-primary-text">Central de ayuda</li>
       </ul>
     </div>
