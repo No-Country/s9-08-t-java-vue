@@ -17,7 +17,11 @@ export const authenticate = async (loginRequest: ILoginRequest): Promise<ILoginR
 
 export const register = async (registerRequest: IRegisterRequest): Promise<IRegisterResponse> => {
   try {
-    return await http.post<IRegisterRequest, IRegisterResponse>('/auth/register', registerRequest)
+    const response = await http.post<IRegisterRequest, AxiosResponse<IRegisterResponse>>(
+      '/auth/register',
+      registerRequest
+    )
+    return response.data
   } catch (error) {
     throw 'Authentication error'
   }
