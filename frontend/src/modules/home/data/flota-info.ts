@@ -25,7 +25,7 @@ export const flota = [
     id: 3,
     name: 'CAMION',
     short: 'S10 CABINA SIMPLE',
-    info1: 'Capacidad de carga hasta de 1500kg',
+    info1: 'Capacidad de carga mayor a 1500kg',
     info2: 'Disponible solo para mudanzas',
     selectable: true,
     img: camion2
