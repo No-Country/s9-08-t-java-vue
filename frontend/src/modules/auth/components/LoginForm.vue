@@ -43,7 +43,7 @@ import MNInput from '@/components/common/MNInput.vue'
 import MNButton from '@/components/common/MNButton.vue'
 import { useAuthStore } from '../store/auth'
 import { authenticate } from '../services/authServices'
-import { getAuthProfile, setAuhProfile } from '../helpers/localStorage'
+import { getAuthProfile, setAuthProfile } from '../helpers/localStorage'
 import { useRouter } from 'vue-router'
 import { decodeJWT } from '../helpers/decodeJWT'
 
@@ -61,7 +61,7 @@ const handdlelogin = async () => {
   try {
     const response = await authenticate({ username: email.value, password: password.value })
     const profile = decodeJWT(response.token)
-    setAuhProfile({ profile })
+    setAuthProfile({ profile })
     store.setAuthProfile()
     router.push('/')
   } catch (error) {

@@ -41,7 +41,7 @@ import MNInput from '@/components/common/MNInput.vue'
 import { ref } from 'vue'
 import { register } from '../services/authServices'
 import { decodeJWT } from '../helpers/decodeJWT'
-import { setAuhProfile } from '../helpers/localStorage'
+import { setAuthProfile } from '../helpers/localStorage'
 import { useAuthStore } from '../store/auth'
 import { useRouter } from 'vue-router'
 
@@ -60,7 +60,7 @@ const handdleRegister = async () => {
   try {
     const response = await register({ username: email.value, password: password.value })
     const profile = decodeJWT(response.token)
-    setAuhProfile({ profile })
+    setAuthProfile({ profile })
     store.setAuthProfile()
     router.push('/')
   } catch (error) {
