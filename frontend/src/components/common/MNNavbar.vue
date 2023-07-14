@@ -17,8 +17,12 @@
       </ul>
     </div>
     <div class="flex">
-      <div class="profile-icon-navbar">
+      <div v-if="isAuthenticated" class="profile-icon-navbar">
         <img class="h-10 w-10" src="@/assets/img/profile-icon.svg" alt="" />
+      </div>
+      <div v-else class="flex items-center justify-center gap-2">
+        <router-link to="/auth/login">Login</router-link>
+        <router-link to="/auth/register">Sign Up</router-link>
       </div>
       <div class="icon show-el">
         <MNMenuButton @toggle="handleMenu"></MNMenuButton>
@@ -29,7 +33,10 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import MNMenuButton from './MNMenuButton.vue'
+import { useAuthStore } from '@/modules/auth/store/auth'
 
+const { store } = useAuthStore()
+const isAuthenticated = !!store.profile.token
 const isOpen = ref(false)
 const handleMenu = () => (isOpen.value = !isOpen.value)
 </script>

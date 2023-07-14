@@ -18,7 +18,7 @@
         v-model="password"
       ></MNInput>
 
-      <MNButton @click="handdleRegister" text="Continuar"></MNButton>
+      <MNButton @click="handleRegister" text="Continuar"></MNButton>
     </div>
     <div class="h-7">
       <p v-if="errorResponse" class="text-center text-sm text-red-400">Error de autenticacion</p>
@@ -41,7 +41,7 @@ import MNInput from '@/components/common/MNInput.vue'
 import { ref } from 'vue'
 import { register } from '../services/authServices'
 import { decodeJWT } from '../helpers/decodeJWT'
-import { setAuhProfile } from '../helpers/localStorage'
+import { setAuthProfile } from '../helpers/localStorage'
 import { useAuthStore } from '../store/auth'
 import { useRouter } from 'vue-router'
 
@@ -55,12 +55,12 @@ const errorResponse = ref(false)
 const passError = ref(false)
 const emailError = ref(false)
 
-const handdleRegister = async () => {
+const handleRegister = async () => {
   if (validInputs() == false) return
   try {
     const response = await register({ username: email.value, password: password.value })
     const profile = decodeJWT(response.token)
-    setAuhProfile({ profile })
+    setAuthProfile({ profile })
     store.setAuthProfile()
     router.push('/')
   } catch (error) {
@@ -79,7 +79,7 @@ const validInputs = () => {
     areValid = false
     setTimeout(() => (emailError.value = false), 1000)
   }
-  if (password.value.length < 5) {
+  if (password.value.length < 6) {
     passError.value = true
     areValid = false
     setTimeout(() => (passError.value = false), 1000)
