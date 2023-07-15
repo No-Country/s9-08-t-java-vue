@@ -6,14 +6,18 @@ import lombok.AllArgsConstructor;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Map;
+
 
 
 @Data
 @Entity
+@SQLDelete(sql = "UPDATE moving SET soft_delete = true WHERE id=?")
+@Where(clause = "soft_delete = false")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Moving {
@@ -54,4 +58,6 @@ public class Moving {
     private List<CrewMember> crew;
 
 
+    @Column( name="soft_delete")
+    private Boolean softDelete  = Boolean.FALSE;
 }
