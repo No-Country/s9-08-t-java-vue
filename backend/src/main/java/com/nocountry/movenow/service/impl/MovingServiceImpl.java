@@ -4,9 +4,11 @@ import com.nocountry.movenow.model.Moving;
 import com.nocountry.movenow.repository.MovingRepository;
 import com.nocountry.movenow.service.MovingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class MovingServiceImpl implements MovingService {
 
     @Autowired

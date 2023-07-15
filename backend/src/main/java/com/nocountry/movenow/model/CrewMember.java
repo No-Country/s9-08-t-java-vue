@@ -25,7 +25,10 @@ public class CrewMember {
 
     private String phoneNumber;
 
-    @ManyToMany(mappedBy = "crew")
+    @ManyToMany
+    @JoinTable(name = "crew_member_moving",
+            joinColumns = @JoinColumn(name = "crew_member_id"),
+            inverseJoinColumns = @JoinColumn(name = "moving_id"))
     @JsonIgnore
     private List<Moving> movings;
 }
