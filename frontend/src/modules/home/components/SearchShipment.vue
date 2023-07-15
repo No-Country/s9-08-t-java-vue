@@ -3,13 +3,18 @@
     class="absolute -bottom-1/4 left-2/4 flex w-11/12 -translate-x-2/4 flex-col gap-2 rounded-4xl bg-white shadow-2xl"
   >
     <form class="relative h-full w-full flex-col rounded-4xl bg-white p-16">
-      <MNDropdownInput @selected="setType" :items="['Mudanza']" :text="typeSelected" />
+      <MNDropdownInput
+        @selected="setType"
+        :items="['Enviar paquete', 'Mudanza']"
+        :text="typeSelected"
+      />
       <div class="flex w-full items-center justify-between gap-2">
         <div class="relative">
           <MNInput
             placeholder="Origen"
             type="text"
             class="h-16 w-max rounded-3xl border border-primary-orange px-4"
+            border="border-none"
           />
           <img
             class="absolute right-4 top-2/4 -translate-y-2/4"
@@ -22,6 +27,7 @@
             placeholder="Destino"
             type="text"
             class="h-16 w-max rounded-3xl border border-primary-orange px-4"
+            border="border-none"
           />
           <img
             class="absolute right-4 top-2/4 -translate-y-2/4"
@@ -34,6 +40,7 @@
             placeholder="Fecha"
             type="text"
             class="h-16 w-max rounded-3xl border border-primary-orange px-4"
+            border="border-none"
           />
           <img
             class="absolute right-4 top-2/4 -translate-y-2/4"

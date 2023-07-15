@@ -1,26 +1,33 @@
+import camioneta from '@/assets/img/camioneta.webp'
+import camion from '@/assets/img/camion.webp'
+import camion2 from '@/assets/img/camion-2.webp'
+
 export const flota = [
   {
-    "name": "CAMIONETA PICK UP",
-    "short": "S10 CABINA SIMPLE",
-    "info1": "Capacidad de carga hasta de 1000kg",
-    "info2": "Ideal para distancias cortas y medias.",
-    "selectable": false,
-    "img": "./src/assets/img/camioneta.webp"
+    id: 1,
+    name: 'CAMIONETA PICK UP',
+    short: 'S10 CABINA SIMPLE',
+    info1: 'Capacidad de carga hasta de 1000kg',
+    info2: 'Ideal para distancias cortas y medias.',
+    selectable: false,
+    img: camioneta
   },
   {
-    "name": "CAMION",
-    "short": "S10 CABINA SIMPLE",
-    "info1": "Capacidad de carga hasta de 1000kg",
-    "info2": "Ideal para distancias cortas y medias.",
-    "selectable": false,
-    "img": "/src/assets/img/camion.webp"
+    id: 2,
+    name: 'CAMION',
+    short: 'S10 CABINA SIMPLE',
+    info1: 'Capacidad de carga hasta de 1000kg',
+    info2: 'Ideal para distancias cortas y medias.',
+    selectable: false,
+    img: camion
   },
   {
-    "name": "CAMION",
-    "short": "S10 CABINA SIMPLE",
-    "info1": "Capacidad de carga hasta de 1000kg",
-    "info2": "Ideal para distancias cortas y medias.",
-    "selectable": false,
-    "img": "/src/assets/img/camion-2.webp"
+    id: 3,
+    name: 'CAMION',
+    short: 'S10 CABINA SIMPLE',
+    info1: 'Capacidad de carga hasta de 1000kg',
+    info2: 'Ideal para distancias cortas y medias.',
+    selectable: false,
+    img: camion2
   }
 ]

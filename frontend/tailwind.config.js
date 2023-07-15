@@ -17,13 +17,17 @@ export default {
         'primary-orange': '#FF6935',
         'primary-text': '#100E34',
         'blue-night': '#291D89',
-        'light-blue': '#E1ECFF'
+        'light-blue': '#E1ECFF',
+        'gray-card': '#FBFAFA'
       },
       screen: {
         mv: { max: '550px' }
       },
       borderRadius: {
         '4xl': '50px'
+      },
+      boxShadow: {
+        '3xl': '0 5px 15px rgba(0, 0, 0, 0.35)'
       }
     }
   },
