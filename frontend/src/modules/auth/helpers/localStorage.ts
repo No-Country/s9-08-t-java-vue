@@ -1,7 +1,7 @@
 import { AUTH_STORE_NAME } from '../constants'
 import type { IProfileAuth } from '../interfaces/IProfileAuth'
 
-export const setAuhProfile = (profile: IProfileAuth): void => {
+export const setAuthProfile = (profile: IProfileAuth): void => {
   localStorage.setItem(AUTH_STORE_NAME, JSON.stringify(profile))
 }
 

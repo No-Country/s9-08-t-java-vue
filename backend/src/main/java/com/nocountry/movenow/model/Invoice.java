@@ -23,7 +23,6 @@ public class Invoice {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_moving", referencedColumnName = "id")
     private Moving moving;
