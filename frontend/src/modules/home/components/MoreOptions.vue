@@ -1,15 +1,15 @@
 <template>
-  <section class="flex min-h-screen w-full flex-col justify-center">
+  <section class="flex min-h-screen w-full flex-col justify-center px-5">
     <h1 class="text-5xl font-bold text-blue-night">Más opciones para tu mudanza</h1>
     <h3 class="text-3xl font-light text-blue-night">Más opciones para tu mudanza</h3>
-    <div class="relative mt-96 h-full w-full rounded-4xl bg-light-blue p-32">
+    <div class="relative mt-96 h-full w-full rounded-4xl bg-light-blue p-7 lg:p-32">
       <div class="absolute -top-3/4 left-16 flex h-full w-full items-center justify-center gap-4">
         <MoreOptionsCard :key="item.id" v-for="item in data" :prop="item" />
         <img src="@/assets/img/options-info/girl-pointing.webp" alt="girl pointing cards" />
       </div>
-      <div class="flex w-2/4 flex-col justify-center gap-4">
-        <h1 class="text-5xl font-bold text-primary-orange">Experiencias con MoveNow</h1>
-        <p class="text-3xl font-light">
+      <div class="flex flex-col justify-center gap-4 lg:w-2/4">
+        <h1 class="text-3xl font-bold text-primary-orange lg:text-5xl">Experiencias con MoveNow</h1>
+        <p class="text-2xl font-light lg:text-3xl">
           Cuando usted elige Move Now, esta eligiendo eficacia, comodidad y sobre todo seguridad.
         </p>
         <a

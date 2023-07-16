@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute -bottom-1/4 left-2/4 flex w-11/12 -translate-x-2/4 flex-col gap-2 rounded-4xl bg-white shadow-2xl"
+    class="absolute -bottom-3/4 left-2/4 flex w-11/12 -translate-x-2/4 flex-col gap-2 rounded-4xl bg-white shadow-2xl sm:-bottom-1/2 lg:-bottom-1/4"
   >
     <form class="relative h-full w-full flex-col rounded-4xl bg-white p-16">
       <MNDropdownInput @selected="setType" :items="[SENDING, MOVING]" :text="typeSelected" />
