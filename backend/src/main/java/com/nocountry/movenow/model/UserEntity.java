@@ -13,12 +13,10 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 
 @Data
 @Builder
@@ -31,6 +29,9 @@ public class UserEntity implements UserDetails {
     private Long id;
     private String username;
     private String password;
+
+    @Column(unique = true) // Asegura que el email sea único en la base de datos
+    private String email; // Agrega el campo email
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -45,7 +46,7 @@ public class UserEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override
