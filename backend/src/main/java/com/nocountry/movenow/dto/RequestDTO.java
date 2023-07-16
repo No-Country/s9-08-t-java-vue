@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -14,9 +15,9 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class RequestDTO {
 
-    @NotBlank(message = "Username cannot be blank")
-    private String username;
-
     @NotBlank(message = "Password cannot be blank")
     String password;
+
+    @Email
+    String email;
 }
