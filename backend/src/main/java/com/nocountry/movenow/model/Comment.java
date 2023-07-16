@@ -22,6 +22,8 @@ public class Comment {
 
     private String feedBack;
 
+    private Long idMoving;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_moving", referencedColumnName = "id")
     private Moving moving;
