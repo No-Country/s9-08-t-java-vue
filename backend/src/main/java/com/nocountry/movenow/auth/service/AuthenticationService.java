@@ -26,7 +26,6 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public ResponseDTO register(RegisterDTO request) {
-
         Optional<UserEntity> optUser = userRepository.findByEmail(request.getEmail());
 
         if (optUser.isPresent())
@@ -46,8 +45,6 @@ public class AuthenticationService {
     }
 
     public ResponseDTO authenticate(RequestDTO request) {
-        System.out.println("Email recibido: " + request.getEmail());
-        System.out.println("Contraseña recibida: " + request.getPassword());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -56,7 +53,6 @@ public class AuthenticationService {
         );
         //It will continue to below lines only if authentication was successful
         var user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new RuntimeException("User not found"));
-        System.out.println("Usuario encontrado: " + user.getUsername());
         var jwtToken = jwtService.generateToken(user);
         return ResponseDTO.builder()
                 .token(jwtToken)
