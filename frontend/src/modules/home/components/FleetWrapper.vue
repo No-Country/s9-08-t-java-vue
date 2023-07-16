@@ -1,7 +1,5 @@
 <template>
-  <section
-    class="my-24 flex h-full w-full flex-col flex-wrap items-center justify-center gap-y-28 px-3"
-  >
+  <section class="flex h-full w-full flex-col flex-wrap items-center justify-center gap-y-28 px-3">
     <h1 class="mt-52 text-center text-5xl uppercase text-primary-orange lg:mt-24">
       Conozca nuestra flota
     </h1>
