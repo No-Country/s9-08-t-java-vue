@@ -11,6 +11,13 @@
         v-model="email"
       ></MNInput>
       <MNInput
+        placeholder="Ingrese su nombre de usuario"
+        :show-error="userError"
+        error-msg="campo requerido"
+        type="text"
+        v-model="username"
+      ></MNInput>
+      <MNInput
         placeholder="Ingrese su contraseña"
         :show-error="passError"
         error-msg="campo requerido"
@@ -50,15 +57,21 @@ const router = useRouter()
 
 const email = ref('')
 const password = ref('')
+const username = ref('')
 
 const errorResponse = ref(false)
 const passError = ref(false)
 const emailError = ref(false)
+const userError = ref(false)
 
 const handleRegister = async () => {
   if (validInputs() == false) return
   try {
-    const response = await register({ username: email.value, password: password.value })
+    const response = await register({
+      username: username.value,
+      password: password.value,
+      email: email.value
+    })
     const profile = decodeJWT(response.token)
     setAuthProfile({ profile })
     store.setAuthProfile()
@@ -74,10 +87,15 @@ const handleRegister = async () => {
 const validInputs = () => {
   let areValid = true
 
-  if (email.value.length < 3) {
+  if (email.value.length < 6) {
     emailError.value = true
     areValid = false
     setTimeout(() => (emailError.value = false), 1000)
+  }
+  if (username.value.length < 6) {
+    userError.value = true
+    areValid = false
+    setTimeout(() => (userError.value = false), 1000)
   }
   if (password.value.length < 6) {
     passError.value = true

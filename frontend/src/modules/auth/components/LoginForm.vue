@@ -59,7 +59,7 @@ const passError = ref(false)
 const handdlelogin = async () => {
   if (validInputs() == false) return
   try {
-    const response = await authenticate({ username: email.value, password: password.value })
+    const response = await authenticate({ email: email.value, password: password.value })
     const profile = decodeJWT(response.token)
     setAuthProfile({ profile })
     store.setAuthProfile()
