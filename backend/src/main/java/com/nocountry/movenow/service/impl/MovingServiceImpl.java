@@ -3,6 +3,7 @@ package com.nocountry.movenow.service.impl;
 import com.nocountry.movenow.exception.MovingNotFoundException;
 import com.nocountry.movenow.model.CrewMember;
 import com.nocountry.movenow.model.Moving;
+import com.nocountry.movenow.repository.CrewMemberRepository;
 import com.nocountry.movenow.repository.MovingRepository;
 import com.nocountry.movenow.service.MovingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,9 @@ import java.util.Optional;
 public class MovingServiceImpl implements MovingService {
 
     private final MovingRepository movingRepository;
-    private final crewMemberRepository crewMemberRepository;
+    private final CrewMemberRepository crewMemberRepository;
 
-    MovingServiceImpl(MovingRepository movingRepository, crewMemberRepository crewMemberRepository) {
+    MovingServiceImpl(MovingRepository movingRepository, CrewMemberRepository crewMemberRepository) {
         this.movingRepository = movingRepository;
         this.crewMemberRepository = crewMemberRepository;
     }
@@ -70,7 +71,6 @@ public class MovingServiceImpl implements MovingService {
 
     }
 
-    @Override
     public List<Moving> getAllMovings() {
 
         List<Moving> movings = movingRepository.findAll();
