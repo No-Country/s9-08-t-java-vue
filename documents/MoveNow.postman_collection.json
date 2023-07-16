@@ -41,8 +41,28 @@
 				{
 					"name": "Authenticate",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n\"username\":\"geiezzi\",\r\n\"password\":\"password1234\"\r\n\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/auth/authenticate",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"authenticate"
+							]
+						}
 					},
 					"response": []
 				}
@@ -54,6 +74,16 @@
 				{
 					"name": "Hello",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -65,6 +95,248 @@
 								"api",
 								"test",
 								"hello"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vehicle",
+			"item": [
+				{
+					"name": "SAVE VEHICLE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"type\": \"Heavy truck\",\r\n  \"dimension\": 500,\r\n  \"weight\": 3000.5,\r\n  \"model\": 2022,\r\n  \"status\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/vehicle/",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"vehicle",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL VEHICLES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/vehicle/",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"vehicle",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Vehicle By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/vehicle/3",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"vehicle",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Vehicle",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/vehicle/3",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"vehicle",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"id\": 1,\r\n        \"type\": \"Heavy truck\",\r\n        \"dimension\": 2333\r\n        \r\n        \r\n       \r\n    }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/vehicle/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"vehicle",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CrewMember",
+			"item": [
+				{
+					"name": "SAVE MEMBER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"John\",\r\n  \"lastname\": \"Doe\",\r\n  \"phoneNumber\": \"1234567890\",\r\n  \"movings\": [\r\n   \r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/crew-members/",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"crew-members",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL MEMBER",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/crew-member/",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"crew-member",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET MEMBERBy ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/crew-member/?id=2",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"crew-member",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE MEMBER",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/crew-member/3",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"crew-member",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE MEMBER",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"id\": 1,\r\n        \"type\": \"Heavy truck\",\r\n        \"dimension\": 2333\r\n        \r\n        \r\n       \r\n    }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/crew-member/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"crew-member",
+								"1"
 							]
 						}
 					},
