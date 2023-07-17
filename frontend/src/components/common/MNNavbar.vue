@@ -4,7 +4,11 @@
   >
     <div class="flex gap-5">
       <div class="flex h-14 items-center">
-        <p class="text-lg font-semibold text-primary-orange">MoveNow</p>
+        <p class="text-lg font-semibold text-primary-orange">
+          <router-link class="text-lg font-semibold text-primary-orange" to="/">
+            MoveNow
+          </router-link>
+        </p>
       </div>
       <ul
         :class="[
@@ -12,8 +16,11 @@
           `${isOpen ? 'show-movil-menu' : ''}`
         ]"
       >
-        <li class="p-1 text-lg font-semibold text-primary-text">Mis mudanzas</li>
-        <li class="text-lg font-semibold text-primary-text">Mis envios</li>
+        <li class="">
+          <router-link class="p-1 text-lg font-semibold text-primary-text" to="/moving">
+            Mis mudanzas
+          </router-link>
+        </li>
         <li class="text-lg font-semibold text-primary-text">Central de ayuda</li>
       </ul>
     </div>

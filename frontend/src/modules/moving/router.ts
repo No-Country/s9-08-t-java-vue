@@ -2,12 +2,12 @@ import { type RouteRecordRaw } from 'vue-router'
 
 const moduleRoute: RouteRecordRaw = {
   path: '/moving',
-  name: 'moving',
+  name: 'movingview',
   component: () => import('./Module.vue'),
   children: [
     {
       path: '',
-      name: 'home',
+      name: 'moving',
       component: () => import('./views/MovingView.vue')
     }
   ]
