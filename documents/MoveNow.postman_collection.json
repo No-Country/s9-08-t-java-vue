@@ -17,7 +17,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\r\n\"username\":\"geiezzi\",\r\n\"password\":\"password1234\"\r\n\r\n\r\n\r\n}",
+							"raw": "{\r\n  \"username\": \"johny_doe\",\r\n  \"password\": \"passwordw123\",\r\n  \"email\": \"johndoe@exampale.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -45,7 +45,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\r\n\"username\":\"geiezzi\",\r\n\"password\":\"password1234\"\r\n\r\n\r\n\r\n}",
+							"raw": "{\r\n  \r\n  \"password\": \"password123\",\r\n  \"username\": \"johndoe@example.com\",\r\n  \"email\": \"johndoe@example.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -177,14 +177,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{localhost}}/api/vehicle/3",
+							"raw": "{{localhost}}/api/vehicle/1",
 							"host": [
 								"{{localhost}}"
 							],
 							"path": [
 								"api",
 								"vehicle",
-								"3"
+								"1"
 							]
 						}
 					},
@@ -230,7 +230,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"John\",\r\n  \"lastname\": \"Doe\",\r\n  \"phoneNumber\": \"1234567890\",\r\n  \"movings\": [\r\n   \r\n  ]\r\n}",
+							"raw": "{\r\n  \"name\": \"Persival\",\r\n  \"lastname\": \"Mackenzie\",\r\n  \"phoneNumber\": \"1234237890\",\r\n  \"movings\": [\r\n   \r\n  ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -257,13 +257,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{localhost}}/api/crew-member/",
+							"raw": "{{localhost}}/api/crew-members/",
 							"host": [
 								"{{localhost}}"
 							],
 							"path": [
 								"api",
-								"crew-member",
+								"crew-members",
 								""
 							]
 						}
@@ -276,20 +276,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{localhost}}/api/crew-member/?id=2",
+							"raw": "{{localhost}}/api/crew-members/2",
 							"host": [
 								"{{localhost}}"
 							],
 							"path": [
 								"api",
-								"crew-member",
-								""
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "2"
-								}
+								"crew-members",
+								"2"
 							]
 						}
 					},
@@ -301,14 +295,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{localhost}}/api/crew-member/3",
+							"raw": "{{localhost}}/api/crew-members/1",
 							"host": [
 								"{{localhost}}"
 							],
 							"path": [
 								"api",
-								"crew-member",
-								"3"
+								"crew-members",
+								"1"
 							]
 						}
 					},
@@ -321,7 +315,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "\r\n    {\r\n        \"id\": 1,\r\n        \"type\": \"Heavy truck\",\r\n        \"dimension\": 2333\r\n        \r\n        \r\n       \r\n    }\r\n",
+							"raw": "{\r\n        \"id\": 2,\r\n        \"name\": \"Persival\",\r\n        \"lastname\": \"Mackenzie\",\r\n        \"phoneNumber\": \"261394949\",\r\n        \"softDelete\": false\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -329,14 +323,132 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/api/crew-member/1",
+							"raw": "{{localhost}}/api/crew-members/2",
 							"host": [
 								"{{localhost}}"
 							],
 							"path": [
 								"api",
-								"crew-member",
+								"crew-members",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Moving",
+			"item": [
+				{
+					"name": "SAVE MOVING",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1,\r\n  \"destinationPoint\": \"Sample destination\",\r\n  \"loadingPoint\": \"Sample loading\",\r\n  \"packageType\": \"BOX\",\r\n  \"insurance\": true,\r\n  \"user\": null,\r\n  \"invoice\": null,\r\n  \"comment\": null,\r\n  \"schedules\": [\r\n\r\n{\r\n  \r\n  \"startDate\": \"2023-07-16T10:00:00\",\r\n  \"endDate\": \"2023-07-16T12:00:00\",\r\n  \"idVehicle\": 1,\r\n  \"idMoving\": 1\r\n}\r\n\r\n  ],\r\n  \"crew\": [],\r\n  \"softDelete\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/moving/",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"moving",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL MOVING",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/moving/",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"moving",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET MOVING By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/moving/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"moving",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE MOVING",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/moving/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"moving",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE MOVING",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 2,\r\n  \"destinationPoint\": \"Carlos Paz 1371\",\r\n  \"loadingPoint\": \"Sample loading\",\r\n  \"packageType\": \"BOX\",\r\n  \"insurance\": false,\r\n  \"user\": null,\r\n  \"invoice\": null,\r\n  \"comment\": null,\r\n  \"schedules\": [],\r\n  \"crew\": [],\r\n  \"softDelete\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/moving/2",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"moving",
+								"2"
 							]
 						}
 					},

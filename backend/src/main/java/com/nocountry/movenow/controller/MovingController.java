@@ -1,9 +1,11 @@
 package com.nocountry.movenow.controller;
 
-import com.nocountry.movenow.exception.CrewMemberNotFoundException;
-import com.nocountry.movenow.exception.MovingNotFoundException;
+import com.nocountry.movenow.exception.*;
+import com.nocountry.movenow.model.CrewMember;
 import com.nocountry.movenow.model.Moving;
+import com.nocountry.movenow.model.Schedule;
 import com.nocountry.movenow.service.MovingService;
+import com.nocountry.movenow.service.impl.MovingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,25 +16,51 @@ import java.util.List;
 @RestController
 @RequestMapping("api/moving")
 public class MovingController {
-    private final MovingService movingService;
+    private final MovingServiceImpl movingService;
 
     @Autowired
-    public MovingController(MovingService movingService) {
+    public MovingController(MovingServiceImpl movingService) {
         this.movingService = movingService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping( path = "/{id}", produces = "application/json" )
     public ResponseEntity<Moving> getMoving(@PathVariable Long id){
         return movingService.getMoving(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("")
-    public ResponseEntity<Moving> saveMoving(@RequestBody Moving moving){
-        return (moving != null) ?
-                (new ResponseEntity<>(movingService.save(moving),HttpStatus.OK))
-                : (new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+
+    @GetMapping( path = "", produces = "application/json" )
+    public ResponseEntity<List<Moving>> getAllMoving(){
+        return ResponseEntity.ok(movingService.getAllMovings());
+    }
+
+    @PostMapping
+    public ResponseEntity<Moving> saveMoving(
+            @RequestParam String destinationPoint,
+            @RequestParam String loadingPoint,
+            @RequestParam Boolean insurance,
+            @RequestParam Long idUser,
+            @RequestParam Long invoiceId,
+            @RequestBody List<CrewMember> crewMembers,
+            @RequestParam Long vehicleId,
+            @RequestBody List<Schedule> schedules) {
+        try {
+            Moving moving = movingService.save(
+                    destinationPoint,
+                    loadingPoint,
+                    insurance,
+                    idUser,
+                    invoiceId,
+                    crewMembers,
+                    vehicleId,
+                    schedules
+            );
+            return ResponseEntity.ok(moving);
+        } catch (DestinationPointNotFoundException | LoadingPointNotFoundException | UserNotFoundException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @PutMapping("/{id}")

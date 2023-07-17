@@ -1,5 +1,6 @@
 package com.nocountry.movenow.model.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import javax.persistence.Column;
@@ -23,8 +24,9 @@ public enum Package {
     public String getName() {
         return name;
     }
-    @JsonValue
-    public String getVolume() {
+
+    public String getVolume(){
         return volume;
     }
+
 }
