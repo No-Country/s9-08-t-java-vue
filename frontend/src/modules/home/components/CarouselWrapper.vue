@@ -3,7 +3,7 @@
     :slides-per-view="'auto'"
     :space-between="20"
     :center-insufficient-slides="true"
-    class="h-full w-3/5"
+    class="h-full lg:w-3/5"
     @swiper="onSwiper"
     @slideChange="onSlideChange"
     :modules="modules"

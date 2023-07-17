@@ -13,6 +13,7 @@
         ]"
       >
         <li class="p-1 text-lg font-semibold text-primary-text">Mis mudanzas</li>
+        <li class="text-lg font-semibold text-primary-text">Mis envios</li>
         <li class="text-lg font-semibold text-primary-text">Central de ayuda</li>
       </ul>
     </div>
@@ -20,7 +21,7 @@
       <div v-if="isAuthenticated" class="profile-icon-navbar">
         <img class="h-10 w-10" src="@/assets/img/profile-icon.svg" alt="" />
       </div>
-      <div v-else class="flex items-center justify-center gap-2">
+      <div v-else class="mr-3 flex items-center justify-center gap-2">
         <router-link to="/auth/login">Login</router-link>
         <router-link to="/auth/register">Sign Up</router-link>
       </div>
@@ -45,7 +46,7 @@ const handleMenu = () => (isOpen.value = !isOpen.value)
 .show-el {
   display: none;
 }
-@media (max-width: 550px) {
+@media (max-width: 775px) {
   .show-el {
     display: block;
   }

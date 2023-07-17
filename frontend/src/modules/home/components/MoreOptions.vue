@@ -1,15 +1,23 @@
 <template>
-  <section class="flex min-h-screen w-full flex-col justify-center">
-    <h1 class="text-5xl font-bold text-blue-night">Más opciones para tu mudanza</h1>
-    <h3 class="text-3xl font-light text-blue-night">Más opciones para tu mudanza</h3>
-    <div class="relative mt-96 h-full w-full rounded-4xl bg-light-blue p-32">
-      <div class="absolute -top-3/4 left-16 flex h-full w-full items-center justify-center gap-4">
-        <MoreOptionsCard :key="item.id" v-for="item in data" :prop="item" />
-        <img src="@/assets/img/options-info/girl-pointing.webp" alt="girl pointing cards" />
-      </div>
-      <div class="flex w-2/4 flex-col justify-center gap-4">
-        <h1 class="text-5xl font-bold text-primary-orange">Experiencias con MoveNow</h1>
-        <p class="text-3xl font-light">
+  <section class="relative h-auto p-4">
+    <div>
+      <h1 class="text-5xl font-bold text-blue-night">Más opciones para tu mudanza</h1>
+      <h3 class="text-3xl font-light text-blue-night">Más opciones para tu mudanza</h3>
+    </div>
+    <div
+      class="left-0 z-10 flex w-full flex-wrap justify-center gap-4 py-10 lg:absolute lg:top-20 lg:flex-nowrap lg:justify-start"
+    >
+      <MoreOptionsCard :key="item.id" v-for="item in data" :prop="item" />
+      <img
+        class="absolute -right-52 -top-36 z-10 hidden -translate-x-1/2 lg:block"
+        src="@/assets/img/options-info/girl-pointing.webp"
+        alt="girl pointing cards"
+      />
+    </div>
+    <div class="relative h-full w-full rounded-4xl bg-light-blue p-7 lg:mt-80 lg:p-32">
+      <div class="flex flex-col justify-center gap-4 lg:w-2/4">
+        <h1 class="text-3xl font-bold text-primary-orange lg:text-5xl">Experiencias con MoveNow</h1>
+        <p class="text-2xl font-light lg:text-3xl">
           Cuando usted elige Move Now, esta eligiendo eficacia, comodidad y sobre todo seguridad.
         </p>
         <a
@@ -18,9 +26,9 @@
           >Contratar servicio</a
         >
       </div>
-      <div class="absolute -bottom-2/4 left-1/4 -translate-y-1/4">
-        <carousel-wrapper />
-      </div>
+    </div>
+    <div class="-bottom-0 left-1/4 lg:absolute lg:translate-x-7 lg:translate-y-1/2">
+      <carousel-wrapper />
     </div>
   </section>
 </template>
