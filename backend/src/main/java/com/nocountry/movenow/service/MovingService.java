@@ -1,6 +1,8 @@
 package com.nocountry.movenow.service;
 
+import com.nocountry.movenow.model.CrewMember;
 import com.nocountry.movenow.model.Moving;
+import com.nocountry.movenow.model.Schedule;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,7 +11,9 @@ import java.util.Optional;
 
 public interface MovingService {
     Optional<Moving> getMoving(Long movingId);
-    Moving save(Moving moving);
+
+    public Moving findById(Long idMoving);
+    public Moving save(String destinationPoint, String loadingPoint, Boolean insurance, Long idUser, Long invoiceId, List<CrewMember> crewMembers, Long vehicleId, List<Schedule> schedules);
 
     Moving update(Moving moving);
 

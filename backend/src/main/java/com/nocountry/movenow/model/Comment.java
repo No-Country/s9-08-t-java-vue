@@ -22,7 +22,10 @@ public class Comment {
 
     private String feedBack;
 
+    @Column(name = "id_moving")
+    private Long idMoving;
+
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_moving", referencedColumnName = "id")
+    @JoinColumn(name = "id_moving", insertable = false, updatable = false)
     private Moving moving;
 }

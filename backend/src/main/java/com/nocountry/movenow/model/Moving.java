@@ -1,7 +1,6 @@
 package com.nocountry.movenow.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.nocountry.movenow.model.enums.Package;
 import lombok.AllArgsConstructor;
 
 import lombok.Data;
@@ -29,9 +28,6 @@ public class Moving {
     private String destinationPoint;
 
     private String loadingPoint;
-
-    @Enumerated(EnumType.STRING)
-    private Package packageType;
 
     private boolean insurance;
 

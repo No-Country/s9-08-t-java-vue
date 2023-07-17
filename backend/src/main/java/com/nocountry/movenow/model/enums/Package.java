@@ -28,13 +28,5 @@ public enum Package {
     public String getVolume(){
         return volume;
     }
-    /*@JsonCreator
-    public static Package fromVolume(String volume) {
-        for (Package p : Package.values()) {
-            if (p.getVolume().equals(volume)) {
-                return p;
-            }
-        }
-        throw new IllegalArgumentException("Invalid volume value");
-    }*/
+
 }
