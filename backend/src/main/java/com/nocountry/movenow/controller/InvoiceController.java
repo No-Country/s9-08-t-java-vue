@@ -1,8 +1,7 @@
 package com.nocountry.movenow.controller;
 
-import com.nocountry.movenow.model.UserEntity;
-import com.nocountry.movenow.model.Vehicle;
-import com.nocountry.movenow.service.impl.UserServiceImpl;
+import com.nocountry.movenow.model.Invoice;
+import com.nocountry.movenow.service.impl.InvoiceServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,36 +12,37 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/user")
-public class UserController {
-    private final UserServiceImpl userService;
+@RequestMapping("/api/invoice")
+public class InvoiceController {
+
+    private final InvoiceServiceImpl invoiceService;
 
     @Autowired
-    public UserController(UserServiceImpl userService) {
-        this.userService = userService;
+    public InvoiceController(InvoiceServiceImpl invoiceService) {
+        this.invoiceService = invoiceService;
     }
 
     @PostMapping("")
-    public ResponseEntity<UserEntity> saveUser(@RequestBody UserEntity user) {
+    public ResponseEntity<Invoice> saveInvoice(@RequestBody Invoice invoice) {
         try {
-            if (user == null) {
+            if (invoice == null) {
                 return ResponseEntity.badRequest().body(null);
             }
 
-            UserEntity savedUser = userService.save(user);
-            return ResponseEntity.ok(savedUser);
+            Invoice savedInvoice = invoiceService.save(invoice);
+            return ResponseEntity.ok(savedInvoice);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserEntity> getUserById(@PathVariable Long id) {
+    public ResponseEntity<Invoice> getInvoiceById(@PathVariable Long id) {
         try {
-            Optional<UserEntity> optionalUser = userService.findById(id);
-            if (optionalUser.isPresent()) {
-                UserEntity user = optionalUser.get();
-                return ResponseEntity.ok(user);
+            Optional<Invoice> optionalInvoice = invoiceService.findById(id);
+            if (optionalInvoice.isPresent()) {
+                Invoice invoice = optionalInvoice.get();
+                return ResponseEntity.ok(invoice);
             } else {
                 return ResponseEntity.notFound().build();
             }
@@ -52,35 +52,35 @@ public class UserController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<UserEntity>> getAllUsers() {
+    public ResponseEntity<List<Invoice>> getAllUsers() {
         try {
-            List<UserEntity> users = userService.getAll();
-            return ResponseEntity.ok(users);
+            List<Invoice> invoices = invoiceService.getAll();
+            return ResponseEntity.ok(invoices);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserEntity> updateUser(@PathVariable Long id, @RequestBody UserEntity user) {
+    public ResponseEntity<Invoice> updateInvoice(@PathVariable Long id, @RequestBody Invoice invoice) {
         try {
-            if (userService.findById(id).isEmpty()) {
+            if (invoiceService.findById(id).isEmpty()) {
                 return ResponseEntity.notFound().build();
             }
-            UserEntity updatedUser = userService.update(user);
-            return ResponseEntity.ok(updatedUser);
+            Invoice updatedInvoice = invoiceService.update(invoice);
+            return ResponseEntity.ok(updatedInvoice);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<?> deleteInvoice(@PathVariable Long id) {
         try {
-            if (userService.findById(id).isEmpty()) {
+            if (invoiceService.findById(id).isEmpty()) {
                 return ResponseEntity.notFound().build();
             }
-            userService.delete(id);
+            invoiceService.delete(id);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
