@@ -8,8 +8,12 @@
       { editable: true, name: 'Pedido Finalizado', status: false, stepNumber: 5 }
     ]"
   ></StepComponent>
+  <CardMovin @state="test" info="Persona o parejas" size="M"></CardMovin>
 </template>
 
 <script setup lang="ts">
+import CardMovin from '../components/CardMovin.vue'
 import StepComponent from '../components/StepComponent.vue'
+
+const test = (arg: boolean) => console.log(arg)
 </script>
