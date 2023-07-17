@@ -57,12 +57,12 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public Vehicle update(Vehicle vehicle) {
 
-        Optional<Vehicle> vehicleOptinal = vehicleRepository.findById(vehicle.getId());
-        if (!vehicleOptinal.isPresent()) {
+        Optional<Vehicle> vehicleOptional = vehicleRepository.findById(vehicle.getId());
+        if (!vehicleOptional.isPresent()) {
             throw new RuntimeException("Vehicle not found");
         }
 
-        Vehicle vehicleUpdated = vehicleOptinal.get();
+        Vehicle vehicleUpdated = vehicleOptional.get();
 
         if (vehicle.getDimension() != 0) {
             vehicleUpdated.setDimension(vehicle.getDimension());
