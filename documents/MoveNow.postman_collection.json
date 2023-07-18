@@ -45,7 +45,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \r\n  \"password\": \"password123\",\r\n  \"username\": \"johndoe@example.com\",\r\n  \"email\": \"johndoe@example.com\"\r\n}",
+							"raw": "{\r\n  \"username\": \"johny_doe\",\r\n  \"password\": \"passwordw123\",\r\n  \"email\": \"johndoe@exampale.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -348,7 +348,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"id\": 1,\r\n  \"destinationPoint\": \"Sample destination\",\r\n  \"loadingPoint\": \"Sample loading\",\r\n  \"packageType\": \"BOX\",\r\n  \"insurance\": true,\r\n  \"user\": null,\r\n  \"invoice\": null,\r\n  \"comment\": null,\r\n  \"schedules\": [\r\n\r\n{\r\n  \r\n  \"startDate\": \"2023-07-16T10:00:00\",\r\n  \"endDate\": \"2023-07-16T12:00:00\",\r\n  \"idVehicle\": 1,\r\n  \"idMoving\": 1\r\n}\r\n\r\n  ],\r\n  \"crew\": [],\r\n  \"softDelete\": false\r\n}",
+							"raw": "{\r\n  \r\n  \"destinationPoint\": \"San Carlos 1223\",\r\n  \"loadingPoint\": \"San Martin 2133 \",\r\n  \"insurance\": false,\r\n  \"idUser\": 1,\r\n  \"crewMembers\":[\r\n\r\n  ],\r\n  \"vehicleId\":1,\r\n \r\n  \"schedules\": [{\r\n      \r\n  }\r\n  ]\r\n}\r\n\r\n  ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -448,6 +448,124 @@
 							"path": [
 								"api",
 								"moving",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "SAVE USER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"example_username\",\r\n  \"password\": \"example_password\",\r\n  \"email\": \"example_email@example.com\",\r\n  \"role\": \"User\",\r\n  \"movings\": [],\r\n  \"softDelete\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/user/",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL USER",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/user/",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET USER By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/user/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE USER",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/user/2",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE USER",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 2,\r\n  \"destinationPoint\": \"Carlos Paz 1371\",\r\n  \"loadingPoint\": \"Sample loading\",\r\n  \"packageType\": \"BOX\",\r\n  \"insurance\": false,\r\n  \"user\": null,\r\n  \"invoice\": null,\r\n  \"comment\": null,\r\n  \"schedules\": [],\r\n  \"crew\": [],\r\n  \"softDelete\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/user/2",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"user",
 								"2"
 							]
 						}
