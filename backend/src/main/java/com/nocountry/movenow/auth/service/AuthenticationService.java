@@ -11,6 +11,7 @@ import com.nocountry.movenow.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,12 +36,14 @@ public class AuthenticationService {
         if (optUser.isPresent())
             throw new UserAlreadyCreatedException("This username has been already taken.");
 
-        UserEntity user = UserEntity.builder()
+        var user = UserEntity.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
                 .build();
+        user.setSoftDelete(Boolean.FALSE);
+
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
         return ResponseDTO.builder()

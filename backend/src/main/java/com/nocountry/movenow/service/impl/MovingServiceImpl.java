@@ -43,7 +43,7 @@ public class MovingServiceImpl implements MovingService {
     }
 
     @Override
-    public Moving save(String destinationPoint, String loadingPoint, Boolean insurance, Long idUser, Long invoiceId, List<CrewMember> crewMembers, Long vehicleId, List<Schedule> schedules) {
+    public Moving save(String destinationPoint, String loadingPoint, Boolean insurance, Long idUser, List<CrewMember> crewMembers, Long vehicleId, List<Schedule> schedules) {
         // Check for null destinationPoint and loadingPoint
         if (destinationPoint == null) {
             throw new DestinationPointNotFoundException("Destination point cannot be null");

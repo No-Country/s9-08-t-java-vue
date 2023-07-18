@@ -52,7 +52,6 @@ public class MovingController {
                     loadingPoint,
                     insurance,
                     idUser,
-                    invoiceId,
                     crewMembers,
                     vehicleId,
                     schedules

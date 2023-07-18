@@ -13,7 +13,7 @@ public interface MovingService {
     Optional<Moving> getMoving(Long movingId);
 
     public Moving findById(Long idMoving);
-    public Moving save(String destinationPoint, String loadingPoint, Boolean insurance, Long idUser, Long invoiceId, List<CrewMember> crewMembers, Long vehicleId, List<Schedule> schedules);
+    public Moving save(String destinationPoint, String loadingPoint, Boolean insurance, Long idUser, List<CrewMember> crewMembers, Long vehicleId, List<Schedule> schedules);
 
     Moving update(Moving moving);
 
