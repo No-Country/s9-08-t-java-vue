@@ -1,14 +1,11 @@
-# Base docker image
-FROM openjdk:17
-
-# Set the working directory
-WORKDIR /app
-
-# Copy the application JAR file
-COPY target/movenow-0.0.1-SNAPSHOT.jar .
-
-# Expose the application port
+# Deploy Spring Boot Application on Docker with Maven
+FROM ubuntu:latest AS build
+RUN apt-get update
+RUN apt-get install openjdk-17-jdk -y
+COPY . .
+RUN chmod +x mvnw
+RUN ./mvnw package -DskipTests
+FROM openjdk:17-jdk-slim
 EXPOSE 8080
-
-# Define the entrypoint command
-ENTRYPOINT ["java", "-jar", "movenow-0.0.1-SNAPSHOT.jar"]
+COPY --from=build target/*.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
