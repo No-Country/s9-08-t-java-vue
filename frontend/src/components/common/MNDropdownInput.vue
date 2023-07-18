@@ -47,7 +47,6 @@ const dropMenu = () => {
 
 const typeSelected = (type: string) => {
   emit('selected', type)
-  console.log('click')
 }
 </script>
 

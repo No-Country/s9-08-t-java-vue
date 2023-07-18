@@ -7,6 +7,7 @@ import com.nocountry.movenow.dto.RegisterDTO;
 import com.nocountry.movenow.dto.RequestDTO;
 import com.nocountry.movenow.dto.ResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +26,21 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<ResponseDTO> register(@Valid @RequestBody RegisterDTO registerDTO) {
-        return ResponseEntity.ok(authenticationService.register(registerDTO));
+        try {
+            return ResponseEntity.ok(authenticationService.register(registerDTO));
+        } catch (RuntimeException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/authenticate")
     public ResponseEntity<ResponseDTO> authenticate(@Valid @RequestBody RequestDTO requestDTO) {
-        return ResponseEntity.ok(authenticationService.authenticate(requestDTO));
+        try {
+            return ResponseEntity.ok(authenticationService.authenticate(requestDTO));
+        } catch (RuntimeException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
     }
 
 

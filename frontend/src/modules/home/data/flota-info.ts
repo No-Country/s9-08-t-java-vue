@@ -8,26 +8,26 @@ export const flota = [
     name: 'CAMIONETA PICK UP',
     short: 'S10 CABINA SIMPLE',
     info1: 'Capacidad de carga hasta de 1000kg',
-    info2: 'Ideal para distancias cortas y medias.',
-    selectable: false,
+    info2: 'Disponible solo para envios',
+    selectable: true,
     img: camioneta
   },
   {
     id: 2,
     name: 'CAMION',
     short: 'S10 CABINA SIMPLE',
-    info1: 'Capacidad de carga hasta de 1000kg',
-    info2: 'Ideal para distancias cortas y medias.',
-    selectable: false,
+    info1: 'Capacidad de carga hasta de 1500kg',
+    info2: 'Disponible solo para mudanzas',
+    selectable: true,
     img: camion
   },
   {
     id: 3,
     name: 'CAMION',
     short: 'S10 CABINA SIMPLE',
-    info1: 'Capacidad de carga hasta de 1000kg',
-    info2: 'Ideal para distancias cortas y medias.',
-    selectable: false,
+    info1: 'Capacidad de carga mayor a 1500kg',
+    info2: 'Disponible solo para mudanzas',
+    selectable: true,
     img: camion2
   }
 ]

@@ -1,6 +1,8 @@
 <template>
-  <section class="mt-72 flex h-full w-full flex-col items-center justify-center gap-8">
-    <h2 class="text-4xl font-normal uppercase text-primary-orange">
+  <section
+    class="mt-10 flex h-full w-full flex-col items-center justify-center gap-8 px-5 lg:mt-72"
+  >
+    <h2 class="text-center text-4xl font-normal uppercase text-primary-orange">
       Comentarios de nuestros clientes
     </h2>
     <swiper
