@@ -1,11 +1,11 @@
 <template>
   <section class="relative h-auto p-4">
-    <div>
+    <div class="mt-20">
       <h1 class="text-5xl font-bold text-blue-night">Más opciones para tu mudanza</h1>
       <h3 class="text-3xl font-light text-blue-night">Más opciones para tu mudanza</h3>
     </div>
     <div
-      class="left-0 z-10 flex w-full flex-wrap justify-center gap-4 py-10 lg:absolute lg:top-20 lg:flex-nowrap lg:justify-start"
+      class="left-0 z-10 flex w-full flex-wrap justify-center gap-4 py-10 lg:absolute lg:top-52 lg:flex-nowrap lg:justify-start"
     >
       <MoreOptionsCard :key="item.id" v-for="item in data" :prop="item" />
       <img

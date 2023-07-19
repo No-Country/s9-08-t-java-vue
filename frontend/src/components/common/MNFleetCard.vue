@@ -1,6 +1,8 @@
 <template>
-  <div class="h-96">
-    <div class="relative h-72 w-80 rounded-[40px] border-[1px] border-primary-blue p-4">
+  <div class="flex h-96 items-end">
+    <div
+      class="relative flex h-72 w-80 flex-col items-center justify-center gap-2 rounded-[40px] border-[1px] border-primary-blue p-4"
+    >
       <div class="absolute left-0 right-0 top-[-75px] m-auto flex w-52 justify-center">
         <img class="h-28 w-52 object-cover" :src="prop.img" alt="" />
       </div>
@@ -9,7 +11,7 @@
         <p>{{ prop.short }}</p>
       </div>
       <div class="mt-3 flex w-full rounded-[15px] bg-blue-100 p-3 text-sm text-zinc-700">
-        <div class="flex">
+        <div class="flex gap-2">
           <span>
             <svg
               class="inline"
@@ -31,7 +33,7 @@
           <p>{{ prop.info1 }}</p>
         </div>
       </div>
-      <div class="m-auto mt-3 w-28" color="bg-orange-400">
+      <div class="w-28" color="bg-orange-400">
         <MNButton
           text="Contratar"
           :class="`cursor-pointer rounded-lg bg-primary-orange py-1 ${
