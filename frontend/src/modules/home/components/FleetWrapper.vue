@@ -11,10 +11,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import FleetCard from './FleetCard.vue'
-import { flota } from '../data/flota-info'
+import FleetCard from '@/components/common/MNFleetCard.vue'
+import { flota } from '@/lib/data/flota-info'
 import type { Ref } from 'vue'
-import type { IFleetCard } from '../interfaces/IFleetCard'
+import type { IFleetCard } from '@/lib/types'
 import { useHomeStore } from '../store/home'
 import { watch } from 'vue'
 import { storeToRefs } from 'pinia'
@@ -36,3 +36,4 @@ watch(home.sendingType, () => {
   }
 })
 </script>
+../../../lib/data/flota-info

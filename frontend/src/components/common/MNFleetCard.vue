@@ -49,7 +49,7 @@
 
 <script setup lang="ts">
 import MNButton from '@/components/common/MNButton.vue'
-import { type IFleetCard } from '../interfaces/IFleetCard'
+import { type IFleetCard } from '@/lib/types'
 
 interface FleetCardProp {
   prop: IFleetCard
