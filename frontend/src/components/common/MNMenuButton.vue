@@ -1,6 +1,6 @@
 <template>
   <label ref="menu" id="menu" for="check">
-    <span id="line1"></span>
+    <span id="line1" class=""></span>
     <span id="line2"></span>
     <span id="line3"></span>
   </label>
@@ -30,8 +30,8 @@ label {
   cursor: pointer;
 }
 label span {
-  background: #de4f0e;
-  height: 3px;
+  height: 4px;
+  background: #fff;
   margin: 4px 0;
   transition: 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
 }
@@ -55,6 +55,6 @@ span:nth-of-type(3) {
 .line3 {
   transform-origin: bottom;
   width: 50%;
-  transform: translate(12px, -7px) rotatez(45deg);
+  transform: translate(12px, -9px) rotatez(45deg);
 }
 </style>
