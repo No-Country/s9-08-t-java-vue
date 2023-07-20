@@ -3,18 +3,16 @@
     <h1 class="mt-52 text-center text-5xl uppercase text-primary-orange lg:mt-24">
       Conozca nuestra flota
     </h1>
-    <div class="flex flex-wrap items-center justify-center gap-8">
-      <FleetCard :key="item.id" v-for="item in data" :prop="item" />
-    </div>
+    <fleet-carousel />
   </section>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import FleetCard from './FleetCard.vue'
-import { flota } from '../data/flota-info'
+import FleetCarousel from '@/components/common/MNFleetCarousel.vue'
+import { flota } from '@/lib/data/flota-info'
 import type { Ref } from 'vue'
-import type { IFleetCard } from '../interfaces/IFleetCard'
+import type { IFleetCard } from '@/lib/types'
 import { useHomeStore } from '../store/home'
 import { watch } from 'vue'
 import { storeToRefs } from 'pinia'

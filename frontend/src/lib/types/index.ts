@@ -1,4 +1,4 @@
-export interface IFleetCard {
+export type IFleetCard = {
   id: number
   name: string
   short: string
