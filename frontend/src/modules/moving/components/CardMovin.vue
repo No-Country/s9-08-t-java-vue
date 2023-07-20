@@ -1,5 +1,5 @@
 <template>
-  <div class="h-96 w-80">
+  <div class="flex h-96 w-80 flex-col justify-end self-end">
     <div class="relative h-72 w-80 rounded-[40px] border-[1px] border-primary-blue p-4">
       <div class="absolute left-0 right-0 top-[-75px] m-auto flex w-52 justify-center">
         <img class="h-44 w-52 object-cover" src="../../../assets/img//moving//casa.webp" alt="" />
