@@ -1,5 +1,6 @@
 <template>
-  <div class="w-44 cursor-pointer text-blue-night">
+  <!-- FIXME: fix container when its opened -->
+  <div :class="twMerge('w-44 cursor-pointer text-blue-night', props.wrapperClass)">
     <div @click="dropMenu" class="relative flex justify-between p-1">
       <p :class="twMerge('break-keep', props.textClass)">{{ text }}</p>
       <svg
@@ -40,6 +41,7 @@ import { ref } from 'vue'
 interface IDropdowProps {
   text: string
   items: string[]
+  wrapperClass?: string
   textClass?: string
   itemClass?: string
 }

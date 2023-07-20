@@ -12,6 +12,7 @@
     <CardMovin @state="test" info="Persona o parejas" size="M"></CardMovin>
     <FleetWrapper />
     <ExtrasComponent />
+    <TimeComponent />
   </main>
 </template>
 
@@ -20,6 +21,7 @@ import CardMovin from '../components/CardMovin.vue'
 import FleetWrapper from '../components/FleetWrapper.vue'
 import StepComponent from '../components/StepComponent.vue'
 import ExtrasComponent from '../components/ExtrasComponent.vue'
+import TimeComponent from '../components/TimeComponent.vue'
 
 const test = (arg: boolean) => console.log(arg)
 </script>
