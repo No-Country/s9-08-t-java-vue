@@ -13,12 +13,12 @@ import FleetCarousel from '@/components/common/MNFleetCarousel.vue'
 import { flota } from '@/lib/data/flota-info'
 import type { Ref } from 'vue'
 import type { IFleetCard } from '@/lib/types'
-import { useHomeStore } from '../store/home'
+import { useMovingStore } from '@/store/moving'
 import { watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { MOVING, SENDING } from '../constants'
 
-const home = storeToRefs(useHomeStore())
+const home = storeToRefs(useMovingStore())
 const data: Ref<IFleetCard[]> = ref(flota)
 
 watch(home.sendingType, () => {
