@@ -22,19 +22,6 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @PostMapping("")
-    public ResponseEntity<Comment> saveComment(@RequestBody Comment comment) {
-        try {
-            if (comment == null) {
-                return ResponseEntity.badRequest().body(null);
-            }
-
-            Comment savedComment = commentService.save(comment);
-            return ResponseEntity.ok(savedComment);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Comment> getCommentById(@PathVariable Long id) {
