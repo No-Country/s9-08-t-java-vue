@@ -14,7 +14,7 @@
       >
         <p class="h-14 text-center font-normal text-primary-text">{{ i.name }}</p>
         <button
-          v-if="i.status"
+          v-if="i.status && i.editable"
           @click="() => setCurrent(i.stepNumber)"
           class="font-bold text-primary-text underline"
         >
