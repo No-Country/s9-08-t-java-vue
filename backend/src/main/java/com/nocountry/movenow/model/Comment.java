@@ -1,6 +1,7 @@
 package com.nocountry.movenow.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
+@Builder
 @SQLDelete(sql = "UPDATE comment SET soft_delete = true WHERE id=?")
 @Where(clause = "soft_delete = false")
 @AllArgsConstructor

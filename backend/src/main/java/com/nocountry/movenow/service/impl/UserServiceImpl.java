@@ -1,24 +1,28 @@
 package com.nocountry.movenow.service.impl;
 
 import com.nocountry.movenow.exception.UserNotFoundException;
+import com.nocountry.movenow.model.Comment;
+import com.nocountry.movenow.model.Moving;
 import com.nocountry.movenow.model.UserEntity;
 import com.nocountry.movenow.repository.UserRepository;
+import com.nocountry.movenow.service.MovingService;
 import com.nocountry.movenow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final MovingService movingService;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, MovingService movingService) {
         this.userRepository = userRepository;
+        this.movingService = movingService;
     }
 
     @Override
@@ -91,5 +95,24 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException("No users found");
         }
         return users;
+    }
+
+    @Override
+    public Comment makeAComment(int stars, String feedback, Long idUser, Long idMoving) {
+        UserEntity user = userRepository.findById(idUser)
+                .orElseThrow(() -> new UserNotFoundException("No user found with that id"));
+
+        Moving moving = movingService.findById(idMoving);
+
+        if (!user.getMovings().contains(moving)){
+            throw new RuntimeException("This moving does not belongs to this user");
+        }
+
+        return Comment.builder()
+                .stars(stars)
+                .userName(user.getUsername())
+                .feedBack(feedback)
+                .idMoving(moving.getId())
+                .build();
     }
 }
