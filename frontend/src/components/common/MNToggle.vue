@@ -6,8 +6,8 @@
 </template>
 
 <script lang="ts" setup>
+import { onMounted } from 'vue'
 import { watch } from 'vue'
-import { onBeforeMount } from 'vue'
 import { ref } from 'vue'
 
 const localState = ref()
@@ -28,7 +28,10 @@ watch(prop, () => {
   localState.value = prop.state
 })
 
+onMounted(() => (localState.value = prop.state))
+
 watch(localState, () => {
+  console.log('WATCH TOGGLE')
   emit('state', localState.value)
 })
 </script>

@@ -15,7 +15,10 @@
       </div>
     </div>
     <div class="mt-5 flex justify-center">
-      <MNToggle :state="check" @state="(arg) => $emit('state', arg)"></MNToggle>
+      <MNToggle
+        :state="props.state"
+        @state="(arg) => $emit('state', { size: props.size, value: arg })"
+      ></MNToggle>
     </div>
   </div>
 </template>
@@ -27,10 +30,8 @@ import { ref } from 'vue'
 interface CardProp {
   size: string
   info: string
+  state: boolean
 }
-
-defineEmits(['state'])
-
 const props = defineProps<CardProp>()
-const check = ref(false)
+defineEmits(['state'])
 </script>
