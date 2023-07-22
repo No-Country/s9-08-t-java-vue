@@ -8,7 +8,8 @@ import java.util.Optional;
 
 public interface ScheduleService {
 
-    List<Schedule> saveAll(List<Schedule> schedules, Long IdVehicle, Long idMoving);
+
+    Schedule save(Schedule schedule, Long movingId);
 
     Optional<Schedule> findById(Long id);
 
@@ -18,5 +19,5 @@ public interface ScheduleService {
 
     Schedule update(Schedule schedule);
 
-
+    Schedule buildSchedule(LocalDateTime startDates, LocalDateTime endDates, Long vehicleId);
 }

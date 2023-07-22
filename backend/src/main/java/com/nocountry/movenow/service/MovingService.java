@@ -1,5 +1,6 @@
 package com.nocountry.movenow.service;
 
+import com.nocountry.movenow.dto.MovingDTO;
 import com.nocountry.movenow.model.CrewMember;
 import com.nocountry.movenow.model.Moving;
 import com.nocountry.movenow.model.Schedule;
@@ -13,7 +14,8 @@ public interface MovingService {
     Optional<Moving> getMoving(Long movingId);
 
     public Moving findById(Long idMoving);
-    public Moving save(String destinationPoint, String loadingPoint, Boolean insurance, Long idUser, List<CrewMember> crewMembers, Long vehicleId, List<Schedule> schedules);
+
+    Moving save(MovingDTO movingDTO);
 
     Moving update(Moving moving);
 
