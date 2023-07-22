@@ -3,6 +3,8 @@ package com.nocountry.movenow.controller;
 import com.nocountry.movenow.model.UserEntity;
 import com.nocountry.movenow.model.Vehicle;
 import com.nocountry.movenow.service.impl.UserServiceImpl;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/user")
+@Tag(name = "Users", description = "Manage Users")
 public class UserController {
     private final UserServiceImpl userService;
 
@@ -22,6 +25,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @Hidden
     @PostMapping("")
     public ResponseEntity<UserEntity> saveUser(@RequestBody UserEntity user) {
         try {
