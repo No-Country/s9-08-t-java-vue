@@ -18,6 +18,6 @@ public class RequestDTO {
     @NotBlank(message = "Password cannot be blank")
     String password;
 
-    @Email
-    String email;
+    @NotBlank(message = "Username cannot be blank")
+    String username;
 }

@@ -26,14 +26,14 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public ResponseDTO register(RegisterDTO request) {
-        Optional<UserEntity> optUser = userRepository.findByEmail(request.getEmail());
+        Optional<UserEntity> optUser = userRepository.findByUsername(request.getUsername());
 
         if (optUser.isPresent())
             throw new RuntimeException("This username has been already taken.");
 
         var user = UserEntity.builder()
                 .username(request.getUsername())
-                .email(request.getEmail())
+
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
                 .softDelete(false)
@@ -48,12 +48,12 @@ public class AuthenticationService {
     public ResponseDTO authenticate(RequestDTO request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
+                        request.getUsername(),
                         request.getPassword()
                 )
         );
         //It will continue to below lines only if authentication was successful
-        var user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new RuntimeException("User not found"));
+        var user = userRepository.findByUsername(request.getUsername()).orElseThrow(() -> new RuntimeException("User not found"));
         var jwtToken = jwtService.generateToken(user);
         return ResponseDTO.builder()
                 .token(jwtToken)

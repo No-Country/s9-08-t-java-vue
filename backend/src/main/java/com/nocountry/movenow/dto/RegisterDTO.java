@@ -22,7 +22,5 @@ public class RegisterDTO {
     @Size(min = 6, message = "Password must be at least 6 characters long")
     private String password;
 
-    @NotBlank(message = "Email cannot be blank")
-    @Email(message = "Debe proporcionar un email válido")
-    private String email;
+
 }

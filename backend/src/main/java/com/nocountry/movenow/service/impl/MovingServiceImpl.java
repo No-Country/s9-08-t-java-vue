@@ -4,7 +4,6 @@ import com.nocountry.movenow.dto.MovingDTO;
 import com.nocountry.movenow.exception.*;
 import com.nocountry.movenow.model.*;
 import com.nocountry.movenow.repository.MovingRepository;
-import com.nocountry.movenow.repository.UserRepository;
 import com.nocountry.movenow.service.MovingService;
 import org.springframework.stereotype.Service;
 
@@ -16,18 +15,18 @@ public class MovingServiceImpl implements MovingService {
 
     private final MovingRepository movingRepository;
     private final CrewMemberServiceImpl crewMemberService;
-    private final UserRepository userRepository;
+    private final UserServiceImpl userService;
     private final SchedulesServiceImpl schedulesServiceImpl;
 
 
 
 
 
-    MovingServiceImpl(UserRepository userRepository, SchedulesServiceImpl schedulesServiceImpl, MovingRepository movingRepository, CrewMemberServiceImpl crewMemberService) {
+    MovingServiceImpl(UserServiceImpl userRepository, SchedulesServiceImpl schedulesServiceImpl, MovingRepository movingRepository, CrewMemberServiceImpl crewMemberService) {
         this.movingRepository = movingRepository;
         this.crewMemberService = crewMemberService;
         this.schedulesServiceImpl = schedulesServiceImpl;
-        this.userRepository = userRepository;
+        this.userService = userRepository;
 
     }
 
@@ -52,7 +51,7 @@ public class MovingServiceImpl implements MovingService {
         Moving moving = new Moving();
         moving.setDestinationPoint(movingDTO.getDestinationPoint());
         moving.setLoadingPoint(movingDTO.getLoadingPoint());
-        moving.setInsurance(moving.isInsurance());
+        moving.setInsurance(movingDTO.getInsurance());
 
         // Create a list of schedules with the provided start and end dates, vehicleId and moving
         Schedule schedule = schedulesServiceImpl.buildSchedule(movingDTO.getStart(), movingDTO.getEnds(), movingDTO.getVehicleId());
@@ -70,24 +69,23 @@ public class MovingServiceImpl implements MovingService {
 
         //Verify that the user exists
 
-        System.out.println(userRepository.findById(movingDTO.getIdUser()).get().toString());
-        UserEntity user = userRepository.findById(movingDTO.getIdUser()).get();
+        UserEntity user = userService.findById(movingDTO.getIdUser()).get();
 
 
-
+        moving.setIdUser(user.getId());
 
         // Set the user
         moving.setUser(user);
 
         // Save the moving object
-        moving = movingRepository.save(moving);
+        movingRepository.save(moving);
 
         // Save all the schedules
         schedulesServiceImpl.save(schedule, moving.getId());
         //Update crew members asigning the moving
         crewMemberService.updateAll(crewMembers,moving);
 
-        return moving;
+        return movingRepository.save(moving);
     }
 
     @Override

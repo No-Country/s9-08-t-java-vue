@@ -27,7 +27,9 @@ public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+
     private String username;
+
     private String password;
 
     @Column(unique = true) // Asegura que el email sea único en la base de datos
