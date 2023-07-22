@@ -18,4 +18,5 @@ public interface VehicleService {
     List<Vehicle> getAll();
 
 
+    Vehicle addImageUrl(String imgUrl, Long id);
 }
