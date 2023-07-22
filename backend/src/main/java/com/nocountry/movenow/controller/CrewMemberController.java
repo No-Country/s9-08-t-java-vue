@@ -3,6 +3,7 @@ package com.nocountry.movenow.controller;
 
 import com.nocountry.movenow.model.CrewMember;
 import com.nocountry.movenow.service.impl.CrewMemberServiceImpl;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/crew-members")
+@Tag(name = "Crew Members", description = "Manage Crew Members")
 public class CrewMemberController {
 
     private final CrewMemberServiceImpl crewMemberService;
