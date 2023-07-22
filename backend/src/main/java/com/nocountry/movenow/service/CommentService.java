@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface CommentService {
     Comment save(Comment comment);
 
-    Optional<Comment> findById(Long id);
+    Comment findById(Long id);
 
     boolean delete(Long id);
 

@@ -26,13 +26,8 @@ public class CommentController {
     @GetMapping("/{id}")
     public ResponseEntity<Comment> getCommentById(@PathVariable Long id) {
         try {
-            Optional<Comment> optionalComment = commentService.findById(id);
-            if (optionalComment.isPresent()) {
-                Comment comment = optionalComment.get();
-                return ResponseEntity.ok(comment);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
+            Comment comment = commentService.findById(id);
+            return ResponseEntity.ok(comment);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
@@ -51,10 +46,6 @@ public class CommentController {
     @PutMapping("/{id}")
     public ResponseEntity<Comment> updateComment(@PathVariable Long id, @RequestBody Comment comment) {
         try {
-            if (commentService.findById(id).isEmpty()) {
-                return ResponseEntity.notFound().build();
-            }
-
             Comment updatedComment = commentService.update(comment);
             return ResponseEntity.ok(updatedComment);
         } catch (Exception e) {
@@ -65,10 +56,6 @@ public class CommentController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteComment(@PathVariable Long id) {
         try {
-            if (commentService.findById(id).isEmpty()) {
-                return ResponseEntity.notFound().build();
-            }
-
             commentService.delete(id);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {

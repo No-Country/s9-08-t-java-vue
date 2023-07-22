@@ -24,11 +24,11 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Optional<Comment> findById(Long id) {
+    public Comment findById(Long id) {
         if (!commentRepository.existsById(id)){
             throw new RuntimeException("Comment not found");
         }
-        return commentRepository.findById(id);
+        return commentRepository.findById(id).get();
     }
 
     @Override
