@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
         UserEntity userUpdated = userOptional.get();
 
         if (user.getUsername() != null){
-            userUpdated.setUsername(user.getUsername());
+            userUpdated.setEmail(user.getUsername());
         }
 
         if (user.getPassword() != null){
