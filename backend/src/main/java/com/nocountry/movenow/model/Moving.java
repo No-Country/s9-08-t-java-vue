@@ -47,8 +47,9 @@ public class Moving {
     @JsonIgnore
     private Comment comment;
 
-    @OneToMany(mappedBy = "moving")
-    private List<Schedule> schedules;
+    @OneToOne(mappedBy = "moving", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonIgnore
+    private Schedule schedules;
 
     @ManyToMany(mappedBy = "movings")
     private List<CrewMember> crew;

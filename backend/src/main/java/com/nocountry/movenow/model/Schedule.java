@@ -30,7 +30,7 @@ public class Schedule {
     @JsonIgnore
     private Vehicle vehicle;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "id_moving", insertable = false, updatable = false)
     @JsonIgnore
     private Moving moving;

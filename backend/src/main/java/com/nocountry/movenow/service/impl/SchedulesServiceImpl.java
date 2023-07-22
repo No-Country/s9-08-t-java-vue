@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,17 +33,22 @@ public class SchedulesServiceImpl implements ScheduleService {
     }
 
     @Override
-    public List<Schedule> saveAll(List<Schedule> schedules, Long IdVehicle, Long idMoving) {
+    public Schedule save(Schedule schedule, Long movingId) {
+
+        if (schedule == null) {
+            throw new RuntimeException("Schedule not found");
+        }
+
+        Optional<Moving> moving = movingRepository.findById(movingId);
+        if (moving == null) {
+            throw new MovingNotFoundException("Moving not found");
+        }
+
+        schedule.setMoving(moving.get());
+        schedule.setIdMoving(movingId);
 
 
-        Moving moving = movingRepository.findById(idMoving).orElseThrow(() -> new MovingNotFoundException("Moving not found"));
-        Vehicle vehicle = vehicleRepository.findById(IdVehicle).orElseThrow(() -> new RuntimeException("Vehicle not found"));
-
-        moving.setSchedules(schedules);
-        vehicle.setSchedules(schedules);
-
-
-        return scheduleRepository.saveAll(schedules);
+        return scheduleRepository.save(schedule);
     }
 
     @Override
@@ -87,6 +91,30 @@ public class SchedulesServiceImpl implements ScheduleService {
 
         return scheduleRepository.save(schedule1);
 
+    }
+
+    @Override
+    public Schedule buildSchedule(LocalDateTime startDates, LocalDateTime endDates, Long vehicleId) {
+
+
+        if (vehicleId == null) {
+            throw new RuntimeException("Vehicle not found");
+        }
+
+        if (startDates == null || endDates == null) {
+            throw new RuntimeException("Dates not match");
+        }
+
+       Schedule schedule = new Schedule();
+       schedule.setStarDate(startDates);
+       schedule.setEndDate(endDates);
+
+        Vehicle vehicle = vehicleRepository.findById(vehicleId).get();
+
+       schedule.setIdVehicle(vehicleId);
+       schedule.setVehicle(vehicle);
+
+        return schedule;
     }
 
 }
