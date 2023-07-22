@@ -1,5 +1,6 @@
 package com.nocountry.movenow.controller;
 
+import com.nocountry.movenow.dto.MovingDTO;
 import com.nocountry.movenow.exception.*;
 import com.nocountry.movenow.model.CrewMember;
 import com.nocountry.movenow.model.Moving;
@@ -38,23 +39,11 @@ public class MovingController {
 
     @PostMapping
     public ResponseEntity<Moving> saveMoving(
-            @RequestParam String destinationPoint,
-            @RequestParam String loadingPoint,
-            @RequestParam Boolean insurance,
-            @RequestParam Long idUser,
-            @RequestParam Long invoiceId,
-            @RequestBody List<CrewMember> crewMembers,
-            @RequestParam Long vehicleId,
-            @RequestBody List<Schedule> schedules) {
+            @RequestBody MovingDTO movingDTO
+    ) {
         try {
             Moving moving = movingService.save(
-                    destinationPoint,
-                    loadingPoint,
-                    insurance,
-                    idUser,
-                    crewMembers,
-                    vehicleId,
-                    schedules
+                    movingDTO
             );
             return ResponseEntity.ok(moving);
         } catch (DestinationPointNotFoundException | LoadingPointNotFoundException | UserNotFoundException e) {
