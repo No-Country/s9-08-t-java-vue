@@ -10,10 +10,10 @@
     </section>
     <!--TODO: Move section to component stepOne-->
     <section v-if="stepForm == 2">
-      <Payment></Payment>
+      <OrderVerification></OrderVerification>
     </section>
     <section v-if="stepForm == 3">
-      <OrderVerification></OrderVerification>
+      <Payment></Payment>
     </section>
     <section v-if="stepForm == 4">
       <OrderFinished />

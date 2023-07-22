@@ -31,7 +31,6 @@ watch(prop, () => {
 onMounted(() => (localState.value = prop.state))
 
 watch(localState, () => {
-  console.log('WATCH TOGGLE')
   emit('state', localState.value)
 })
 </script>

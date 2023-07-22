@@ -7,6 +7,7 @@
           :text="crewMembers"
           :text-class="'text-black text-2xl font-semibold'"
           :item-class="'text-black'"
+          @selected="(arg) => $emit('crew:quantity', arg.split(' ')[0])"
         />
         <p class="text-base font-light">
           El servicio de mudanza incluye solo un ayudante. ¡Adicione más, ahorre horas en su
@@ -18,7 +19,7 @@
           <h5 class="text-lg font-light text-black">usd $9.99</h5>
           <span class="text-sm font-light">por ayudante</span>
         </div>
-        <MNToggle :state="check" @state="(arg) => $emit('state', arg)"></MNToggle>
+        <MNToggle :state="check" @state="(arg) => $emit('state:crew', arg)"></MNToggle>
       </div>
     </div>
     <div class="flex h-max w-full items-center justify-center gap-8">
@@ -32,7 +33,7 @@
       </div>
       <div class="flex w-max items-center justify-center gap-8">
         <h5 class="text-lg font-light text-black">usd $19.99</h5>
-        <MNToggle :state="check" @state="(arg) => $emit('state', arg)"></MNToggle>
+        <MNToggle :state="check" @state="(arg) => $emit('state:insaurance', arg)"></MNToggle>
       </div>
     </div>
   </div>
@@ -43,8 +44,7 @@ import MNToggle from '@/components/common/MNToggle.vue'
 import MNDropdownInput from '@/components/common/MNDropdownInput.vue'
 import { ref } from 'vue'
 
-const crewMembers = ref('Ayudantes')
-defineEmits(['state'])
-
 const check = ref(false)
+const crewMembers = ref('Ayudantes')
+defineEmits(['state:insaurance', 'state:crew', 'crew:quantity'])
 </script>

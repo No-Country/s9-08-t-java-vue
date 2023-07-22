@@ -21,9 +21,10 @@ import CardMovin from './CardMovin.vue'
 import { ref, toRef } from 'vue'
 import { useMovingStore } from '@/store/moving'
 import { storeToRefs } from 'pinia'
+import { reactive } from 'vue'
 
-const store = useMovingStore()
-const data = toRef([
+const store = storeToRefs(useMovingStore())
+const data = reactive([
   { info: 'Persona o parejas', size: 'S', state: true },
   { info: 'Familia o eventos reducidos', size: 'M', state: false },
   { info: 'Familia o eventos grandes', size: 'L', state: false }
@@ -32,11 +33,11 @@ const data = toRef([
 const localCheck = ref('')
 
 const setSize = (info: { size: string; value: boolean }, index: number) => {
-  data.value[index].state = info.value
+  data[index].state = info.value
   if (info.value) {
-    store.movingSize = data.value[index].size
+    store.movingSize.value = data[index].size
   }
-  data.value.forEach((x) => {
+  data.forEach((x) => {
     if (x.size != info.size && info.value === true) {
       x.state = false
     }

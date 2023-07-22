@@ -1,6 +1,6 @@
 import { MOVING_STORE_NAME } from '@/constants'
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 
 export const useMovingStore = defineStore(MOVING_STORE_NAME, () => {
   const sendingType = ref('')
@@ -11,7 +11,7 @@ export const useMovingStore = defineStore(MOVING_STORE_NAME, () => {
   const movingSize = ref('')
   const vehicle = ref()
 
-  const stepOne = ref({
+  const stepOne = reactive({
     sendingType,
     origin,
     destination,
