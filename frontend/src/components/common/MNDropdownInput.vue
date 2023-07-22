@@ -1,7 +1,8 @@
 <template>
-  <div class="w-44 cursor-pointer text-blue-night">
+  <!-- FIXME: fix container when its opened -->
+  <div :class="twMerge('w-44 cursor-pointer text-blue-night', props.wrapperClass)">
     <div @click="dropMenu" class="relative flex justify-between p-1">
-      <p class="break-keep">{{ text }}</p>
+      <p :class="twMerge('break-keep', props.textClass)">{{ text }}</p>
       <svg
         ref="icon"
         class="default-close"
@@ -20,7 +21,12 @@
         class="hide dropdownMenu absolute top-8 z-10 w-40 rounded-xl bg-white p-2 shadow-lg"
         ref="dropdownMenu"
       >
-        <p class="p-1" v-for="item in items" :key="item" @click="() => typeSelected(item)">
+        <p
+          :class="twMerge('p-1', props.itemClass)"
+          v-for="item in items"
+          :key="item"
+          @click="() => typeSelected(item)"
+        >
           {{ item }}
         </p>
       </div>
@@ -29,16 +35,20 @@
 </template>
 
 <script lang="ts" setup>
+import { twMerge } from 'tailwind-merge'
 import { ref } from 'vue'
 
 interface IDropdowProps {
   text: string
   items: string[]
+  wrapperClass?: string
+  textClass?: string
+  itemClass?: string
 }
 const icon = ref()
 const dropdownMenu = ref()
 const emit = defineEmits(['selected'])
-const { items, text } = defineProps<IDropdowProps>()
+const props = defineProps<IDropdowProps>()
 
 const dropMenu = () => {
   dropdownMenu.value.classList.toggle('hide')
@@ -47,7 +57,6 @@ const dropMenu = () => {
 
 const typeSelected = (type: string) => {
   emit('selected', type)
-  console.log('click')
 }
 </script>
 

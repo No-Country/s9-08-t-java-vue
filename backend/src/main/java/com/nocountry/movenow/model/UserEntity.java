@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,8 +23,11 @@ import javax.persistence.Id;
 @Data
 @Builder
 @Entity
+@SQLDelete(sql = "UPDATE user_ SET soft_delete = true WHERE id=?")
+@Where(clause = "soft_delete = false")
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "user_")
 public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

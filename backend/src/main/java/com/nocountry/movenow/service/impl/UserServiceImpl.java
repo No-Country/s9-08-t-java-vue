@@ -1,5 +1,6 @@
 package com.nocountry.movenow.service.impl;
 
+import com.nocountry.movenow.exception.UserNotFoundException;
 import com.nocountry.movenow.model.UserEntity;
 import com.nocountry.movenow.repository.UserRepository;
 import com.nocountry.movenow.service.UserService;
@@ -75,12 +76,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserEntity> getAll() {
+   /* public List<UserEntity> getAll() {
         List<UserEntity> users = userRepository.findAll();
         if (users.isEmpty()) {
             throw new RuntimeException("No users found");
         }
 
         return users.stream().filter(user -> !user.getSoftDelete()).collect(Collectors.toList());
+    } */
+
+    public List<UserEntity> getAll() {
+        List<UserEntity> users = userRepository.findAll();
+        if (users.isEmpty()) {
+            throw new UserNotFoundException("No users found");
+        }
+        return users;
     }
 }

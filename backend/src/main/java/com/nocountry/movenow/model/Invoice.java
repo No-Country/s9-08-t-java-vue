@@ -23,6 +23,9 @@ public class Invoice {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Column(name="soft_delete")
+    private Boolean softDelete  = Boolean.FALSE;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_moving", referencedColumnName = "id")
     private Moving moving;

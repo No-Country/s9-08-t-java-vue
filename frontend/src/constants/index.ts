@@ -1,4 +1,1 @@
-export const ROLES = {
-  ADMIN: 'ADMIN',
-  USER: 'USER'
-}
+export const MOVING_STORE_NAME = 'moving'
