@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,7 +15,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,8 +44,11 @@ public class UserEntity implements UserDetails {
     @Column(unique = true) // Asegura que el email sea único en la base de datos
     private String email; // Agrega el campo email
 
+    @ElementCollection(targetClass = Role.class)
     @Enumerated(EnumType.STRING)
-    private Role role;
+    @Column(name = "role")
+    @Fetch(FetchMode.JOIN)
+    private Set<Role> role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Moving> movings;
@@ -51,7 +58,11 @@ public class UserEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+        for (Role r : role) {
+            authorities.add(new SimpleGrantedAuthority(r.name()));
+        }
+        return authorities;
     }
 
     @Override

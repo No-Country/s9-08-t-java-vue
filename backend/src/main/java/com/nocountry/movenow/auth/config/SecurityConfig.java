@@ -19,11 +19,13 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
+
+        http.cors().and()
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .antMatchers(
-                        "/api/**/**",
+
+                        "/api/auth/**",
                         "/swagger-resources",
                         "/swagger-resources/**",
                         "/configuration/ui",
@@ -31,15 +33,25 @@ public class SecurityConfig {
                         "/swagger-ui/**",
                         "/webjars/**",
                         "/swagger-ui.html",
-                        "/v3/api-docs/**"
+                        "/api/user/**"
                 )
                 .permitAll()
+               .antMatchers(
+                        "/api/comment/**",
+                        "/api/moving/**/**/**",
+                        "/api/invoice")
+                .hasRole("USER")
+                .antMatchers(
+                        "/api/vehicle/**",
+                        "/api/crew-members/**",
+                        "/api/moving/**/**/**",
+                        "/api/user/**")
+                .hasRole("ADMIN")
                 .anyRequest().authenticated().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 }
