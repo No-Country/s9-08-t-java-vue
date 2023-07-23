@@ -1,6 +1,7 @@
 package com.nocountry.movenow.service;
 
 import com.nocountry.movenow.model.Schedule;
+import com.nocountry.movenow.model.enums.Shift;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,4 +21,6 @@ public interface ScheduleService {
     Schedule update(Schedule schedule);
 
     Schedule buildSchedule(LocalDateTime startDates, LocalDateTime endDates, Long vehicleId);
+
+    List<Shift> getAvailableShifts();
 }
