@@ -116,4 +116,21 @@ public class VehicleController {
         return ResponseEntity.ok(updatedVehicle);
     }
 
+    @Operation(description = "Get all vehicles by type")
+    @GetMapping("/{type}")
+    public ResponseEntity<List<Vehicle>> getAllVehiclesByType(
+            @Parameter(description = "Vehicle type", required = true)
+            @PathVariable String type) {
+
+        try {
+            List<Vehicle> vehicles = vehicleService.getAllByType(type);
+            return ResponseEntity.ok(vehicles);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
+
+
 }

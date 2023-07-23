@@ -117,6 +117,16 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
+    public List<Vehicle> getAllByType(String type) {
+        List<Vehicle> vehicles = vehicleRepository.getAllByType(type);
+        if (vehicles.isEmpty()) {
+            throw new RuntimeException("No vehicles found");
+        }
+
+        return vehicles;
+    }
+
+    @Override
     public Vehicle addImageUrl(String imgUrl, Long id) {
 
         Optional<Vehicle> vehicleOptinal = vehicleRepository.findById(id);
