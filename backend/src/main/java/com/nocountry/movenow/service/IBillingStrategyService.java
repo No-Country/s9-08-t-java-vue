@@ -5,9 +5,11 @@ import java.util.Optional;
 
 public interface IBillingStrategyService {
 
-    BillingStrategy save(BillingStrategy billingStrategy);
+
+   BillingStrategy save(double helperValue, double vehicleValue, double insuranceValue, int numberOfHelpers,
+                        int chargingHours, int downloadHours, int travelHours, double packaging);
     BillingStrategy findById(Long billingStrategyId);
     BillingStrategy update(BillingStrategy billingStrategy);
-    void delete(Long billingStrategyId);
-    public double cost();
+    boolean delete(Long billingStrategyId);
+    public double cost(BillingStrategy billingStrategy);
 }

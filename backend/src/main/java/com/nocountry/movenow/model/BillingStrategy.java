@@ -1,11 +1,19 @@
 package com.nocountry.movenow.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
 @Data
 @Entity
+@SQLDelete(sql = "UPDATE billing SET soft_delete = true WHERE id=?")
+@Where(clause = "soft_delete = false")
+@AllArgsConstructor
+@Table(name = "billing")
 public class BillingStrategy {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -24,12 +32,13 @@ public class BillingStrategy {
     private int downloadHours;
     @Column(name ="travel_hours")
     private int travelHours;
+    @Column(name ="packaging")
+    private double packaging;
+    @Column( name="soft_delete")
+    private Boolean softDelete  = Boolean.FALSE;
 
-
-
-
-    public BillingStrategy(double helperValue, double vehicleValue, double insuranceValue,
-                           int numberOfHelpers, int chargingHours, int downloadHours, int travelHours) {
+    public BillingStrategy(double helperValue, double vehicleValue, double insuranceValue, int numberOfHelpers,
+                           int chargingHours, int downloadHours, int travelHours, double packaging) {
         this.helperValue = helperValue;
         this.vehicleValue = vehicleValue;
         this.insuranceValue = insuranceValue;
@@ -37,6 +46,7 @@ public class BillingStrategy {
         this.chargingHours = chargingHours;
         this.downloadHours = downloadHours;
         this.travelHours = travelHours;
+        this.packaging = packaging;
     }
 
     public BillingStrategy() {
@@ -104,6 +114,14 @@ public class BillingStrategy {
 
     }
 
+    public double getPackaging() {
+        return packaging;
+    }
+
+    public void setPackaging(double packaging) {
+        this.packaging = packaging;
+    }
+
     public void setBillingtrategy_id(Long billingtrategy_id) {
         this.billingtrategy_id = billingtrategy_id;
     }
@@ -111,5 +129,13 @@ public class BillingStrategy {
 
     public Long getBillingtrategy_id() {
         return billingtrategy_id;
+    }
+
+    public Boolean getSoftDelete() {
+        return softDelete;
+    }
+
+    public void setSoftDelete(Boolean softDelete) {
+        this.softDelete = softDelete;
     }
 }
