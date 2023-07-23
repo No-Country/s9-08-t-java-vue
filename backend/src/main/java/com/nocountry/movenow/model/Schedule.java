@@ -18,8 +18,8 @@ public class Schedule {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime starDate;
-    private LocalDateTime endDate;
+    private LocalDateTime starDateTime;
+    private LocalDateTime endDateTime;
 
     @Enumerated(EnumType.STRING)
     private Shift shift;
