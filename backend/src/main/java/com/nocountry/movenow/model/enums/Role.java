@@ -6,8 +6,8 @@ import javax.persistence.Column;
 
 public enum Role {
 
-    USER ("User"),
-    ADMIN ("Admin");
+    ROLE_USER ("User"),
+    ROLE_ADMIN ("Admin");
 
     @Column(name = "name")
     private String name;
