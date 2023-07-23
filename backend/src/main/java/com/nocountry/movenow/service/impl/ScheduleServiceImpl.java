@@ -5,6 +5,7 @@ import com.nocountry.movenow.exception.MovingNotFoundException;
 import com.nocountry.movenow.model.Moving;
 import com.nocountry.movenow.model.Schedule;
 import com.nocountry.movenow.model.Vehicle;
+import com.nocountry.movenow.model.enums.Shift;
 import com.nocountry.movenow.repository.MovingRepository;
 import com.nocountry.movenow.repository.ScheduleRepository;
 import com.nocountry.movenow.repository.VehicleRepository;
@@ -13,11 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SchedulesServiceImpl implements ScheduleService {
+public class ScheduleServiceImpl implements ScheduleService {
     private final ScheduleRepository scheduleRepository;
 
     private final VehicleRepository vehicleRepository;
@@ -25,7 +28,7 @@ public class SchedulesServiceImpl implements ScheduleService {
     private MovingRepository movingRepository;
 
     @Autowired
-    public SchedulesServiceImpl(MovingRepository movingRepository, ScheduleRepository scheduleRepository, VehicleRepository vehicleRepository) {
+    public ScheduleServiceImpl(MovingRepository movingRepository, ScheduleRepository scheduleRepository, VehicleRepository vehicleRepository) {
         this.vehicleRepository = vehicleRepository;
         this.scheduleRepository = scheduleRepository;
         this.movingRepository = movingRepository;
@@ -115,6 +118,15 @@ public class SchedulesServiceImpl implements ScheduleService {
        schedule.setVehicle(vehicle);
 
         return schedule;
+    }
+
+    @Override
+    public List<Shift> getAvailableShifts() {
+        List<Shift> availableShifts = new ArrayList<>();
+
+        availableShifts.addAll(Arrays.asList(Shift.values()));
+
+        return availableShifts;
     }
 
 }

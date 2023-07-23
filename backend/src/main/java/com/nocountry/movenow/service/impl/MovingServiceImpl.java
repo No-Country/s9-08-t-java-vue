@@ -16,16 +16,16 @@ public class MovingServiceImpl implements MovingService {
     private final MovingRepository movingRepository;
     private final CrewMemberServiceImpl crewMemberService;
     private final UserServiceImpl userService;
-    private final SchedulesServiceImpl schedulesServiceImpl;
+    private final ScheduleServiceImpl scheduleServiceImpl;
 
 
 
 
 
-    MovingServiceImpl(UserServiceImpl userRepository, SchedulesServiceImpl schedulesServiceImpl, MovingRepository movingRepository, CrewMemberServiceImpl crewMemberService) {
+    MovingServiceImpl(UserServiceImpl userRepository, ScheduleServiceImpl scheduleServiceImpl, MovingRepository movingRepository, CrewMemberServiceImpl crewMemberService) {
         this.movingRepository = movingRepository;
         this.crewMemberService = crewMemberService;
-        this.schedulesServiceImpl = schedulesServiceImpl;
+        this.scheduleServiceImpl = scheduleServiceImpl;
         this.userService = userRepository;
 
     }
@@ -54,7 +54,7 @@ public class MovingServiceImpl implements MovingService {
         moving.setInsurance(movingDTO.getInsurance());
 
         // Create a list of schedules with the provided start and end dates, vehicleId and moving
-        Schedule schedule = schedulesServiceImpl.buildSchedule(movingDTO.getStart(), movingDTO.getEnds(), movingDTO.getVehicleId());
+        Schedule schedule = scheduleServiceImpl.buildSchedule(movingDTO.getStart(), movingDTO.getEnds(), movingDTO.getVehicleId());
 
         // Retrieve CrewMembers from repository using the provided IDs
         List<CrewMember> crewMembers = crewMemberService.findAllById(movingDTO.getCrewMembersIds());
@@ -81,7 +81,7 @@ public class MovingServiceImpl implements MovingService {
         movingRepository.save(moving);
 
         // Save all the schedules
-        schedulesServiceImpl.save(schedule, moving.getId());
+        scheduleServiceImpl.save(schedule, moving.getId());
         //Update crew members asigning the moving
         crewMemberService.updateAll(crewMembers,moving);
 
