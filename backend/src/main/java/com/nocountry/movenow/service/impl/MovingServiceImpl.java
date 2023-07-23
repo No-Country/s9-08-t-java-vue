@@ -1,15 +1,10 @@
 package com.nocountry.movenow.service.impl;
 
-import com.nocountry.movenow.exception.DestinationPointNotFoundException;
-import com.nocountry.movenow.exception.LoadingPointNotFoundException;
-import com.nocountry.movenow.exception.MovingNotFoundException;
-import com.nocountry.movenow.exception.UserNotFoundException;
+import com.nocountry.movenow.dto.MovingDTO;
+import com.nocountry.movenow.exception.*;
 import com.nocountry.movenow.model.*;
-import com.nocountry.movenow.repository.CrewMemberRepository;
 import com.nocountry.movenow.repository.MovingRepository;
-import com.nocountry.movenow.repository.UserRepository;
 import com.nocountry.movenow.service.MovingService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,20 +14,19 @@ import java.util.Optional;
 public class MovingServiceImpl implements MovingService {
 
     private final MovingRepository movingRepository;
-    private final CrewMemberRepository crewMemberRepository;
-
-    private final UserRepository userRepository;
+    private final CrewMemberServiceImpl crewMemberService;
+    private final UserServiceImpl userService;
     private final SchedulesServiceImpl schedulesServiceImpl;
 
 
 
 
 
-    MovingServiceImpl(UserRepository userRepository, SchedulesServiceImpl schedulesServiceImpl, MovingRepository movingRepository, CrewMemberRepository crewMemberRepository) {
+    MovingServiceImpl(UserServiceImpl userRepository, SchedulesServiceImpl schedulesServiceImpl, MovingRepository movingRepository, CrewMemberServiceImpl crewMemberService) {
         this.movingRepository = movingRepository;
-        this.crewMemberRepository = crewMemberRepository;
+        this.crewMemberService = crewMemberService;
         this.schedulesServiceImpl = schedulesServiceImpl;
-        this.userRepository = userRepository;
+        this.userService = userRepository;
 
     }
 
@@ -43,36 +37,55 @@ public class MovingServiceImpl implements MovingService {
     }
 
     @Override
-    public Moving save(String destinationPoint, String loadingPoint, Boolean insurance, Long idUser, List<CrewMember> crewMembers, Long vehicleId, List<Schedule> schedules) {
+    public Moving save(MovingDTO movingDTO) {
+
         // Check for null destinationPoint and loadingPoint
-        if (destinationPoint == null) {
+        if (movingDTO.getDestinationPoint() == null) {
             throw new DestinationPointNotFoundException("Destination point cannot be null");
         }
-        if (loadingPoint == null) {
+        if (movingDTO.getLoadingPoint() == null) {
             throw new LoadingPointNotFoundException("Loading point cannot be null");
         }
 
         // Create a new Moving object
         Moving moving = new Moving();
-        moving.setDestinationPoint(destinationPoint);
-        moving.setLoadingPoint(loadingPoint);
-        moving.setInsurance(insurance);
+        moving.setDestinationPoint(movingDTO.getDestinationPoint());
+        moving.setLoadingPoint(movingDTO.getLoadingPoint());
+        moving.setInsurance(movingDTO.getInsurance());
 
-        // Set the schedules and crew members
-        moving.setSchedules(schedules);
+        // Create a list of schedules with the provided start and end dates, vehicleId and moving
+        Schedule schedule = schedulesServiceImpl.buildSchedule(movingDTO.getStart(), movingDTO.getEnds(), movingDTO.getVehicleId());
+
+        // Retrieve CrewMembers from repository using the provided IDs
+        List<CrewMember> crewMembers = crewMemberService.findAllById(movingDTO.getCrewMembersIds());
+        // Ensure that all provided CrewMembers exist in the repository
+        if (crewMembers.size() != movingDTO.getCrewMembersIds().size()) {
+            throw new CrewMemberNotFoundException("One or more CrewMembers not found");
+        }
+
+        // Set the crew members to the moving
         moving.setCrew(crewMembers);
 
+
+        //Verify that the user exists
+
+        UserEntity user = userService.findById(movingDTO.getIdUser()).get();
+
+
+        moving.setIdUser(user.getId());
+
         // Set the user
-        UserEntity user = userRepository.findById(idUser).orElseThrow(() -> new UserNotFoundException("User not found"));
         moving.setUser(user);
 
         // Save the moving object
-        moving = movingRepository.save(moving);
+        movingRepository.save(moving);
 
         // Save all the schedules
-        schedulesServiceImpl.saveAll(schedules, vehicleId, moving.getId());
+        schedulesServiceImpl.save(schedule, moving.getId());
+        //Update crew members asigning the moving
+        crewMemberService.updateAll(crewMembers,moving);
 
-        return moving;
+        return movingRepository.save(moving);
     }
 
     @Override
@@ -133,7 +146,7 @@ public class MovingServiceImpl implements MovingService {
             List<CrewMember> crew = moving.getCrew();
 
             for (Long crewMemberId : crewMemberIds) {
-                Optional<CrewMember> crewMemberOptional = crewMemberRepository.findById(crewMemberId);
+                Optional<CrewMember> crewMemberOptional = crewMemberService.findById(crewMemberId);
 
                 if (crewMemberOptional.isPresent()) {
                     CrewMember crewMember = crewMemberOptional.get();
@@ -153,7 +166,7 @@ public class MovingServiceImpl implements MovingService {
     @Override
     public Moving removeCrewMember(Long movingId, Long crewMemberId) {
         Optional<Moving> movingOptional = movingRepository.findById(movingId);
-        Optional<CrewMember> crewMemberOptional = crewMemberRepository.findById(crewMemberId);
+        Optional<CrewMember> crewMemberOptional = crewMemberService.findById(crewMemberId);
 
         if (movingOptional.isPresent() && crewMemberOptional.isPresent()) {
             Moving moving = movingOptional.get();
@@ -176,4 +189,6 @@ public class MovingServiceImpl implements MovingService {
         }
         throw new MovingNotFoundException("Moving not found");
     }
+
+
 }

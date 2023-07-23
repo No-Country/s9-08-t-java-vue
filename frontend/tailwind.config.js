@@ -20,8 +20,9 @@ export default {
         'light-blue': '#E1ECFF',
         'gray-card': '#FBFAFA'
       },
-      screen: {
-        mv: { max: '550px' }
+      screens: {
+        mv: '775px',
+        '-mv': { max: '775px' }
       },
       borderRadius: {
         '4xl': '50px'

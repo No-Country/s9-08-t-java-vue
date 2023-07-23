@@ -1,6 +1,7 @@
 package com.nocountry.movenow.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nocountry.movenow.model.enums.VehicleType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,7 +35,13 @@ public class Vehicle {
 
     private boolean status;
 
-    @OneToMany(mappedBy = "vehicle")
+    private String capacityDescription;
+
+    private String limitDescription;
+
+    private String imgUrl;
+
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.REMOVE)
     private List<Schedule> schedules;
 
     @Column( name="soft_delete")

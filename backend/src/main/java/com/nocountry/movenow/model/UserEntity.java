@@ -32,7 +32,9 @@ public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    private String username;
+
+    private String user_name;
+
     private String password;
 
     @Column(unique = true) // Asegura que el email sea único en la base de datos
@@ -54,7 +56,7 @@ public class UserEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override

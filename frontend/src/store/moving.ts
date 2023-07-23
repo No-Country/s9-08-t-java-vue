@@ -1,13 +1,13 @@
+import { MOVING_STORE_NAME } from '@/constants'
 import { defineStore } from 'pinia'
-import { ref, toRef } from 'vue'
-import { HOME_STORE_NAME } from '../constants'
+import { ref } from 'vue'
 
-export const useHomeStore = defineStore(HOME_STORE_NAME, () => {
+export const useMovingStore = defineStore(MOVING_STORE_NAME, () => {
   const sendingType = ref('')
   const origin = ref('')
   const destination = ref('')
 
-  const obj = ref({
+  const stepOne = ref({
     sendingType,
     origin,
     destination
@@ -15,5 +15,5 @@ export const useHomeStore = defineStore(HOME_STORE_NAME, () => {
 
   const setSendinType = (type: string) => (sendingType.value = type)
 
-  return { setSendinType, sendingType, obj }
+  return { setSendinType, sendingType, stepOne }
 })

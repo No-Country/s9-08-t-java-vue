@@ -67,11 +67,11 @@
 import MNDropdownInput from '@/components/common/MNDropdownInput.vue'
 import MNInput from '@/components/common/MNInput.vue'
 import MNButton from '@/components/common/MNButton.vue'
-import { useHomeStore } from '../store/home'
+import { useMovingStore } from '@/store/moving'
 import { SENDING, MOVING } from '../constants'
 import { ref } from 'vue'
 
-const home = useHomeStore()
+const home = useMovingStore()
 const typeSelected = ref('Tipo de envio')
 const setType = (type: string) => {
   typeSelected.value = type

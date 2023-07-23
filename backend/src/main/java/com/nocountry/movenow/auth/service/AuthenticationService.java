@@ -37,10 +37,11 @@ public class AuthenticationService {
             throw new UserAlreadyCreatedException("This username has been already taken.");
 
         var user = UserEntity.builder()
-                .username(request.getUsername())
                 .email(request.getEmail())
+                .user_name(request.getUserName())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
+                .softDelete(false)
                 .build();
         user.setSoftDelete(Boolean.FALSE);
 
@@ -59,7 +60,7 @@ public class AuthenticationService {
                 )
         );
         //It will continue to below lines only if authentication was successful
-        var user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new RuntimeException("User not found"));
+        var user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new RuntimeException("User with that email not found"));
         var jwtToken = jwtService.generateToken(user);
         return ResponseDTO.builder()
                 .token(jwtToken)

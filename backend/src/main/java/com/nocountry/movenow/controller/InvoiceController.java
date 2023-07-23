@@ -2,6 +2,9 @@ package com.nocountry.movenow.controller;
 
 import com.nocountry.movenow.model.Invoice;
 import com.nocountry.movenow.service.impl.InvoiceServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,7 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/invoice")
+@Tag(name = "Invoices", description = "Manage Invoices")
 public class InvoiceController {
 
     private final InvoiceServiceImpl invoiceService;
@@ -22,8 +26,11 @@ public class InvoiceController {
         this.invoiceService = invoiceService;
     }
 
+    @Operation(summary = "Save a new invoice", description = "Save a new invoice")
     @PostMapping("")
-    public ResponseEntity<Invoice> saveInvoice(@RequestBody Invoice invoice) {
+    public ResponseEntity<Invoice> saveInvoice(
+            @Parameter(description = "Invoice", required = true)
+            @RequestBody Invoice invoice) {
         try {
             if (invoice == null) {
                 return ResponseEntity.badRequest().body(null);
@@ -36,8 +43,11 @@ public class InvoiceController {
         }
     }
 
+    @Operation(summary = "Get an invoice by id", description = "Get an invoice by id")
     @GetMapping("/{id}")
-    public ResponseEntity<Invoice> getInvoiceById(@PathVariable Long id) {
+    public ResponseEntity<Invoice> getInvoiceById(
+            @Parameter(description = "Invoice id", required = true)
+            @PathVariable Long id) {
         try {
             Optional<Invoice> optionalInvoice = invoiceService.findById(id);
             if (optionalInvoice.isPresent()) {
@@ -51,6 +61,7 @@ public class InvoiceController {
         }
     }
 
+    @Operation(summary = "Get all invoices", description = "Get all invoices")
     @GetMapping("")
     public ResponseEntity<List<Invoice>> getAllUsers() {
         try {
@@ -61,8 +72,13 @@ public class InvoiceController {
         }
     }
 
+    @Operation(summary = "Update an invoice", description = "Update an invoice")
     @PutMapping("/{id}")
-    public ResponseEntity<Invoice> updateInvoice(@PathVariable Long id, @RequestBody Invoice invoice) {
+    public ResponseEntity<Invoice> updateInvoice(
+            @Parameter(description = "Invoice id", required = true)
+            @PathVariable Long id,
+            @Parameter(description = "Invoice", required = true)
+            @RequestBody Invoice invoice) {
         try {
             if (invoiceService.findById(id).isEmpty()) {
                 return ResponseEntity.notFound().build();
@@ -74,8 +90,12 @@ public class InvoiceController {
         }
     }
 
+    @Operation(summary = "Delete an invoice", description = "Delete an invoice")
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteInvoice(@PathVariable Long id) {
+    public ResponseEntity<?> deleteInvoice(
+            @Parameter(description = "Invoice id", required = true)
+            @PathVariable Long id) {
+
         try {
             if (invoiceService.findById(id).isEmpty()) {
                 return ResponseEntity.notFound().build();
