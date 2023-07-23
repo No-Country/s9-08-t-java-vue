@@ -1,5 +1,6 @@
 package com.nocountry.movenow.controller;
 
+import com.nocountry.movenow.model.Comment;
 import com.nocountry.movenow.model.UserEntity;
 import com.nocountry.movenow.model.Vehicle;
 import com.nocountry.movenow.service.impl.UserServiceImpl;
@@ -89,5 +90,20 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
+    }
+
+    @PostMapping("/{iduser}/make-comment/{idmoving}")
+    public ResponseEntity<Comment> makeAComment(@RequestParam int stars,
+                                                @RequestParam String feedback,
+                                                @PathVariable("iduser") Long iduser,
+                                                @PathVariable("idmoving") Long idmoving) {
+
+        try {
+            Comment comment = userService.makeAComment(stars, feedback, iduser, idmoving);
+            return ResponseEntity.ok(comment);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
     }
 }
