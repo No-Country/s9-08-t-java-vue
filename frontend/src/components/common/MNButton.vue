@@ -1,6 +1,6 @@
 <template>
   <button
-    @click.prevent="$emit('click')"
+    @click.prevent
     :class="
       twMerge(
         'hover:bg-second my-2 w-full rounded-full bg-primary-blue font-medium text-white',

@@ -2,24 +2,24 @@
   <main class="container mx-auto overflow-x-hidden p-2 font-montserrat">
     <StepComponent :values="stepComponentData" @set:current="onEdit"></StepComponent>
     <!--TODO: Move section to component stepOne-->
-    <section v-if="stepForm == 1">
+    <section v-if="mySteps == 1">
       <MovingType />
       <FleetWrapper />
       <ExtrasComponent />
       <TimeComponent />
     </section>
     <!--TODO: Move section to component stepOne-->
-    <section v-if="stepForm == 2">
+    <section v-if="mySteps == 2">
       <OrderVerification></OrderVerification>
     </section>
-    <section v-if="stepForm == 3">
+    <section v-if="mySteps == 3">
       <Payment></Payment>
     </section>
-    <section v-if="stepForm == 4">
+    <section v-if="mySteps == 4">
       <OrderFinished />
     </section>
 
-    <section v-if="(stepForm == 4) == false" class="flex justify-end gap-1">
+    <section v-show="(mySteps == 4) == false" class="flex justify-end gap-1">
       <MNButton
         text="Atras"
         :class="`w-36 cursor-pointer rounded-lg bg-primary-orange py-1 ${
@@ -53,7 +53,9 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const stepForm = ref(1)
+
+const mySteps = ref(1)
+
 const stepComponentData = ref([
   { editable: true, name: 'Tipo de envío', status: true, stepNumber: 0 },
   { editable: true, name: 'Especificaciones del pedido', status: false, stepNumber: 1 },
@@ -63,18 +65,18 @@ const stepComponentData = ref([
 ])
 
 const nextStep = () => {
-  stepComponentData.value[stepForm.value].status = true
-  stepForm.value++
+  stepComponentData.value[mySteps.value].status = true
+  mySteps.value++
 }
 
 const prevStep = () => {
-  stepForm.value--
-  stepComponentData.value[stepForm.value].status = false
+  mySteps.value--
+  stepComponentData.value[mySteps.value].status = false
 }
 
 const onEdit = (index: number) => {
   if (index == 0) router.push('/')
   stepComponentData.value[index].status = false
-  stepForm.value = index
+  mySteps.value = index
 }
 </script>
