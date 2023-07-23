@@ -5,6 +5,6 @@ export const getCrewMembers = async () => {
     const res = await http.get('/crew-members/')
     return res.data
   } catch (error) {
-    throw 'Error'
+    return []
   }
 }

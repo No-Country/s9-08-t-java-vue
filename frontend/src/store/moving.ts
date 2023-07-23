@@ -1,4 +1,4 @@
-import { MOVING_STORE_NAME } from '@/constants'
+import { MOVING_STORE_NAME } from '@/lib/constants'
 import { defineStore } from 'pinia'
 import { reactive, ref } from 'vue'
 
