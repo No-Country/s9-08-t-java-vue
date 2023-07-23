@@ -35,11 +35,16 @@
       </div>
       <div class="w-28" color="bg-orange-400">
         <MNButton
-          text="Contratar"
+          :text="
+            prop.type == moving.vehicleType.value
+              ? DEFAULT_BTN_NAMES.CONTRATADO
+              : DEFAULT_BTN_NAMES.CONTRATAR
+          "
           :class="`cursor-pointer rounded-lg bg-primary-orange py-1 ${
             prop.selectable ? 'hover:brightness-90' : ' cursor-default bg-zinc-600 opacity-20'
-          }`"
-          :disabled="prop.selectable"
+          } ${prop.type == moving.vehicleType.value ? 'bg-green-400' : ''}`"
+          :disabled="prop.selectable == false"
+          @click="toSelectVehicle"
         ></MNButton>
       </div>
       <div v-if="!prop.selectable" class="text-center text-sm">
@@ -52,10 +57,26 @@
 <script setup lang="ts">
 import MNButton from '@/components/common/MNButton.vue'
 import { type IFleetCard } from '@/lib/types'
+import { useMovingStore } from '@/store/moving'
+import { storeToRefs } from 'pinia'
+import { ref } from 'vue'
 
 interface FleetCardProp {
   prop: IFleetCard
 }
+
+const DEFAULT_BTN_NAMES = {
+  CONTRATAR: 'Contratar',
+  CONTRATADO: 'Contratado'
+}
+
+const toSelectVehicle = () => {
+  console.log('click')
+  moving.vehicleType.value = props.prop.type
+}
+
+const btnState = ref('Contratar')
+const moving = storeToRefs(useMovingStore())
 
 const props = defineProps<FleetCardProp>()
 </script>

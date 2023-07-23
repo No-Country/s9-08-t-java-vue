@@ -2,24 +2,24 @@
   <main class="container mx-auto overflow-x-hidden p-2 font-montserrat">
     <StepComponent :values="stepComponentData" @set:current="onEdit"></StepComponent>
     <!--TODO: Move section to component stepOne-->
-    <section v-if="mySteps == 1">
+    <section v-if="mySteps == 2">
       <MovingType />
       <FleetWrapper />
       <ExtrasComponent />
       <TimeComponent />
     </section>
     <!--TODO: Move section to component stepOne-->
-    <section v-if="mySteps == 2">
+    <section v-if="mySteps == 4">
       <OrderVerification></OrderVerification>
     </section>
     <section v-if="mySteps == 3">
       <Payment></Payment>
     </section>
-    <section v-if="mySteps == 4">
+    <section v-if="mySteps == 5">
       <OrderFinished />
     </section>
 
-    <section v-show="(mySteps == 4) == false" class="flex justify-end gap-1">
+    <section v-show="(mySteps == 5) == false" class="flex justify-end gap-1">
       <MNButton
         text="Atras"
         :class="`w-36 cursor-pointer rounded-lg bg-primary-orange py-1 ${
@@ -54,14 +54,14 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-const mySteps = ref(1)
+const mySteps = ref(2)
 
 const stepComponentData = ref([
-  { editable: true, name: 'Tipo de envío', status: true, stepNumber: 0 },
-  { editable: true, name: 'Especificaciones del pedido', status: false, stepNumber: 1 },
-  { editable: true, name: 'Pago', status: false, stepNumber: 2 },
-  { editable: true, name: 'Verificación de pedido', status: false, stepNumber: 3 },
-  { editable: false, name: 'Pedido Finalizado', status: false, stepNumber: 4 }
+  { editable: true, name: 'Tipo de envío', status: true, stepNumber: 1 },
+  { editable: true, name: 'Especificaciones del pedido', status: true, stepNumber: 2 },
+  { editable: true, name: 'Pago', status: false, stepNumber: 3 },
+  { editable: true, name: 'Verificación de pedido', status: false, stepNumber: 4 },
+  { editable: false, name: 'Pedido Finalizado', status: false, stepNumber: 5 }
 ])
 
 const nextStep = () => {

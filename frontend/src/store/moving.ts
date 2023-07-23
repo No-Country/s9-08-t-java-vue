@@ -9,7 +9,7 @@ export const useMovingStore = defineStore(MOVING_STORE_NAME, () => {
   const date = ref('')
 
   const movingSize = ref('')
-  const vehicle = ref()
+  const vehicleType = ref('')
 
   const stepOne = reactive({
     sendingType,
@@ -27,5 +27,5 @@ export const useMovingStore = defineStore(MOVING_STORE_NAME, () => {
   }
   const setSendinType = (type: string) => (sendingType.value = type)
 
-  return { setSendinType, sendingType, stepOne, setValuesStepOne, movingSize }
+  return { setSendinType, sendingType, stepOne, setValuesStepOne, movingSize, vehicleType }
 })

@@ -1,6 +1,6 @@
 export const ROLES = {
-  ADMIN: 'ADMIN',
-  USER: 'USER'
+  ADMIN: 'ROLE_ADMIN',
+  USER: 'ROLE_USER'
 }
 export const MOVING_STORE_NAME = 'moving'
 
