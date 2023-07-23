@@ -1,6 +1,7 @@
 package com.nocountry.movenow.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nocountry.movenow.model.enums.Shift;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,9 @@ public class Schedule {
     private Long id;
     private LocalDateTime starDate;
     private LocalDateTime endDate;
+
+    @Enumerated(EnumType.STRING)
+    private Shift shift;
 
     @Column(name = "id_vehicle")
     private Long idVehicle;
