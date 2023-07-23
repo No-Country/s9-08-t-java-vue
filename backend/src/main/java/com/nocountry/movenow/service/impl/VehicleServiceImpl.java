@@ -1,5 +1,6 @@
 package com.nocountry.movenow.service.impl;
 
+import com.nocountry.movenow.exception.VehicleNotFoundException;
 import com.nocountry.movenow.model.Vehicle;
 import com.nocountry.movenow.repository.VehicleRepository;
 import com.nocountry.movenow.service.VehicleService;
@@ -80,6 +81,17 @@ public class VehicleServiceImpl implements VehicleService {
             vehicleUpdated.setType(vehicle.getType());
         }
 
+        if (vehicle.getCapacityDescription() != null) {
+            vehicleUpdated.setCapacityDescription(vehicle.getCapacityDescription());
+        }
+
+        if (vehicle.getLimitDescription() != null) {
+            vehicleUpdated.setLimitDescription(vehicle.getLimitDescription());
+        }
+
+        if (vehicle.getImgUrl() != null) {
+            vehicleUpdated.setImgUrl(vehicle.getImgUrl());
+        }
 
         if (vehicle.getSchedules() != null) {
             vehicleUpdated.setSchedules(vehicle.getSchedules());
@@ -103,6 +115,37 @@ public class VehicleServiceImpl implements VehicleService {
         return vehicles;
 
     }
+
+    @Override
+    public List<Vehicle> getAllByType(String type) {
+        List<Vehicle> vehicles = vehicleRepository.getAllByType(type);
+        if (vehicles.isEmpty()) {
+            throw new RuntimeException("No vehicles found");
+        }
+
+        return vehicles;
+    }
+
+    @Override
+    public Vehicle addImageUrl(String imgUrl, Long id) {
+
+        Optional<Vehicle> vehicleOptinal = vehicleRepository.findById(id);
+
+        if (vehicleOptinal.isEmpty()) {
+
+            throw new VehicleNotFoundException("Vehicle not found");
+
+        }
+
+        Vehicle vehicle = vehicleOptinal.get();
+
+        vehicle.setImgUrl(imgUrl);
+
+        return vehicleRepository.save(vehicle);
+
+
+    }
+
 
 
 }

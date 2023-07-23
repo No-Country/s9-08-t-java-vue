@@ -35,6 +35,12 @@ public class Vehicle {
 
     private boolean status;
 
+    private String capacityDescription;
+
+    private String limitDescription;
+
+    private String imgUrl;
+
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.REMOVE)
     private List<Schedule> schedules;
 
