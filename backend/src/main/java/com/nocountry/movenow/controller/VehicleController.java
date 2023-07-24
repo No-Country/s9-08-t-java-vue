@@ -117,7 +117,7 @@ public class VehicleController {
     }
 
     @Operation(description = "Get all vehicles by type")
-    @GetMapping("/{type}")
+    @GetMapping("/type/{type}")
     public ResponseEntity<List<Vehicle>> getAllVehiclesByType(
             @Parameter(description = "Vehicle type", required = true)
             @PathVariable String type) {

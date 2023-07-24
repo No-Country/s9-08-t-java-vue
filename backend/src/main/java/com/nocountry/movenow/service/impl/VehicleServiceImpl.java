@@ -2,6 +2,7 @@ package com.nocountry.movenow.service.impl;
 
 import com.nocountry.movenow.exception.VehicleNotFoundException;
 import com.nocountry.movenow.model.Vehicle;
+import com.nocountry.movenow.model.enums.VehicleType;
 import com.nocountry.movenow.repository.VehicleRepository;
 import com.nocountry.movenow.service.VehicleService;
 import org.springframework.stereotype.Service;
@@ -117,7 +118,7 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public List<Vehicle> getAllByType(String type) {
-        List<Vehicle> vehicles = vehicleRepository.getAllByType(type);
+        List<Vehicle> vehicles = vehicleRepository.getAllByType(VehicleType.valueOf(type.toUpperCase()));
         if (vehicles.isEmpty()) {
             throw new RuntimeException("No vehicles found");
         }
@@ -128,15 +129,15 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public Vehicle addImageUrl(String imgUrl, Long id) {
 
-        Optional<Vehicle> vehicleOptinal = vehicleRepository.findById(id);
+        Optional<Vehicle> vehicleOptional = vehicleRepository.findById(id);
 
-        if (vehicleOptinal.isEmpty()) {
+        if (vehicleOptional.isEmpty()) {
 
             throw new VehicleNotFoundException("Vehicle not found");
 
         }
 
-        Vehicle vehicle = vehicleOptinal.get();
+        Vehicle vehicle = vehicleOptional.get();
 
         vehicle.setImgUrl(imgUrl);
 
