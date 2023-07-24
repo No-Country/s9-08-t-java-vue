@@ -1,6 +1,8 @@
 package com.nocountry.movenow.service.impl;
 
+import com.nocountry.movenow.exception.VehicleNotFoundException;
 import com.nocountry.movenow.model.Vehicle;
+import com.nocountry.movenow.model.enums.VehicleType;
 import com.nocountry.movenow.repository.VehicleRepository;
 import com.nocountry.movenow.service.VehicleService;
 import org.springframework.stereotype.Service;
@@ -80,6 +82,17 @@ public class VehicleServiceImpl implements VehicleService {
             vehicleUpdated.setType(vehicle.getType());
         }
 
+        if (vehicle.getCapacityDescription() != null) {
+            vehicleUpdated.setCapacityDescription(vehicle.getCapacityDescription());
+        }
+
+        if (vehicle.getLimitDescription() != null) {
+            vehicleUpdated.setLimitDescription(vehicle.getLimitDescription());
+        }
+
+        if (vehicle.getImgUrl() != null) {
+            vehicleUpdated.setImgUrl(vehicle.getImgUrl());
+        }
 
         if (vehicle.getSchedules() != null) {
             vehicleUpdated.setSchedules(vehicle.getSchedules());
@@ -88,7 +101,6 @@ public class VehicleServiceImpl implements VehicleService {
         vehicleUpdated.setStatus(vehicle.getStatus());
 
         return vehicleRepository.save(vehicleUpdated);
-
 
     }
 
@@ -103,6 +115,37 @@ public class VehicleServiceImpl implements VehicleService {
         return vehicles;
 
     }
+
+    @Override
+    public List<Vehicle> getAllByType(String type) {
+        List<Vehicle> vehicles = vehicleRepository.getAllByType(VehicleType.valueOf(type.toUpperCase()));
+        if (vehicles.isEmpty()) {
+            throw new RuntimeException("No vehicles found");
+        }
+
+        return vehicles;
+    }
+
+    @Override
+    public Vehicle addImageUrl(String imgUrl, Long id) {
+
+        Optional<Vehicle> vehicleOptional = vehicleRepository.findById(id);
+
+        if (vehicleOptional.isEmpty()) {
+
+            throw new VehicleNotFoundException("Vehicle not found");
+
+        }
+
+        Vehicle vehicle = vehicleOptional.get();
+
+        vehicle.setImgUrl(imgUrl);
+
+        return vehicleRepository.save(vehicle);
+
+
+    }
+
 
 
 }

@@ -1,5 +1,6 @@
 package com.nocountry.movenow.service;
 
+import com.nocountry.movenow.model.Comment;
 import com.nocountry.movenow.model.UserEntity;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface UserService {
     UserEntity update(UserEntity user);
 
     List<UserEntity> getAll();
+
+    Comment makeAComment(int stars, String feedback, Long idUser, Long idMoving);
 }

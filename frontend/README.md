@@ -113,3 +113,21 @@ home/components/MoreOptionsCard.vue
   const items: Ref<IMoreOptionsCard[]> = ref(data)
 </script>
 ```
+
+SwiperGeneric
+
+```html
+<SwiperGeneric :data="data" class="mt-10 h-96">
+  <template #slide="{ info, size }">
+    <CardMovin :info="info" :size="size"></CardMovin>
+  </template>
+</SwiperGeneric>
+
+<script setup lang="ts">
+  const data = ref([
+    { info: 'Persona o parejas', size: 'S' },
+    { info: 'Familia o eventos reducidos', size: 'M' },
+    { info: 'Familia o eventos grandes', size: 'L' }
+  ])
+</script>
+```

@@ -1,6 +1,7 @@
 package com.nocountry.movenow.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nocountry.movenow.model.enums.Shift;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,8 +18,11 @@ public class Schedule {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime starDate;
-    private LocalDateTime endDate;
+    private LocalDateTime starDateTime;
+    private LocalDateTime endDateTime;
+
+    @Enumerated(EnumType.STRING)
+    private Shift shift;
 
     @Column(name = "id_vehicle")
     private Long idVehicle;
@@ -30,7 +34,7 @@ public class Schedule {
     @JsonIgnore
     private Vehicle vehicle;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "id_moving", insertable = false, updatable = false)
     @JsonIgnore
     private Moving moving;

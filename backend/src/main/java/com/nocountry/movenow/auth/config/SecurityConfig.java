@@ -19,26 +19,40 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
+
+        http.cors().and()
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .antMatchers(
-                        "/api/**/**",
+
+                        "/api/auth/**",
                         "/swagger-resources",
                         "/swagger-resources/**",
                         "/configuration/ui",
                         "/configuration/security",
                         "/swagger-ui/**",
                         "/webjars/**",
-                        "/swagger-ui.html"
+                        "/swagger-ui.html",
+                        "/api/user/**",
+                        "/v3/api-docs/**"
                 )
                 .permitAll()
+               .antMatchers(
+                        "/api/comment/**",
+                        "/api/moving/**/**/**",
+                        "/api/invoice")
+                .hasRole("USER")
+                .antMatchers(
+                        "/api/vehicle/**",
+                        "/api/crew-members/**",
+                        "/api/moving/**/**/**",
+                        "/api/user/**")
+                .hasRole("ADMIN")
                 .anyRequest().authenticated().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 }

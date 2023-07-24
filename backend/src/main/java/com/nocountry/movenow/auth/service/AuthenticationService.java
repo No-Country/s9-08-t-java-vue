@@ -11,12 +11,12 @@ import com.nocountry.movenow.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -37,10 +37,11 @@ public class AuthenticationService {
             throw new UserAlreadyCreatedException("This username has been already taken.");
 
         var user = UserEntity.builder()
-                .username(request.getUsername())
                 .email(request.getEmail())
+                .user_name(request.getUserName())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER)
+                .role(Set.of(Role.ROLE_USER))
+                .softDelete(false)
                 .build();
         user.setSoftDelete(Boolean.FALSE);
 
@@ -59,7 +60,7 @@ public class AuthenticationService {
                 )
         );
         //It will continue to below lines only if authentication was successful
-        var user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new RuntimeException("User not found"));
+        var user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new RuntimeException("User with that email not found"));
         var jwtToken = jwtService.generateToken(user);
         return ResponseDTO.builder()
                 .token(jwtToken)
