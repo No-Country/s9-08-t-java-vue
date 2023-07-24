@@ -1,6 +1,7 @@
 package com.nocountry.movenow.dto;
 
 import com.nocountry.movenow.model.enums.Shift;
+import com.nocountry.movenow.model.enums.VehicleType;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -17,6 +18,6 @@ public class MovingDTO {
     List<Long> crewMembersIds;
     LocalDate date;
     Shift shift;
-    Long vehicleId;
+    String vehicleType;
 
 }

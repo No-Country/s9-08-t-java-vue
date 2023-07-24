@@ -101,7 +101,6 @@ public class VehicleServiceImpl implements VehicleService {
 
         return vehicleRepository.save(vehicleUpdated);
 
-
     }
 
     @Override

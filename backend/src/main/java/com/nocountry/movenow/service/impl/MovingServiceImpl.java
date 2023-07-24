@@ -17,17 +17,14 @@ public class MovingServiceImpl implements MovingService {
     private final CrewMemberServiceImpl crewMemberService;
     private final UserServiceImpl userService;
     private final ScheduleServiceImpl scheduleServiceImpl;
+    private final VehicleServiceImpl vehicleService;
 
-
-
-
-
-    MovingServiceImpl(UserServiceImpl userRepository, ScheduleServiceImpl scheduleServiceImpl, MovingRepository movingRepository, CrewMemberServiceImpl crewMemberService) {
+    MovingServiceImpl(UserServiceImpl userRepository, ScheduleServiceImpl scheduleServiceImpl, MovingRepository movingRepository, CrewMemberServiceImpl crewMemberService, VehicleServiceImpl vehicleService) {
         this.movingRepository = movingRepository;
         this.crewMemberService = crewMemberService;
         this.scheduleServiceImpl = scheduleServiceImpl;
         this.userService = userRepository;
-
+        this.vehicleService = vehicleService;
     }
 
 
@@ -53,8 +50,18 @@ public class MovingServiceImpl implements MovingService {
         moving.setLoadingPoint(movingDTO.getLoadingPoint());
         moving.setInsurance(movingDTO.getInsurance());
 
+        //Get random vehicle by selected type
+        List<Vehicle> vehiclesByType = vehicleService.getAllByType(movingDTO.getVehicleType());
+
+        Vehicle randomVehicle = vehiclesByType.stream()
+                .filter(Vehicle::getStatus)
+                .findAny()
+                .orElseThrow(() -> new VehicleNotFoundException("Neither vehicle of the type " + movingDTO.getVehicleType() + " available."));
+
+        randomVehicle.setStatus(false);
+
         // Create a list of schedules with the provided start and end dates, vehicleId and moving
-        Schedule schedule = scheduleServiceImpl.buildSchedule(movingDTO.getDate(), movingDTO.getShift(), movingDTO.getVehicleId());
+        Schedule schedule = scheduleServiceImpl.buildSchedule(movingDTO.getDate(), movingDTO.getShift(), randomVehicle.getId());
 
         // Retrieve CrewMembers from repository using the provided IDs
         List<CrewMember> crewMembers = crewMemberService.findAllById(movingDTO.getCrewMembersIds());
@@ -66,11 +73,9 @@ public class MovingServiceImpl implements MovingService {
         // Set the crew members to the moving
         moving.setCrew(crewMembers);
 
-
         //Verify that the user exists
-
-        UserEntity user = userService.findById(movingDTO.getIdUser()).get();
-
+        UserEntity user = userService.findById(movingDTO.getIdUser())
+                .orElseThrow(() -> new RuntimeException("Not user found with that id."));
 
         moving.setIdUser(user.getId());
 
@@ -82,7 +87,8 @@ public class MovingServiceImpl implements MovingService {
 
         // Save all the schedules
         scheduleServiceImpl.save(schedule, moving.getId());
-        //Update crew members asigning the moving
+
+        //Updating crew members by assigning the moving
         crewMemberService.updateAll(crewMembers,moving);
 
         return movingRepository.save(moving);
