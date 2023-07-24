@@ -38,13 +38,13 @@ public class SecurityConfig {
                 )
                 .permitAll()
                .antMatchers(
+                       "/api/crew-members/**",
                         "/api/comment/**",
                         "/api/moving/**/**/**",
                         "/api/invoice")
                 .hasRole("USER")
                 .antMatchers(
                         "/api/vehicle/**",
-                        "/api/crew-members/**",
                         "/api/moving/**/**/**",
                         "/api/user/**")
                 .hasRole("ADMIN")
