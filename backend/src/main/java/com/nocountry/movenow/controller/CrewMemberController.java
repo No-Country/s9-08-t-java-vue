@@ -85,4 +85,17 @@ public class CrewMemberController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+
+    @GetMapping("/random/{number}")
+    public ResponseEntity<List<CrewMember>> getRandomCrewMembers(@PathVariable int number) {
+        try {
+            List<CrewMember> randomCrewMembers = crewMemberService.getRandomCrewMembers(number);
+            return new ResponseEntity<>(randomCrewMembers, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            // Handle exception if no crew members found
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
 }

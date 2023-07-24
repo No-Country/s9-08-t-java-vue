@@ -102,4 +102,16 @@ public class CrewMemberServiceImpl implements CrewMemberService {
         }
         return crewMembers;
     }
+
+    @Override
+    public List<CrewMember> getRandomCrewMembers(int number) {
+
+        List<CrewMember> crewMembers = crewMemberRepository.getCrewMemberByNumber(number);
+
+        if(crewMembers.isEmpty()) {
+            throw new RuntimeException("No crew members found");
+        }
+        return crewMembers;
+
+    }
 }

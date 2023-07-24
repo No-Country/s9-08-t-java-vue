@@ -63,10 +63,12 @@ public class MovingServiceImpl implements MovingService {
         // Create a list of schedules with the provided start and end dates, vehicleId and moving
         Schedule schedule = scheduleServiceImpl.buildSchedule(movingDTO.getDate(), movingDTO.getShift(), randomVehicle.getId());
 
-        // Retrieve CrewMembers from repository using the provided IDs
-        List<CrewMember> crewMembers = crewMemberService.findAllById(movingDTO.getCrewMembersIds());
+        // Retrieve a quantity of CrewMembers from repository
+
+        List<CrewMember> crewMembers = crewMemberService.getRandomCrewMembers(movingDTO.getCrewMembersNumber());
+
         // Ensure that all provided CrewMembers exist in the repository
-        if (crewMembers.size() != movingDTO.getCrewMembersIds().size()) {
+        if (crewMembers.size() != movingDTO.getCrewMembersNumber()) {
             throw new CrewMemberNotFoundException("One or more CrewMembers not found");
         }
 

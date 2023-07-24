@@ -15,7 +15,7 @@ public class MovingDTO {
     String loadingPoint;
     Boolean insurance;
     Long idUser;
-    List<Long> crewMembersIds;
+    int crewMembersNumber;
     LocalDate date;
     Shift shift;
     String vehicleType;
