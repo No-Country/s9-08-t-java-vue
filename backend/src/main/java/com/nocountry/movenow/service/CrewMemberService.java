@@ -21,4 +21,6 @@ public interface CrewMemberService {
     List<CrewMember> getAll();
 
     List<CrewMember> findAllById(List<Long> crewMemberIds);
+
+    List<CrewMember> getRandomCrewMembers(int number);
 }
