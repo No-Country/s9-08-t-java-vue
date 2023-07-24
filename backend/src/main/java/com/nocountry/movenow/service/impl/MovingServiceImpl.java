@@ -54,7 +54,7 @@ public class MovingServiceImpl implements MovingService {
         moving.setInsurance(movingDTO.getInsurance());
 
         // Create a list of schedules with the provided start and end dates, vehicleId and moving
-        Schedule schedule = scheduleServiceImpl.buildSchedule(movingDTO.getStart(), movingDTO.getEnds(), movingDTO.getVehicleId());
+        Schedule schedule = scheduleServiceImpl.buildSchedule(movingDTO.getDate(), movingDTO.getShift(), movingDTO.getVehicleId());
 
         // Retrieve CrewMembers from repository using the provided IDs
         List<CrewMember> crewMembers = crewMemberService.findAllById(movingDTO.getCrewMembersIds());

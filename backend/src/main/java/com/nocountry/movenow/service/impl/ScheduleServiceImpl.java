@@ -2,6 +2,7 @@ package com.nocountry.movenow.service.impl;
 
 
 import com.nocountry.movenow.exception.MovingNotFoundException;
+import com.nocountry.movenow.exception.VehicleNotFoundException;
 import com.nocountry.movenow.model.Moving;
 import com.nocountry.movenow.model.Schedule;
 import com.nocountry.movenow.model.Vehicle;
@@ -13,7 +14,9 @@ import com.nocountry.movenow.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +28,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     private final VehicleRepository vehicleRepository;
 
-    private MovingRepository movingRepository;
+    private final MovingRepository movingRepository;
 
     @Autowired
     public ScheduleServiceImpl(MovingRepository movingRepository, ScheduleRepository scheduleRepository, VehicleRepository vehicleRepository) {
@@ -43,7 +46,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         }
 
         Optional<Moving> moving = movingRepository.findById(movingId);
-        if (moving == null) {
+        if (moving.isEmpty()) {
             throw new MovingNotFoundException("Moving not found");
         }
 
@@ -74,18 +77,18 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         Optional<Schedule> scheduleOptinal = scheduleRepository.findById(schedule.getId());
 
-        if (!scheduleOptinal.isPresent()) {
+        if (scheduleOptinal.isEmpty()) {
             throw new RuntimeException("Schedule not found");
         }
 
         Schedule schedule1 = scheduleOptinal.get();
 
-        if (schedule.getStarDate() != null) {
-            schedule1.setStarDate(schedule.getStarDate());
+        if (schedule.getStarDateTime() != null) {
+            schedule1.setStarDateTime(schedule.getStarDateTime());
         }
 
-        if (schedule.getEndDate() != null) {
-            schedule1.setEndDate(schedule.getEndDate());
+        if (schedule.getEndDateTime() != null) {
+            schedule1.setEndDateTime(schedule.getEndDateTime());
         }
 
         if (schedule.getVehicle() != null) {
@@ -97,25 +100,37 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public Schedule buildSchedule(LocalDateTime startDates, LocalDateTime endDates, Long vehicleId) {
+    public Schedule buildSchedule(LocalDate date, Shift shift, Long vehicleId) {
 
 
         if (vehicleId == null) {
             throw new RuntimeException("Vehicle not found");
         }
 
-        if (startDates == null || endDates == null) {
-            throw new RuntimeException("Dates not match");
+        if (date == null) {
+            throw new RuntimeException("Start or end dates can't be null.");
         }
 
-       Schedule schedule = new Schedule();
-       schedule.setStarDate(startDates);
-       schedule.setEndDate(endDates);
+        if (shift == null) {
+            throw new RuntimeException("Shift can't be null.");
+        }
 
-        Vehicle vehicle = vehicleRepository.findById(vehicleId).get();
+        //Creates Schedule based in selected date and shift
+        LocalTime startTime = shift.retrieveStartTime();
+        LocalTime endTime = shift.retrieveEndTime();
 
-       schedule.setIdVehicle(vehicleId);
-       schedule.setVehicle(vehicle);
+        Schedule schedule = new Schedule();
+        schedule.setStarDateTime(LocalDateTime.of(date, startTime));
+        schedule.setEndDateTime(LocalDateTime.of(date, endTime));
+
+        //vehicle assignment to schedule
+        Optional<Vehicle> vehicleOptional = vehicleRepository.findById(vehicleId);
+
+        Vehicle vehicle = vehicleOptional
+                .orElseThrow(() -> new VehicleNotFoundException("Vehicle not found"));
+
+        schedule.setIdVehicle(vehicleId);
+        //schedule.setVehicle(vehicle);
 
         return schedule;
     }
