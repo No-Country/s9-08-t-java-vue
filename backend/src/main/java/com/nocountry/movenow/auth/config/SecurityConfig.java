@@ -33,7 +33,8 @@ public class SecurityConfig {
                         "/swagger-ui/**",
                         "/webjars/**",
                         "/swagger-ui.html",
-                        "/api/user/**"
+                        "/api/user/**",
+                        "/v3/api-docs/**"
                 )
                 .permitAll()
                .antMatchers(
