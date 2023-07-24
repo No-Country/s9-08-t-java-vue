@@ -5,7 +5,7 @@ export const ROLES = {
 export const MOVING_STORE_NAME = 'moving'
 
 export const VEHICLES = {
-  PICK_UP: 'Pick up',
+  PICK_UP: 'Pick_up',
   TRUCK: 'Truck',
-  HEAVI_TRUCK: 'Heavi truck'
+  HEAVY_TRUCK: 'Heavy_truck'
 }

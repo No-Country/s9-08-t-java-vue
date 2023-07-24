@@ -72,21 +72,17 @@ const DEFAULT_BTN_NAMES = {
 }
 
 const toSelectVehicle = () => {
-  console.log('click')
   moving.vehicleType.value = props.prop.type
 }
 
-const btnState = ref('Contratar')
 const moving = storeToRefs(useMovingStore())
-
 const props = defineProps<FleetCardProp>()
 const btnFlagColor = ref(true)
 
 watch(
   () => moving.movingSize.value,
   () => {
-    console.log('WATCCCH')
-    if (moving.movingSize.value == 'S' && props.prop.type == VEHICLES.HEAVI_TRUCK) {
+    if (moving.movingSize.value == 'S' && props.prop.type == VEHICLES.HEAVY_TRUCK) {
       btnFlagColor.value = false
       moving.vehicleType.value = ''
     } else if (moving.movingSize.value == 'L' && props.prop.type == VEHICLES.TRUCK) {

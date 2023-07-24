@@ -8,15 +8,17 @@ export const useMovingStore = defineStore(MOVING_STORE_NAME, () => {
   const destination = ref('')
   const date = ref('')
 
-  const movingSize = ref('')
-  const vehicleType = ref('')
-
   const stepOne = reactive({
     sendingType,
     origin,
     destination,
     date
   })
+
+  const movingSize = ref('')
+  const vehicleType = ref('')
+  const helperFlag = ref(false)
+  const helpers = ref([])
 
   const stepTwo = ref()
 
