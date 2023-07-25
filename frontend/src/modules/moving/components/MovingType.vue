@@ -25,8 +25,8 @@ import { reactive } from 'vue'
 
 const store = storeToRefs(useMovingStore())
 const data = reactive([
-  { info: 'Persona o parejas', size: 'S', state: true },
-  { info: 'Familia o eventos reducidos', size: 'M', state: false },
+  { info: 'Persona o parejas', size: 'S', state: false },
+  { info: 'Familia o eventos reducidos', size: 'M', state: true },
   { info: 'Familia o eventos grandes', size: 'L', state: false }
 ])
 

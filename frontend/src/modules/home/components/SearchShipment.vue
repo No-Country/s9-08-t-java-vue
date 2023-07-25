@@ -16,7 +16,7 @@
             type="text"
             class="h-16 w-max rounded-3xl border border-primary-orange px-4"
             border="border-none"
-            v-model="origin"
+            v-model="home.stepOne.value.origin"
           />
           <a href="https://www.google.com/maps/" target="_blank">
             <img
@@ -34,7 +34,7 @@
             type="text"
             class="h-16 w-max rounded-3xl border border-primary-orange px-4"
             border="border-none"
-            v-model="destination"
+            v-model="home.stepOne.value.destination"
           />
           <a href="https://www.google.com/maps/" target="_blank">
             <img
@@ -52,7 +52,7 @@
             border="border-none"
             error-msg="Campo requerido"
             :show-error="dateErr"
-            v-model="date"
+            v-model="home.stepOne.value.date"
           />
           <!--
 
@@ -86,11 +86,12 @@ import { ref } from 'vue'
 import { useAuthStore } from '@/modules/auth/store/auth'
 import { useRouter } from 'vue-router'
 import type { Ref } from 'vue'
+import { storeToRefs } from 'pinia'
 
 const auth = useAuthStore()
-const home = useMovingStore()
+const home = storeToRefs(useMovingStore())
 const router = useRouter()
-const typeSelected = ref(DEFAULT_TEXT)
+const typeSelected = ref(home.stepOne.value.sendingType || DEFAULT_TEXT)
 
 const origin = ref('')
 const originErr = ref(false)
@@ -102,14 +103,14 @@ const typeErr = ref(false)
 
 const search = () => {
   if (areInputsValid() == false) return
-  if (isAnUserLogged() == false) router.push('/auth')
-  home.setValuesStepOne(origin.value, destination.value, date.value)
+  if (isAnUserLogged() == false) return router.push('/auth')
+  //home.setValuesStepOne(origin.value, destination.value, date.value)
   router.push('/moving')
 }
 
 const setType = (type: string) => {
   typeSelected.value = type
-  home.stepOne.sendingType = type
+  home.stepOne.value.sendingType = type
 }
 
 const showErrMessage = (input: Ref) => {
@@ -121,15 +122,15 @@ const showErrMessage = (input: Ref) => {
 
 const areInputsValid = (): boolean => {
   let inputs = true
-  if (origin.value.length < 4) {
+  if (home.stepOne.value.origin.length < 4) {
     showErrMessage(originErr)
     inputs = false
   }
-  if (destination.value.length < 4) {
+  if (home.stepOne.value.destination.length < 4) {
     showErrMessage(destinationErr)
     inputs = false
   }
-  if (date.value.length < 4) {
+  if (home.stepOne.value.date.length < 4) {
     showErrMessage(dateErr)
     inputs = false
   }
@@ -140,5 +141,8 @@ const areInputsValid = (): boolean => {
   return inputs
 }
 
-const isAnUserLogged = () => Boolean(auth.store.profile.token)
+const isAnUserLogged = () => {
+  console.log(Boolean(auth.store.profile.token))
+  return Boolean(auth.store.profile.token)
+}
 </script>
