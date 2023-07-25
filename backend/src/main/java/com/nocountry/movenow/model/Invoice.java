@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 @Data
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor
 public class Invoice {
 
     @Id
@@ -29,4 +28,24 @@ public class Invoice {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_moving", referencedColumnName = "id")
     private Moving moving;
+
+    private final String companyName = "Movenow";
+
+    private final String companyAddress = "Av. Siempreviva 1233";
+
+    private final String companyPhone = "123456789";
+
+    private final String companyCUIT = "30-123456789-0";
+
+    private static int lastInvoiceNumber = 0;
+    private String invoiceNumber;
+
+    public Invoice() {
+        lastInvoiceNumber++;
+        invoiceNumber = String.format("%08d", lastInvoiceNumber);
+    }
+
+
+
+
 }

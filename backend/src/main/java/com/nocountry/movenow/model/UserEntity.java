@@ -14,10 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -50,11 +47,19 @@ public class UserEntity implements UserDetails {
     @Fetch(FetchMode.JOIN)
     private Set<Role> role;
 
+
+    private String clientPhone;
+
+    private String clientCUIT;
+
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Moving> movings;
 
     @Column(name="soft_delete")
     private Boolean softDelete  = Boolean.FALSE;
+
+    //--------------------- UserDetails props
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -94,4 +99,40 @@ public class UserEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
+
+    //---------------------------- User Entity Props
+
+    private String generateRandomNumber(int length) {
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            int digit = random.nextInt(10);
+            sb.append(digit);
+        }
+
+        return sb.toString();
+    }
+
+    // Method to generate a client phone number starting with '54' and followed by 9 random digits
+    public void generateClientPhone() {
+        String prefix = "54";
+        String randomNumbers = generateRandomNumber(9);
+        this.clientPhone = prefix + randomNumbers;
+    }
+
+    // Method to generate a client CUIT starting with '20-', followed by 8 random digits, and another random digit at the end
+    public void generateClientCUIT() {
+        String prefix = "20";
+        String separator1 = "-";
+        String separator2 = "-";
+        String randomNumbers = generateRandomNumber(8);
+        String lastDigit = generateRandomNumber(1);
+
+        this.clientCUIT = prefix + separator1 + randomNumbers + separator2 + lastDigit;
+    }
+
+
 }
