@@ -33,17 +33,18 @@ public class SecurityConfig {
                         "/swagger-ui/**",
                         "/webjars/**",
                         "/swagger-ui.html",
-                        "/api/user/**"
+                        "/api/user/**",
+                        "/v3/api-docs/**"
                 )
                 .permitAll()
                .antMatchers(
+                       "/api/crew-members/**",
                         "/api/comment/**",
                         "/api/moving/**/**/**",
                         "/api/invoice")
                 .hasRole("USER")
                 .antMatchers(
                         "/api/vehicle/**",
-                        "/api/crew-members/**",
                         "/api/moving/**/**/**",
                         "/api/user/**")
                 .hasRole("ADMIN")
