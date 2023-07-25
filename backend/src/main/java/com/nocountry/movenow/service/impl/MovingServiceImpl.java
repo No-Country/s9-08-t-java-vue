@@ -18,13 +18,15 @@ public class MovingServiceImpl implements MovingService {
     private final UserServiceImpl userService;
     private final ScheduleServiceImpl scheduleServiceImpl;
     private final VehicleServiceImpl vehicleService;
+    private final BillingStrategyServiceImpl billingStrategyServiceImpl;
 
-    MovingServiceImpl(UserServiceImpl userRepository, ScheduleServiceImpl scheduleServiceImpl, MovingRepository movingRepository, CrewMemberServiceImpl crewMemberService, VehicleServiceImpl vehicleService) {
+    MovingServiceImpl(BillingStrategyServiceImpl billingStrategyServiceImpl, UserServiceImpl userRepository, ScheduleServiceImpl scheduleServiceImpl, MovingRepository movingRepository, CrewMemberServiceImpl crewMemberService, VehicleServiceImpl vehicleService) {
         this.movingRepository = movingRepository;
         this.crewMemberService = crewMemberService;
         this.scheduleServiceImpl = scheduleServiceImpl;
         this.userService = userRepository;
         this.vehicleService = vehicleService;
+        this.billingStrategyServiceImpl = billingStrategyServiceImpl;
     }
 
 
@@ -83,6 +85,28 @@ public class MovingServiceImpl implements MovingService {
 
         // Set the user
         moving.setUser(user);
+
+        // Set BillingStrategy to the moving
+        // TODO : add ValueTable
+
+        double helperValue = 9.99;
+        double vehicleValue = 19.99; ;
+        double insuranceValue = 19.99; ;
+        int hsQuantity = 5;
+        double packaging = 0;
+
+
+
+        // TODO : add a method to extract hours from the shift
+
+        // Create the BillingStrategy for the moving
+
+        BillingStrategy billingStrategy = billingStrategyServiceImpl.save(helperValue, vehicleValue, insuranceValue , movingDTO.getCrewMembersNumber(), hsQuantity, packaging , moving.getId());
+
+        // Set the BillingStrategy to the moving
+
+        moving.setBillingStrategy(billingStrategy);
+
 
         // Save the moving object
         movingRepository.save(moving);

@@ -1,5 +1,6 @@
 package com.nocountry.movenow.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,27 +27,32 @@ public class BillingStrategy {
     private double insuranceValue = 0;
     @Column(name ="number_helper")
     private int numberOfHelpers=0;
-    @Column(name ="charging_hours")
-    private int chargingHours;
-    @Column(name ="download_hours")
-    private int downloadHours;
-    @Column(name ="travel_hours")
-    private int travelHours;
+    @Column(name ="hs_quantity")
+    private int hsQuantity;
     @Column(name ="packaging")
     private double packaging;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_moving", referencedColumnName = "id")
+    private Moving moving;
+
+    @OneToOne(mappedBy = "moving")
+    @JsonIgnore
+    private Invoice invoice;
+
+
     @Column( name="soft_delete")
     private Boolean softDelete  = Boolean.FALSE;
 
     public BillingStrategy(double helperValue, double vehicleValue, double insuranceValue, int numberOfHelpers,
-                           int chargingHours, int downloadHours, int travelHours, double packaging) {
+                           int hsQuantity, double packaging , Moving moving) {
         this.helperValue = helperValue;
         this.vehicleValue = vehicleValue;
         this.insuranceValue = insuranceValue;
         this.numberOfHelpers = numberOfHelpers;
-        this.chargingHours = chargingHours;
-        this.downloadHours = downloadHours;
-        this.travelHours = travelHours;
+        this.hsQuantity = hsQuantity;
         this.packaging = packaging;
+        this.moving = moving;
     }
 
     public BillingStrategy() {
@@ -77,28 +83,12 @@ public class BillingStrategy {
         this.insuranceValue = insuranceValue;
     }
 
-    public int getChargingHours() {
-        return chargingHours;
+    public int getHsQuantity() {
+        return hsQuantity;
     }
 
     public void setChargingHours(int chargingHours) {
-        this.chargingHours = chargingHours;
-    }
-
-    public int getDownloadHours() {
-        return downloadHours;
-    }
-
-    public void setDownloadHours(int downloadHours) {
-        this.downloadHours = downloadHours;
-    }
-
-    public int getTravelHours() {
-        return travelHours;
-    }
-
-    public void setTravelHours(int travelHours) {
-        this.travelHours = travelHours;
+        this.hsQuantity = hsQuantity;
     }
 
     public int getNumberOfHelpers() {
@@ -110,7 +100,10 @@ public class BillingStrategy {
     }
 
     public double cost(){
-    return ((helperValue * numberOfHelpers) + vehicleValue + insuranceValue) * (chargingHours + downloadHours + travelHours);
+
+        //(vehiclePrice + crewPrice) + (hsQuantity + 2)
+
+    return ((helperValue * numberOfHelpers) + vehicleValue + insuranceValue) * (hsQuantity + 2);
 
     }
 

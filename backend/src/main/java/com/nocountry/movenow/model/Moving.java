@@ -39,9 +39,14 @@ public class Moving {
     @JsonIgnore
     private UserEntity user;
 
+    /*OneToOne(mappedBy = "moving")
+    @JsonIgnore
+    private Invoice invoice;*/
+
+
     @OneToOne(mappedBy = "moving")
     @JsonIgnore
-    private Invoice invoice;
+    private BillingStrategy billingStrategy;
 
     @OneToOne(mappedBy = "moving")
     @JsonIgnore

@@ -1,6 +1,7 @@
 package com.nocountry.movenow.service.impl;
 
 import com.nocountry.movenow.model.BillingStrategy;
+import com.nocountry.movenow.model.Moving;
 import com.nocountry.movenow.repository.BillingStrategyRepository;
 import com.nocountry.movenow.service.IBillingStrategyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,21 +11,25 @@ import java.util.Optional;
 @Service
 public class BillingStrategyServiceImpl implements IBillingStrategyService {
 
+    private final BillingStrategyRepository billingStrategyRepository;
+    private final MovingServiceImpl MovingServiceImpl;
+
 
     @Autowired
-    public BillingStrategyRepository billingStrategyRepository;
-
-    public BillingStrategyServiceImpl(BillingStrategyRepository billingStrategyRepository) {
+    public BillingStrategyServiceImpl(MovingServiceImpl movingServiceImpl , BillingStrategyRepository billingStrategyRepository) {
         this.billingStrategyRepository = billingStrategyRepository;
+        this.MovingServiceImpl = movingServiceImpl;
     }
 
 
     @Override
     public BillingStrategy save(double helperValue, double vehicleValue, double insuranceValue, int numberOfHelpers,
-                                int chargingHours, int downloadHours, int travelHours, double packaging) {
+                                int hsQuantity, double packaging, Long movingId) {
+
+        Moving moving= MovingServiceImpl.findById(movingId);
 
         return billingStrategyRepository.save(new BillingStrategy(helperValue,  vehicleValue, insuranceValue, numberOfHelpers,
-         chargingHours, downloadHours, travelHours, packaging));
+         hsQuantity, packaging , moving));
     }
 
     @Override
@@ -44,9 +49,7 @@ public class BillingStrategyServiceImpl implements IBillingStrategyService {
            billingSObj.setHelperValue(billingStrategy.getHelperValue() > 0 ? billingStrategy.getHelperValue() : billingStrategyOptional.get().getHelperValue());
            billingSObj.setVehicleValue(billingStrategy.getVehicleValue() > 0?billingStrategy.getVehicleValue():billingStrategyOptional.get().getVehicleValue());
            billingSObj.setNumberOfHelpers(billingStrategy.getNumberOfHelpers() > 0? billingStrategy.getNumberOfHelpers():billingStrategyOptional.get().getNumberOfHelpers());
-           billingSObj.setChargingHours(billingStrategy.getChargingHours() > 0? billingStrategy.getChargingHours():billingStrategyOptional.get().getChargingHours());
-           billingSObj.setDownloadHours(billingStrategy.getDownloadHours() > 0? billingStrategy.getDownloadHours():billingStrategyOptional.get().getDownloadHours());
-           billingSObj.setTravelHours(billingStrategy.getTravelHours() > 0? billingStrategy.getTravelHours():billingStrategyOptional.get().getTravelHours());
+           billingSObj.setChargingHours(billingStrategy.getHsQuantity() > 0? billingStrategy.getHsQuantity():billingStrategyOptional.get().getHsQuantity());
            billingSObj.setPackaging(billingStrategy.getPackaging() >0? billingStrategy.getPackaging(): billingStrategyOptional.get().getPackaging());
 
            return billingStrategyRepository.save(billingStrategy);
@@ -78,7 +81,7 @@ public class BillingStrategyServiceImpl implements IBillingStrategyService {
     public double cost(BillingStrategy billingStrategy){
 
         return ((billingStrategy.getHelperValue() * billingStrategy.getNumberOfHelpers()) + billingStrategy.getVehicleValue() )
-                * (billingStrategy.getChargingHours() + billingStrategy.getDownloadHours() + billingStrategy.getTravelHours())
+                * (billingStrategy.getHsQuantity() + 2)
                 + billingStrategy.getInsuranceValue() + billingStrategy.getPackaging();
 
     }

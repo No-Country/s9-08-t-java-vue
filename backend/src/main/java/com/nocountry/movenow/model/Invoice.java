@@ -25,15 +25,19 @@ public class Invoice {
     @Column(name="soft_delete")
     private Boolean softDelete  = Boolean.FALSE;
 
-    @OneToOne(cascade = CascadeType.ALL)
+   /* @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_moving", referencedColumnName = "id")
-    private Moving moving;
+    private Moving moving;*/
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="id_billing_strategy", referencedColumnName = "id")
+    private BillingStrategy billingStrategy;
 
     private final String companyName = "Movenow";
 
-    private final String companyAddress = "Av. Siempreviva 1233";
+    private final String companyAddress = "Av. Bernardo Vasconcelos, n° 377 - CABA";
 
-    private final String companyPhone = "123456789";
+    private final String companyPhone = "08009792020";
 
     private final String companyCUIT = "30-123456789-0";
 
