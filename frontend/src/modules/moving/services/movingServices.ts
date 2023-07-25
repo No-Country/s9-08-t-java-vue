@@ -13,9 +13,10 @@ export const getCrewMembers = async () => {
 
 export const saveMoving = async (data: IMoving) => {
   try {
-    const res = await http.post<IMoving, AxiosResponse>('/moving')
+    const res = await http.post<IMoving, AxiosResponse>('/moving', data)
     return res.data
   } catch (error) {
+    console.log(error)
     throw 'Error'
   }
 }

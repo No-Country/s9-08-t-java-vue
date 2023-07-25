@@ -3,7 +3,7 @@ export interface IMoving {
   loadingPoint: string
   insurance: boolean
   idUser: number
-  crewMembersIds: number[]
+  crewMembersNumber: number
   vehicleType: string
   date: string
   shift: string

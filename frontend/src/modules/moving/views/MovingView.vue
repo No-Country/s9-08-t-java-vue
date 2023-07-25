@@ -28,11 +28,20 @@
         @click="prevStep"
       ></MNButton>
       <MNButton
+        v-if="(mySteps == 4) == false"
         text="Continuar"
         :class="`w-36 cursor-pointer  rounded-lg bg-primary-orange py-1 ${
           true ? 'hover:brightness-90' : ' cursor-default bg-zinc-600 opacity-20'
         }`"
         @click="nextStep"
+      ></MNButton>
+      <MNButton
+        v-if="mySteps == 4"
+        text="Comprar"
+        :class="`w-36 cursor-pointer  rounded-lg bg-primary-orange py-1 ${
+          true ? 'hover:brightness-90' : ' cursor-default bg-zinc-600 opacity-20'
+        }`"
+        @click="handleSummitMoving"
       ></MNButton>
     </section>
   </main>
@@ -58,6 +67,9 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useMovingStore } from '@/store/moving'
+import type { IMoving } from '../interfaces/IMoving'
+import { useAuthStore } from '@/modules/auth/store/auth'
+import { saveMoving } from '../services/movingServices'
 
 const router = useRouter()
 const formError = ref(false)
@@ -65,6 +77,7 @@ const errorMsg = ref('')
 const mySteps = ref(2)
 const timeError = ref(false)
 const moving = storeToRefs(useMovingStore())
+const auth = useAuthStore()
 
 const stepComponentData = ref([
   { editable: true, name: 'Tipo de envío', status: true, stepNumber: 1 },
@@ -123,5 +136,24 @@ const onEdit = (index: number) => {
   if (index == 0) router.push('/')
   stepComponentData.value[index].status = false
   mySteps.value = index
+}
+
+const buildMoving = (): IMoving => {
+  return {
+    crewMembersNumber: moving.crewMembers.value,
+    date: moving.stepOne.value.date,
+    destinationPoint: moving.stepOne.value.destination,
+    idUser: auth.store.profile.id,
+    insurance: moving.insurance.value,
+    loadingPoint: moving.stepOne.value.origin,
+    shift: moving.shift.value,
+    vehicleType: moving.vehicleType.value
+  }
+}
+
+const handleSummitMoving = async () => {
+  const res = await saveMoving(buildMoving())
+  console.log(res)
+  nextStep()
 }
 </script>
