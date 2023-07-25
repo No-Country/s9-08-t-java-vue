@@ -6,7 +6,7 @@
       <MovingType />
       <FleetWrapper />
       <ExtrasComponent @crew:quantity="" />
-      <TimeComponent :timeError="true" />
+      <TimeComponent :timeError="timeError" />
     </section>
     <!--TODO: Move section to component stepOne-->
     <section v-if="mySteps == 4">
@@ -36,6 +36,11 @@
       ></MNButton>
     </section>
   </main>
+  <div class="h-4 w-full">
+    <p class="ml-2 text-lg text-red-500" v-show="formError">
+      Completa los campos <span class="font-semibold">{{ errorMsg }}</span>
+    </p>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -51,10 +56,15 @@ import Payment from '../components/Payment.vue'
 
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia'
+import { useMovingStore } from '@/store/moving'
 
 const router = useRouter()
-
+const formError = ref(false)
+const errorMsg = ref('')
 const mySteps = ref(2)
+const timeError = ref(false)
+const moving = storeToRefs(useMovingStore())
 
 const stepComponentData = ref([
   { editable: true, name: 'Tipo de envío', status: true, stepNumber: 1 },
@@ -64,7 +74,42 @@ const stepComponentData = ref([
   { editable: false, name: 'Pedido Finalizado', status: false, stepNumber: 5 }
 ])
 
+const isValidMovinForm = () => {
+  errorMsg.value = ''
+  let flag = true
+  if (moving.shift.value.length == 0) {
+    timeError.value = true
+    errorMsg.value += ' Horario de llegada'
+    flag = false
+    setTimeout(() => {
+      timeError.value = false
+    }, 1000)
+  }
+
+  if (moving.movingSize.value.length == 0) {
+    formError.value = true
+    errorMsg.value += ' Tamaño de mudanza'
+    flag = false
+    setTimeout(() => {
+      formError.value = false
+    }, 1000)
+  }
+
+  if (moving.vehicleType.value.length == 0) {
+    formError.value = true
+    errorMsg.value += ' Tipo de vehiculo'
+    flag = false
+    setTimeout(() => {
+      formError.value = false
+    }, 1000)
+  }
+
+  return flag
+}
+
 const nextStep = () => {
+  if (isValidMovinForm() == false) return
+
   stepComponentData.value[mySteps.value].status = true
   mySteps.value++
 }
