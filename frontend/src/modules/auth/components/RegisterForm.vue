@@ -68,7 +68,7 @@ const handleRegister = async () => {
   if (validInputs() == false) return
   try {
     const response = await register({
-      username: username.value,
+      userName: username.value,
       password: password.value,
       email: email.value
     })

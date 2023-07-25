@@ -3,6 +3,7 @@ export interface IProfile {
   username: string
   token: string
   roles: unknown[]
+  id: number
 }
 
 export interface IProfileAuth {

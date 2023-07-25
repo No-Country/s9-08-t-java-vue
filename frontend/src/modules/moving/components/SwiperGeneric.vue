@@ -11,8 +11,12 @@
     :center-insufficient-slides="true"
     class="h-full w-full"
   >
-    <swiper-slide v-for="item in data" :key="JSON.stringify(item)" :style="{ flexShrink: 'unset' }">
-      <slot name="slide" v-bind="item"> </slot>
+    <swiper-slide
+      v-for="(item, index) in data"
+      :key="JSON.stringify(item)"
+      :style="{ flexShrink: 'unset' }"
+    >
+      <slot name="slide" v-bind="{ item, index }"> </slot>
     </swiper-slide>
   </swiper>
 </template>
@@ -22,6 +26,6 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 
 defineProps({
-  data: Array as () => unknown[]
+  data: Array as () => any[]
 })
 </script>

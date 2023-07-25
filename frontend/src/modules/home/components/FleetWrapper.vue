@@ -18,16 +18,16 @@ import { watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { MOVING, SENDING } from '../constants'
 
-const home = storeToRefs(useMovingStore())
+const store = storeToRefs(useMovingStore())
 const data: Ref<IFleetCard[]> = ref(flota)
 
-watch(home.sendingType, () => {
-  if (home.sendingType.value === SENDING) {
+watch(store.sendingType, () => {
+  if (store.sendingType.value === SENDING) {
     data.value[1].selectable = false
     data.value[2].selectable = false
     data.value[0].selectable = true
   }
-  if (home.sendingType.value === MOVING) {
+  if (store.sendingType.value === MOVING) {
     data.value[1].selectable = true
     data.value[2].selectable = true
     data.value[0].selectable = false
