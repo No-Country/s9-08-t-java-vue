@@ -5,8 +5,8 @@
     <section v-if="mySteps == 2">
       <MovingType />
       <FleetWrapper />
-      <ExtrasComponent />
-      <TimeComponent />
+      <ExtrasComponent @crew:quantity="" />
+      <TimeComponent :timeError="true" />
     </section>
     <!--TODO: Move section to component stepOne-->
     <section v-if="mySteps == 4">

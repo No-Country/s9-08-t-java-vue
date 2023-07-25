@@ -17,10 +17,11 @@ export const useMovingStore = defineStore(MOVING_STORE_NAME, () => {
 
   const movingSize = ref('')
   const vehicleType = ref('')
-  const helperFlag = ref(false)
-  const helpers = ref([])
+  const crewMembers = ref(1)
+  const insurance = ref(false)
+  const shift = ref('')
 
-  const stepTwo = ref()
+  const stepTwo = ref({})
 
   const setValuesStepOne = (originForm: string, destinationForm: string, dateForm: string) => {
     origin.value = originForm
@@ -29,5 +30,16 @@ export const useMovingStore = defineStore(MOVING_STORE_NAME, () => {
   }
   const setSendinType = (type: string) => (sendingType.value = type)
 
-  return { setSendinType, sendingType, stepOne, setValuesStepOne, movingSize, vehicleType }
+  return {
+    setSendinType,
+    sendingType,
+    stepOne,
+    setValuesStepOne,
+    movingSize,
+    vehicleType,
+    crewMembers,
+    stepTwo,
+    insurance,
+    shift
+  }
 })
