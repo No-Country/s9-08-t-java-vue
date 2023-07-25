@@ -12,3 +12,7 @@ export const SCHEDULES_MAP: { [key: string]: string } = {
   '8 a 12hs': SCHEDULES.FIRST,
   '13 a 17 hs': SCHEDULES.SECOND
 }
+
+export const PAYMENT_METHODS: { [key: string]: string } = {
+  VISA: ''
+}

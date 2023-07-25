@@ -12,7 +12,7 @@
     <section v-if="mySteps == 4">
       <OrderVerification></OrderVerification>
     </section>
-    <section v-if="mySteps == 3">
+    <section class="mb-8" v-if="mySteps == 3">
       <Payment></Payment>
     </section>
     <section v-if="mySteps == 5">
