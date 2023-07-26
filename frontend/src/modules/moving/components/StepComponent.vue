@@ -1,14 +1,14 @@
 <template>
   <div class="flex h-44 items-center justify-center px-16 py-16">
     <div v-for="(i, idx) in values" class="relative flex items-center">
-      <div v-if="idx != 0" class="h-1 w-20 bg-orange-500"></div>
+      <div v-if="idx != 0" class="h-1 w-9 bg-orange-500 lg:w-20"></div>
       <div class="flex h-6 w-6 items-center justify-center rounded-full border-2 border-orange-500">
         <div v-if="i.status" class="h-3 w-3 rounded-full bg-orange-500"></div>
       </div>
-      <div v-if="idx != values.length - 1" class="h-1 w-20 bg-orange-500"></div>
+      <div v-if="idx != values.length - 1" class="h-1 bg-orange-500 lg:w-20"></div>
       <div
         :class="[
-          'absolute left-0 right-0 top-6 m-auto mt-3 flex w-40 flex-col items-center justify-center',
+          'absolute left-0 right-0 top-6 m-auto mt-3 flex w-40 flex-col items-center justify-center -lg:hidden',
           { izq: idx == 0, end: idx == values.length - 1 }
         ]"
       >

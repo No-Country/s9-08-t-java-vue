@@ -1,5 +1,7 @@
 <template>
-  <div class="w-4/12 rounded-r-2xl bg-light-blue px-24 py-10 -mv:w-full -mv:rounded-2xl -mv:px-5">
+  <div
+    class="rounded-r-2xl bg-light-blue px-24 py-10 sm:w-full lg:w-4/6 xl:w-4/12 -mv:w-full -mv:rounded-2xl -mv:px-5"
+  >
     <p>Resumen de pedido</p>
     <ul class="py-4">
       <div class="flex justify-between">
@@ -29,12 +31,12 @@
     <h3 class="text-3xl font-light text-blue-night">
       Seleccione la tarjeta con la que va a realizar la compra.
     </h3>
-    <div class="mt-10 flex gap-8">
-      <div class="w-1/2">
-        <CheckoutForm class="w-96"></CheckoutForm>
+    <div class="mt-10 flex flex-wrap">
+      <div class="w-1/2 -lg:w-full">
+        <CheckoutForm class="lg:w-96"></CheckoutForm>
       </div>
-      <div class="flex w-1/2 flex-col items-center justify-end">
-        <div class="">
+      <div class="flex w-1/2 flex-col items-center justify-end -mv:justify-center -lg:w-full">
+        <div class="lg:w-1/2">
           <div class="flex gap-3">
             <input type="radio" v-model="checkout.isVisa.value" :value="true" />
             <label class="flex items-center" for="">
@@ -50,7 +52,9 @@
             </label>
           </div>
         </div>
-        <CreditCard :is-visa="isVisa"></CreditCard>
+        <div class="lg:w-1/2">
+          <CreditCard :is-visa="isVisa"></CreditCard>
+        </div>
       </div>
     </div>
   </div>

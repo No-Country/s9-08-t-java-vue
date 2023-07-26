@@ -1,7 +1,9 @@
 <template>
-  <section class="mt-16 flex justify-between py-14">
+  <section class="mt-16 flex flex-wrap justify-between py-14 -lg:mt-6 -lg:justify-center -lg:py-3">
     <div class="text-blue-night lg:w-1/2">
-      <h1 class="mt-32 text-3xl font-bold text-primary-orange">Verificación del pedido</h1>
+      <h1 class="mt-32 text-3xl font-bold text-primary-orange -lg:mt-10">
+        Verificación del pedido
+      </h1>
       <div class="w-1/2 border-b-2 py-5">
         <p class="mt-5 text-xl font-bold text-primary-orange">Cuenta</p>
         <p>{{ checkout.name }}</p>

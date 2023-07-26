@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-16">
     <div
-      class="relative m-auto h-56 w-96 transform rounded-xl bg-red-100 text-white shadow-2xl transition-transform"
+      class="relative m-auto h-56 transform rounded-xl bg-red-100 text-white shadow-2xl transition-transform sm:w-96"
     >
       <img class="relative h-full w-full rounded-xl object-cover" :src="cover" />
 
