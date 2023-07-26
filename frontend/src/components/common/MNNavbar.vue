@@ -32,7 +32,10 @@
             Central de ayuda
           </router-link>
         </li>
-        <li class="items-nav-movile items-center gap-1 -mv:flex -mv:h-14 -mv:w-full -mv:border-b-2">
+        <li
+          @click="logOut"
+          class="items-nav-movile items-center gap-1 -mv:flex -mv:h-14 -mv:w-full -mv:border-b-2"
+        >
           <div class="nav-icon">
             <img src="../../assets/img/navicons/session.svg" alt="" srcset="" />
           </div>
@@ -40,9 +43,45 @@
         </li>
       </ul>
     </div>
-    <div class="flex">
+    <div class="relative flex">
       <div v-if="isAuthenticated" class="profile-icon-navbar">
-        <img class="h-10 w-10" src="@/assets/img/profile-icon.svg" alt="" />
+        <img
+          @click="profileMenu = !profileMenu"
+          class="h-10 w-10 rounded-full object-cover"
+          src="@/assets/img/prof.gif"
+          alt=""
+        />
+        <div
+          :class="[
+            'absolute -left-56 top-12 z-10 w-64 rounded-b-3xl rounded-tl-3xl bg-white p-8 shadow-3xl',
+            profileMenu == false ? 'profile-menu' : ''
+          ]"
+        >
+          <div class="flex items-center gap-4">
+            <div>
+              <img class="h-20 w-20 rounded-full object-cover" src="@/assets/img/prof.gif" alt="" />
+            </div>
+            <div><h2 class="font-bold text-blue-900">!Hola</h2></div>
+          </div>
+          <ul class="mt-7 border-t-[1px] border-blue-900">
+            <li class="flex h-14 items-center gap-2">
+              <img src="../../assets/img/navicons/mudanzas.svg" alt="" srcset="" />
+              <RouterLink to="/moving">
+                <p class="font-semibold">Mis mudanzas</p>
+              </RouterLink>
+            </li>
+            <li class="flex h-14 items-center gap-2">
+              <img src="../../assets/img/navicons/help.svg" alt="" srcset="" />
+              <RouterLink to="/help">
+                <p class="font-semibold">Central de ayuda</p>
+              </RouterLink>
+            </li>
+            <li @click="logOut" class="flex h-14 items-center gap-2">
+              <img src="../../assets/img/navicons/session.svg" alt="" srcset="" />
+              <p class="cursor-pointer font-semibold">Cerrar sesion</p>
+            </li>
+          </ul>
+        </div>
       </div>
       <div v-else class="mr-3 flex items-center justify-center gap-2">
         <router-link to="/auth/login">Login</router-link>
@@ -58,18 +97,39 @@
 import { ref } from 'vue'
 import MNMenuButton from './MNMenuButton.vue'
 import { useAuthStore } from '@/modules/auth/store/auth'
+import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia'
+import { watch } from 'vue'
 
-const { store } = useAuthStore()
-const isAuthenticated = !!store.profile.token
+const auth = storeToRefs(useAuthStore())
+const isAuthenticated = ref(!!auth.store.value.profile.token)
 const isOpen = ref(false)
 const handleMenu = () => (isOpen.value = !isOpen.value)
+const profileMenu = ref(false)
+const router = useRouter()
+
+watch(
+  () => auth.store.value.profile,
+  () => (isAuthenticated.value = !!auth.store.value.profile.token)
+)
+
+const logOut = () => {
+  localStorage.clear()
+  auth.store.value.profile = { email: '', id: 0, roles: [], token: '', username: '' }
+  router.push('/')
+  profileMenu.value = !profileMenu.value
+}
 </script>
 
 <style>
 .nav-icon,
 .items-nav-movile,
-.show-el {
+.show-el,
+.profile-menu {
   display: none;
+}
+
+.profile-animated {
 }
 
 @media (max-width: 775px) {
