@@ -142,6 +142,7 @@ tbody, td, tfoot, th, thead, tr {
         <span class="section-content">Numero de pago: <span th:text="${invoice.id}"></span></span>
         <span class="section-content">Precio: <span th:text="${invoice.price}"></span></span>
         <span class="section-content">Estado: <span th:text="${invoice.status}"></span></span>
+        <span class="section-content">Estado: <span th:text="${invoice.date}"></span></span>
     </div>
     <div class="section">
         <span class="section-title">Detalles del movimiento:</span>
@@ -149,6 +150,10 @@ tbody, td, tfoot, th, thead, tr {
         <span class="section-content">Punto de destino: <span th:text="${moving.destinationPoint}"></span></span>
         <span class="section-content">Punto de carga: <span th:text="${moving.loadingPoint}"></span></span>
         <span class="section-content">¿Tiene seguro?: <span th:text="${moving.insurance}"></span></span>
+        <span class="section-content">Tipo de Vehiculo: <span th:text="${VehicleType}"></span></span>
+        <span class="section-content">Ayudantes: <span th:text="${CrewMember}"></span></span>
+        <span class="section-content">Cantidad de horas: <span th:text="${hsQuantity}"></span></span>
+
     </div>
     <div class="section">
         <span class="section-title">Detalles del usuario:</span>
