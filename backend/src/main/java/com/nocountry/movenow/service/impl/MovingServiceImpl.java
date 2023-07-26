@@ -3,6 +3,7 @@ package com.nocountry.movenow.service.impl;
 import com.nocountry.movenow.dto.MovingDTO;
 import com.nocountry.movenow.exception.*;
 import com.nocountry.movenow.model.*;
+import com.nocountry.movenow.repository.BillingStrategyRepository;
 import com.nocountry.movenow.repository.MovingRepository;
 import com.nocountry.movenow.service.MovingService;
 import org.springframework.stereotype.Service;
@@ -18,15 +19,15 @@ public class MovingServiceImpl implements MovingService {
     private final UserServiceImpl userService;
     private final ScheduleServiceImpl scheduleServiceImpl;
     private final VehicleServiceImpl vehicleService;
-    private final BillingStrategyServiceImpl billingStrategyServiceImpl;
+    private final BillingStrategyRepository billingStrategyRepository;
 
-    MovingServiceImpl(BillingStrategyServiceImpl billingStrategyServiceImpl, UserServiceImpl userRepository, ScheduleServiceImpl scheduleServiceImpl, MovingRepository movingRepository, CrewMemberServiceImpl crewMemberService, VehicleServiceImpl vehicleService) {
+    MovingServiceImpl( BillingStrategyRepository billingStrategyRepository , UserServiceImpl userRepository, ScheduleServiceImpl scheduleServiceImpl, MovingRepository movingRepository, CrewMemberServiceImpl crewMemberService, VehicleServiceImpl vehicleService) {
         this.movingRepository = movingRepository;
         this.crewMemberService = crewMemberService;
         this.scheduleServiceImpl = scheduleServiceImpl;
         this.userService = userRepository;
         this.vehicleService = vehicleService;
-        this.billingStrategyServiceImpl = billingStrategyServiceImpl;
+        this.billingStrategyRepository = billingStrategyRepository;
     }
 
 
@@ -87,35 +88,22 @@ public class MovingServiceImpl implements MovingService {
         moving.setUser(user);
 
         // Set BillingStrategy to the moving
-        // TODO : add ValueTable
 
-        double helperValue = 9.99;
-        double vehicleValue = 19.99; ;
-        double insuranceValue = 19.99; ;
         int hsQuantity = 5;
-        double packaging = 0;
-
-
 
         // TODO : add a method to extract hours from the shift
 
         // Create the BillingStrategy for the moving
+        BillingStrategy billingStrategy = billingStrategyRepository.save(BillingStrategy.builder(movingDTO.getCrewMembersNumber(), hsQuantity, movingDTO.getVehicleType(), moving));
 
-        BillingStrategy billingStrategy = billingStrategyServiceImpl.save(helperValue, vehicleValue, insuranceValue , movingDTO.getCrewMembersNumber(), hsQuantity, packaging , moving.getId());
-
-        // Set the BillingStrategy to the moving
-
+    // Set the BillingStrategy to the moving
         moving.setBillingStrategy(billingStrategy);
 
-
-        // Save the moving object
-        movingRepository.save(moving);
-
-        // Save all the schedules
+    // Save all the schedules
         scheduleServiceImpl.save(schedule, moving.getId());
 
-        //Updating crew members by assigning the moving
-        crewMemberService.updateAll(crewMembers,moving);
+    // Updating crew members by assigning the moving
+        crewMemberService.updateAll(crewMembers, moving);
 
         return movingRepository.save(moving);
     }

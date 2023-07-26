@@ -2,34 +2,56 @@ package com.nocountry.movenow.service.impl;
 
 import com.nocountry.movenow.model.BillingStrategy;
 import com.nocountry.movenow.model.Moving;
+import com.nocountry.movenow.model.TableValues;
 import com.nocountry.movenow.repository.BillingStrategyRepository;
 import com.nocountry.movenow.service.IBillingStrategyService;
+import com.nocountry.movenow.service.MovingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
 
 @Service
 public class BillingStrategyServiceImpl implements IBillingStrategyService {
 
     private final BillingStrategyRepository billingStrategyRepository;
-    private final MovingServiceImpl MovingServiceImpl;
+    private final MovingService movingService;
+
 
 
     @Autowired
-    public BillingStrategyServiceImpl(MovingServiceImpl movingServiceImpl , BillingStrategyRepository billingStrategyRepository) {
+    public BillingStrategyServiceImpl( MovingService movingService , BillingStrategyRepository billingStrategyRepository) {
         this.billingStrategyRepository = billingStrategyRepository;
-        this.MovingServiceImpl = movingServiceImpl;
+        this.movingService = movingService;
+
+
     }
 
 
     @Override
-    public BillingStrategy save(double helperValue, double vehicleValue, double insuranceValue, int numberOfHelpers,
-                                int hsQuantity, double packaging, Long movingId) {
+    @Transactional
+    public BillingStrategy save(int numberOfHelpers, int hsQuantity, String vehicleType, Long movingId) {
 
-        Moving moving= MovingServiceImpl.findById(movingId);
+        if (numberOfHelpers <= 0 || hsQuantity <= 0 || vehicleType == null) {
+            throw new RuntimeException("Invalid input");
+        }
 
-        return billingStrategyRepository.save(new BillingStrategy(helperValue,  vehicleValue, insuranceValue, numberOfHelpers,
-         hsQuantity, packaging , moving));
+
+        Moving moving = movingService.findById(movingId);
+
+        BillingStrategy billingStrategy = new BillingStrategy(numberOfHelpers, hsQuantity, vehicleType, moving);
+
+        Double calculatedCost = cost(numberOfHelpers, hsQuantity, vehicleType);
+
+        if (Double.isNaN(calculatedCost) || Double.isInfinite(calculatedCost)) {
+            throw new RuntimeException("Invalid cost calculation");
+            // Or set a default value: calculatedCost = 0.0;
+        }
+
+        billingStrategy.setFinalCost(calculatedCost);
+
+        return billingStrategyRepository.save(billingStrategy);
     }
 
     @Override
@@ -39,18 +61,16 @@ public class BillingStrategyServiceImpl implements IBillingStrategyService {
 
     @Override
     public BillingStrategy update(BillingStrategy billingStrategy) {
-        Long id = billingStrategy.getBillingtrategy_id();
+        Long id = billingStrategy.getId();
         Optional<BillingStrategy> billingStrategyOptional = billingStrategyRepository.findById(id);
 
         if (billingStrategyOptional.isPresent()) {
             BillingStrategy billingSObj = billingStrategyOptional.get();
 
-           billingSObj.setBillingtrategy_id(billingStrategy.getBillingtrategy_id()!= null ? billingStrategy.getBillingtrategy_id() : billingStrategyOptional.get().getBillingtrategy_id()) ;
-           billingSObj.setHelperValue(billingStrategy.getHelperValue() > 0 ? billingStrategy.getHelperValue() : billingStrategyOptional.get().getHelperValue());
-           billingSObj.setVehicleValue(billingStrategy.getVehicleValue() > 0?billingStrategy.getVehicleValue():billingStrategyOptional.get().getVehicleValue());
+           billingSObj.setId(billingStrategy.getId()!= null ? billingStrategy.getId() : billingStrategyOptional.get().getId()); ;
            billingSObj.setNumberOfHelpers(billingStrategy.getNumberOfHelpers() > 0? billingStrategy.getNumberOfHelpers():billingStrategyOptional.get().getNumberOfHelpers());
-           billingSObj.setChargingHours(billingStrategy.getHsQuantity() > 0? billingStrategy.getHsQuantity():billingStrategyOptional.get().getHsQuantity());
-           billingSObj.setPackaging(billingStrategy.getPackaging() >0? billingStrategy.getPackaging(): billingStrategyOptional.get().getPackaging());
+           billingSObj.setHsQuantity(billingStrategy.getHsQuantity() > 0? billingStrategy.getHsQuantity():billingStrategyOptional.get().getHsQuantity());
+           billingSObj.setVehicleType(billingStrategy.getVehicleType() != null ? billingStrategy.getVehicleType():billingStrategyOptional.get().getVehicleType());
 
            return billingStrategyRepository.save(billingStrategy);
 
@@ -71,18 +91,37 @@ public class BillingStrategyServiceImpl implements IBillingStrategyService {
             billingStrategyRepository.save(billingStrategy);
 
             return true;
-        }else{
+        }else {
 
             return false;
         }
     }
 
+
     @Override
-    public double cost(BillingStrategy billingStrategy){
+    public double cost(int numberOfHelpers, int hsQuantity, String vehicleType) {
 
-        return ((billingStrategy.getHelperValue() * billingStrategy.getNumberOfHelpers()) + billingStrategy.getVehicleValue() )
-                * (billingStrategy.getHsQuantity() + 2)
-                + billingStrategy.getInsuranceValue() + billingStrategy.getPackaging();
+        if (numberOfHelpers == 0 && hsQuantity == 0 && vehicleType == null) {
+            throw new RuntimeException("No se puede calcular el costo");
+        }
 
+        TableValues tableValues = TableValues.getInstance();
+        return ((tableValues.getCrewPrice() * numberOfHelpers + getVehiclePrice(vehicleType)) * (hsQuantity + 2)
+                + tableValues.getInsurance() + tableValues.getPackagingPrice());
+    }
+
+    @Override
+    public double getVehiclePrice(String vehicleType) {
+        TableValues tableValues = TableValues.getInstance();
+        switch (vehicleType) {
+            case "pickup":
+                return tableValues.getPickUpPrice();
+            case "truck":
+                return tableValues.getTruckPrice();
+            case "heavyTruck":
+                return tableValues.getHeavyTruckPrice();
+            default:
+                return 0;
+        }
     }
 }

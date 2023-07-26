@@ -14,121 +14,49 @@ import javax.persistence.*;
 @SQLDelete(sql = "UPDATE billing SET soft_delete = true WHERE id=?")
 @Where(clause = "soft_delete = false")
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "billing")
 public class BillingStrategy {
+
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long billingtrategy_id;
-    @Column(name ="helper_value")
-    private double helperValue;
-    @Column(name ="vehicle_value")
-    private double vehicleValue;
-    @Column(name ="insurance_value")
-    private double insuranceValue = 0;
+    @Column(name = "id")
+    private Long id;
     @Column(name ="number_helper")
     private int numberOfHelpers=0;
     @Column(name ="hs_quantity")
     private int hsQuantity;
-    @Column(name ="packaging")
-    private double packaging;
+    @Column(name="vehicle_type")
+    private String vehicleType;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_moving", referencedColumnName = "id")
     private Moving moving;
 
-    @OneToOne(mappedBy = "moving")
+    @OneToOne(mappedBy = "billingStrategy")
     @JsonIgnore
     private Invoice invoice;
+
+    @Column(name = "final_cost")
+    private Double finalCost;
 
 
     @Column( name="soft_delete")
     private Boolean softDelete  = Boolean.FALSE;
 
-    public BillingStrategy(double helperValue, double vehicleValue, double insuranceValue, int numberOfHelpers,
-                           int hsQuantity, double packaging , Moving moving) {
-        this.helperValue = helperValue;
-        this.vehicleValue = vehicleValue;
-        this.insuranceValue = insuranceValue;
+
+    public BillingStrategy(int numberOfHelpers, int hsQuantity, String vehicleType, Moving moving) {
+
         this.numberOfHelpers = numberOfHelpers;
         this.hsQuantity = hsQuantity;
-        this.packaging = packaging;
+        this.vehicleType = vehicleType;
         this.moving = moving;
     }
 
-    public BillingStrategy() {
+    public static BillingStrategy builder(int numberOfHelpers, int hsQuantity, String vehicleType, Moving moving) {
 
-    }
+        return new BillingStrategy(numberOfHelpers, hsQuantity, vehicleType, moving);
 
-    public double getHelperValue() {
-        return helperValue;
-    }
-
-    public void setHelperValue(double helperValue) {
-        this.helperValue = helperValue;
-    }
-
-    public double getVehicleValue() {
-        return vehicleValue;
-    }
-
-    public void setVehicleValue(double vehicleValue) {
-        this.vehicleValue = vehicleValue;
-    }
-
-    public double getInsuranceValue() {
-        return insuranceValue;
-    }
-
-    public void setInsuranceValue(double insuranceValue) {
-        this.insuranceValue = insuranceValue;
-    }
-
-    public int getHsQuantity() {
-        return hsQuantity;
-    }
-
-    public void setChargingHours(int chargingHours) {
-        this.hsQuantity = hsQuantity;
-    }
-
-    public int getNumberOfHelpers() {
-        return numberOfHelpers;
-    }
-
-    public void setNumberOfHelpers(int numberOfHelpers) {
-        this.numberOfHelpers = numberOfHelpers;
-    }
-
-    public double cost(){
-
-        //(vehiclePrice + crewPrice) + (hsQuantity + 2)
-
-    return ((helperValue * numberOfHelpers) + vehicleValue + insuranceValue) * (hsQuantity + 2);
-
-    }
-
-    public double getPackaging() {
-        return packaging;
-    }
-
-    public void setPackaging(double packaging) {
-        this.packaging = packaging;
-    }
-
-    public void setBillingtrategy_id(Long billingtrategy_id) {
-        this.billingtrategy_id = billingtrategy_id;
-    }
-
-
-    public Long getBillingtrategy_id() {
-        return billingtrategy_id;
-    }
-
-    public Boolean getSoftDelete() {
-        return softDelete;
-    }
-
-    public void setSoftDelete(Boolean softDelete) {
-        this.softDelete = softDelete;
     }
 }
