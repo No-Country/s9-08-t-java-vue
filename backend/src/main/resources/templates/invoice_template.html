@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Factura</title>
+    <style>
+        /* Estilos CSS para la factura */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .section-content {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Factura</h1>
+    </div>
+    <div class="section">
+        <span class="section-title">Detalles de la factura:</span>
+        <span class="section-content">ID de factura: <span th:text="${invoice.id}"></span></span>
+        <span class="section-content">Precio: <span th:text="${invoice.price}"></span></span>
+        <span class="section-content">Estado: <span th:text="${invoice.status}"></span></span>
+    </div>
+    <div class="section">
+        <span class="section-title">Detalles del movimiento:</span>
+        <span class="section-content">ID de movimiento: <span th:text="${moving.id}"></span></span>
+        <span class="section-content">Punto de destino: <span th:text="${moving.destinationPoint}"></span></span>
+        <span class="section-content">Punto de carga: <span th:text="${moving.loadingPoint}"></span></span>
+        <span class="section-content">¿Tiene seguro?: <span th:text="${moving.insurance}"></span></span>
+    </div>
+    <div class="section">
+        <span class="section-title">Detalles del usuario:</span>
+        <span class="section-content">ID de usuario: <span th:text="${user.id}"></span></span>
+        <span class="section-content">Nombre de usuario: <span th:text="${user.user_name}"></span></span>
+        <span class="section-content">Email: <span th:text="${user.email}"></span></span>
+    </div>
+    <div class="footer">
+        <p>Gracias por su compra.</p>
+    </div>
+</body>
+</html>

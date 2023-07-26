@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-MovenowApplication<movenow>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.nocountry.movenow.MovenowApplication",
+            "projectName": "movenow",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

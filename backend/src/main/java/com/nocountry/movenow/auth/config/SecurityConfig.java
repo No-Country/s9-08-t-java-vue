@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .antMatchers(
-
+                        "/api/**/**/**/**/**",
                         "/api/auth/**",
                         "/swagger-resources",
                         "/swagger-resources/**",
