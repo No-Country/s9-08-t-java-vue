@@ -2,19 +2,19 @@
   <div
     class="absolute -bottom-3/4 left-2/4 flex w-11/12 -translate-x-2/4 flex-col gap-2 rounded-4xl bg-white shadow-2xl sm:-bottom-1/2 lg:-bottom-1/4"
   >
-    <form class="relative h-full w-full flex-col rounded-4xl bg-white p-16">
+    <form class="relative h-full w-full flex-col items-center rounded-4xl bg-white p-16 -mv:p-7">
       <div class="h-3">
         <p class="ml-2 text-sm text-red-400" v-show="typeErr">Selecciona el tipo de envio</p>
       </div>
       <MNDropdownInput @selected="setType" :items="[SENDING, MOVING]" :text="typeSelected" />
-      <div class="flex w-full flex-wrap items-center justify-between gap-2">
-        <div class="relative">
+      <div class="mt-3 flex w-full flex-wrap items-center justify-between gap-6 -mv:justify-center">
+        <div class="relative -mv:w-full">
           <MNInput
             placeholder="Origen"
             error-msg="Campo requerido"
             :show-error="originErr"
             type="text"
-            class="h-16 w-max rounded-3xl border border-primary-orange px-4"
+            class="h-16 w-max rounded-3xl border border-primary-orange px-4 -mv:h-14 -mv:w-full -mv:rounded-2xl"
             border="border-none"
             v-model="home.stepOne.value.origin"
           />
@@ -26,13 +26,13 @@
             />
           </a>
         </div>
-        <div class="relative">
+        <div class="relative -mv:w-full">
           <MNInput
             placeholder="Destino"
             error-msg="Campo requerido"
             :show-error="destinationErr"
             type="text"
-            class="h-16 w-max rounded-3xl border border-primary-orange px-4"
+            class="h-16 w-max rounded-3xl border border-primary-orange px-4 -mv:h-14 -mv:w-full -mv:rounded-2xl"
             border="border-none"
             v-model="home.stepOne.value.destination"
           />
@@ -44,11 +44,11 @@
             />
           </a>
         </div>
-        <div class="relative">
+        <div class="relative -mv:w-full">
           <MNInput
             placeholder="Fecha"
             type="date"
-            class="h-16 w-max rounded-3xl border border-primary-orange px-4"
+            class="h-16 w-max rounded-3xl border border-primary-orange px-4 -mv:h-14 -mv:w-full -mv:rounded-2xl"
             border="border-none"
             error-msg="Campo requerido"
             :show-error="dateErr"
@@ -65,7 +65,7 @@
         </div>
         <MNButton
           text="Buscar"
-          class="m-0 h-16 w-max rounded-2xl bg-primary-orange px-8 text-xl font-semibold"
+          class="m-0 h-16 w-max self-start rounded-2xl bg-primary-orange px-8 text-xl font-semibold"
           @click="search"
         />
       </div>
