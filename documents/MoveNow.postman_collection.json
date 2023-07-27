@@ -1,0 +1,820 @@
+{
+	"info": {
+		"_postman_id": "9b7b9bed-ef9a-49ab-be92-92052fd78ef5",
+		"name": "MoveNow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22531188",
+		"_collection_link": "https://orange-sunset-314031.postman.co/workspace/NoCountry~f3c7bf6e-5baf-4c4a-828e-0144d58a73ab/collection/22531188-9b7b9bed-ef9a-49ab-be92-92052fd78ef5?action=share&creator=22531188&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"johny_doe\",\r\n  \"password\": \"passwordw123\",\r\n  \"email\": \"johndoe@exampale.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/auth/register",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"johny_doe\",\r\n  \"password\": \"passwordw123\",\r\n  \"email\": \"johndoe@exampale.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/auth/authenticate",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test",
+			"item": [
+				{
+					"name": "Hello",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/test/hello",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"test",
+								"hello"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vehicle",
+			"item": [
+				{
+					"name": "SAVE VEHICLE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"type\": \"Heavy truck\",\r\n  \"dimension\": 500,\r\n  \"weight\": 3000.5,\r\n  \"model\": 2022,\r\n  \"status\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/vehicle/",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"vehicle",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL VEHICLES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/vehicle/",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"vehicle",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Vehicle By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/vehicle/3",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"vehicle",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Vehicle",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/vehicle/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"vehicle",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"id\": 1,\r\n        \"type\": \"Heavy truck\",\r\n        \"dimension\": 2333\r\n        \r\n        \r\n       \r\n    }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/vehicle/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"vehicle",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CrewMember",
+			"item": [
+				{
+					"name": "SAVE MEMBER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Persival\",\r\n  \"lastname\": \"Mackenzie\",\r\n  \"phoneNumber\": \"1234237890\",\r\n  \"movings\": [\r\n   \r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/crew-members/",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"crew-members",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL MEMBER",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/crew-members/",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"crew-members",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET MEMBERBy ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/crew-members/2",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"crew-members",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE MEMBER",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/crew-members/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"crew-members",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE MEMBER",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": 2,\r\n        \"name\": \"Persival\",\r\n        \"lastname\": \"Mackenzie\",\r\n        \"phoneNumber\": \"261394949\",\r\n        \"softDelete\": false\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/crew-members/2",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"crew-members",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Moving",
+			"item": [
+				{
+					"name": "SAVE MOVING",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"destinationPoint\": \"Your destination point\",\r\n  \"loadingPoint\": \"Your loading point\",\r\n  \"insurance\": true,\r\n  \"idUser\": 1,\r\n  \"crewMembersIds\": [1,2],\r\n  \"start\": \"2023-07-21T10:00:00\",\r\n  \"ends\": \"2023-07-21T18:00:00\",\r\n  \"vehicleId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/moving",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"moving"
+							],
+							"query": [
+								{
+									"key": "destinationPoint",
+									"value": "San%20Carlos%201234",
+									"disabled": true
+								},
+								{
+									"key": "loadingPoint",
+									"value": "San%20Martin%201234",
+									"disabled": true
+								},
+								{
+									"key": "insurance",
+									"value": "false",
+									"disabled": true
+								},
+								{
+									"key": "idUser",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "vehicleId",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "crewMembers",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "crewMembers",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "starts",
+									"value": "2023-07-21T10:00:00",
+									"disabled": true
+								},
+								{
+									"key": "starts",
+									"value": "2023-07-21T11:00:00",
+									"disabled": true
+								},
+								{
+									"key": "ends",
+									"value": "2023-07-21T14:00:00",
+									"disabled": true
+								},
+								{
+									"key": "ends",
+									"value": "2023-07-21T15:00:00",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL MOVING",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/moving/",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"moving",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET MOVING By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/moving/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"moving",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE MOVING",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/moving/5",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"moving",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE MOVING",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 2,\r\n  \"destinationPoint\": \"Carlos Paz 1371\",\r\n  \"loadingPoint\": \"Sample loading\",\r\n  \"packageType\": \"BOX\",\r\n  \"insurance\": false,\r\n  \"user\": null,\r\n  \"invoice\": null,\r\n  \"comment\": null,\r\n  \"schedules\": [],\r\n  \"crew\": [],\r\n  \"softDelete\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/moving/3",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"moving",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "SAVE USER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"example_username\",\r\n  \"password\": \"example_password\",\r\n  \"email\": \"example_email@example.com\",\r\n  \"role\": \"User\",\r\n  \"movings\": [],\r\n  \"softDelete\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/user/",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL USER",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/user/",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET USER By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/user/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE USER",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/user/4",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE USER",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 2,\r\n  \"destinationPoint\": \"Carlos Paz 1371\",\r\n  \"loadingPoint\": \"Sample loading\",\r\n  \"packageType\": \"BOX\",\r\n  \"insurance\": false,\r\n  \"user\": null,\r\n  \"invoice\": null,\r\n  \"comment\": null,\r\n  \"schedules\": [],\r\n  \"crew\": [],\r\n  \"softDelete\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/user/2",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "INVOICE",
+			"item": [
+				{
+					"name": "SAVE INVOICE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiQURNSU4ifV0sImVtYWlsIjoiYWRtaW4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTY4OTgwODQ0NiwiZXhwIjoxNjg5ODk0ODQ2fQ.nVuKD9mzfpj4_KdxRvhDzm5YUgA_Q24bACz-YTGKunI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1,\r\n  \"price\": 1000.00,\r\n  \"status\": \"COMPLETED\",\r\n  \"moving\":{}\r\n \r\n \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/invoice",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"invoice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL INVOICE",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/invoice",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"invoice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET INVOICE By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/invoice/1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"invoice",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE INVOICE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/invoice/2",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"invoice",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE INVOICE",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 2,\r\n  \"destinationPoint\": \"Carlos Paz 1371\",\r\n  \"loadingPoint\": \"Sample loading\",\r\n  \"packageType\": \"BOX\",\r\n  \"insurance\": false,\r\n  \"user\": null,\r\n  \"invoice\": null,\r\n  \"comment\": null,\r\n  \"schedules\": [],\r\n  \"crew\": [],\r\n  \"softDelete\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/invoice/2",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"invoice",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "localhost",
+			"value": "",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "localhost",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
