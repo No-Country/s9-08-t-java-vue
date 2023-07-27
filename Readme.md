@@ -81,13 +81,13 @@
 <h2>🛡️ Colaboradores:</h2>
 <p>UI/UX</p>
 <ul>
-    <li>Angie Becerra</li>
-    <li>Nayib Sales</li>
+    <li>Nayib Sales - <a href="https://www.linkedin.com/in/nayib-sales-059623218">LinkedIn</a>, <a href="https://www.behance.net/nayibsales">Behance</a></li>
+    <li>Angie Becerra - <a href="https://www.linkedin.com/in/angie-kelly-becerra-contreras-b55682228/">LinkedIn</a>, <a href="https://www.behance.net/angiebecerra">Behance</a></li>
 </ul>
 <p>BACK-END</p>
  <ul>
-        <li>Andersson Godoy</li>
-        <li>Ricardo Tolomei</li>
+        <li>Andersson Godoy - <a href="https://www.linkedin.com/in/andersson-godoy/">LinkedIn</a>, <a href="https://github.com/anderssongodoy">GitHub</a></li>
+        <li>Ricardo Tolomei - <a href="https://www.linkedin.com/in/ricardo-andr%C3%A9s-tolomei-99a4b380/">LinkedIn</a>
         <li>Cristian Mesiano - <a href="https://www.linkedin.com/in/cristian-gabriel-mesiano/">LinkedIn</a>, <a href="https://github.com/KBRIEL">GitHub</a></li>
         <li>Daniel Matos - <a href="https://www.linkedin.com/in/daniel-matos-echevarria/">LinkedIn</a>, <a href="https://github.com/Daniel-M12">GitHub</a></li>
         <li>Gabriel Iezzi - <a href="https://www.linkedin.com/in/gabriel-iezzi-13a405ba">LinkedIn</a>, <a href="https://github.com/gabiezzi">GitHub</a></li>
