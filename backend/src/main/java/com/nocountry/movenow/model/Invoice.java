@@ -8,17 +8,17 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor
 public class Invoice {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    private BigDecimal price;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -26,7 +26,31 @@ public class Invoice {
     @Column(name="soft_delete")
     private Boolean softDelete  = Boolean.FALSE;
 
-    @OneToOne(cascade = CascadeType.ALL)
+   /* @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_moving", referencedColumnName = "id")
-    private Moving moving;
+    private Moving moving;*/
+
+    @OneToOne(cascade = CascadeType.PERSIST , orphanRemoval = true)
+    @JoinColumn(name="id_billing_strategy", referencedColumnName = "id")
+    private BillingStrategy billingStrategy;
+
+    private final String companyName = "Movenow";
+
+    private final String companyAddress = "Av. Bernardo Vasconcelos, n° 377 - CABA";
+
+    private final String companyPhone = "08009792020";
+
+    private final String companyCUIT = "30-123456789-0";
+
+    private static int lastInvoiceNumber = 0;
+    private String invoiceNumber;
+
+    public Invoice() {
+        lastInvoiceNumber++;
+        invoiceNumber = String.format("%08d", lastInvoiceNumber);
+    }
+
+
+
+
 }

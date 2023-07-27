@@ -144,4 +144,12 @@ public class ScheduleServiceImpl implements ScheduleService {
         return availableShifts;
     }
 
+    public int getHoursFromShift(Shift shift) {
+        if (shift == null) {
+            throw new IllegalArgumentException("Shift cannot be null.");
+        }
+
+        return shift.retrieveEndTime().getHour() - shift.retrieveStartTime().getHour();
+    }
+
 }

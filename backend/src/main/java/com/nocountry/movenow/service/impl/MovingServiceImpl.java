@@ -3,10 +3,12 @@ package com.nocountry.movenow.service.impl;
 import com.nocountry.movenow.dto.MovingDTO;
 import com.nocountry.movenow.exception.*;
 import com.nocountry.movenow.model.*;
+import com.nocountry.movenow.repository.BillingStrategyRepository;
 import com.nocountry.movenow.repository.MovingRepository;
 import com.nocountry.movenow.service.MovingService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,13 +20,15 @@ public class MovingServiceImpl implements MovingService {
     private final UserServiceImpl userService;
     private final ScheduleServiceImpl scheduleServiceImpl;
     private final VehicleServiceImpl vehicleService;
+    private final BillingStrategyServiceImpl billingStrategyService;
 
-    MovingServiceImpl(UserServiceImpl userRepository, ScheduleServiceImpl scheduleServiceImpl, MovingRepository movingRepository, CrewMemberServiceImpl crewMemberService, VehicleServiceImpl vehicleService) {
+    MovingServiceImpl( BillingStrategyServiceImpl billingStrategyService , UserServiceImpl userRepository, ScheduleServiceImpl scheduleServiceImpl, MovingRepository movingRepository, CrewMemberServiceImpl crewMemberService, VehicleServiceImpl vehicleService) {
         this.movingRepository = movingRepository;
         this.crewMemberService = crewMemberService;
         this.scheduleServiceImpl = scheduleServiceImpl;
         this.userService = userRepository;
         this.vehicleService = vehicleService;
+        this.billingStrategyService = billingStrategyService;
     }
 
 
@@ -63,6 +67,9 @@ public class MovingServiceImpl implements MovingService {
         // Create a list of schedules with the provided start and end dates, vehicleId and moving
         Schedule schedule = scheduleServiceImpl.buildSchedule(movingDTO.getDate(), movingDTO.getShift(), randomVehicle.getId());
 
+
+        moving.setDate(getLocalDateFromSchedule(schedule));
+
         // Retrieve a quantity of CrewMembers from repository
 
         List<CrewMember> crewMembers = crewMemberService.getRandomCrewMembers(movingDTO.getCrewMembersNumber());
@@ -84,14 +91,19 @@ public class MovingServiceImpl implements MovingService {
         // Set the user
         moving.setUser(user);
 
-        // Save the moving object
-        movingRepository.save(moving);
+        // Extract hours from the shift
 
-        // Save all the schedules
-        scheduleServiceImpl.save(schedule, moving.getId());
+        int hsQuantity = scheduleServiceImpl.getHoursFromShift(movingDTO.getShift());
 
+        // Create the BillingStrategy for the moving
+        BillingStrategy billingStrategy = billingStrategyService.save(movingDTO.getCrewMembersNumber(), hsQuantity, movingDTO.getVehicleType(), movingDTO.getInsurance());
+
+
+        schedule.setMoving(moving);
+        billingStrategy.setMoving(moving);
         //Updating crew members by assigning the moving
-        crewMemberService.updateAll(crewMembers,moving);
+       // crewMemberService.updateAll(crewMembers,moving);
+
 
         return movingRepository.save(moving);
     }
@@ -198,5 +210,9 @@ public class MovingServiceImpl implements MovingService {
         throw new MovingNotFoundException("Moving not found");
     }
 
+    public LocalDate getLocalDateFromSchedule(Schedule schedule) {
+        return schedule.getStarDateTime().toLocalDate();
+
+    }
 
 }

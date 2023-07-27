@@ -45,6 +45,9 @@ public class AuthenticationService {
                 .build();
         user.setSoftDelete(Boolean.FALSE);
 
+        user.generateClientCUIT();
+        user.generateClientPhone();
+
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
         return ResponseDTO.builder()

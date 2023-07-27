@@ -3,6 +3,7 @@ package com.nocountry.movenow.service.impl;
 import com.nocountry.movenow.model.Invoice;
 import com.nocountry.movenow.repository.InvoiceRepository;
 import com.nocountry.movenow.service.InvoiceService;
+import com.nocountry.movenow.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,14 +15,17 @@ import java.util.stream.Collectors;
 public class InvoiceServiceImpl implements InvoiceService {
 
     private final InvoiceRepository invoiceRepository;
+    private final ScheduleServiceImpl scheduleServiceImpl;
 
     @Autowired
-    public InvoiceServiceImpl(InvoiceRepository invoiceRepository) {
+    public InvoiceServiceImpl(ScheduleServiceImpl scheduleService , InvoiceRepository invoiceRepository) {
         this.invoiceRepository = invoiceRepository;
+        this.scheduleServiceImpl = scheduleService;
     }
 
     @Override
     public Invoice save(Invoice invoice) {
+
         return invoiceRepository.save(invoice);
     }
 
@@ -60,9 +64,6 @@ public class InvoiceServiceImpl implements InvoiceService {
 
         Invoice invoiceUpdated = invoiceOptional.get();
 
-        if (invoice.getPrice() != null){
-            invoiceUpdated.setPrice(invoice.getPrice());
-        }
 
         if (invoice.getStatus() != null){
             invoiceUpdated.setStatus(invoice.getStatus());
