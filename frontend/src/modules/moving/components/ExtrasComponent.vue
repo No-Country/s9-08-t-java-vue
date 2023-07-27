@@ -15,10 +15,34 @@
         class="mr-10 h-max w-max"
       />
     </div>
-    <ExtrasCard />
+    <ExtrasCard
+      @state:insaurance="(arg) => (needInsaurance = arg)"
+      @state:crew="(arg) => (needCrew = arg)"
+      @crew:quantity="selectedCrew"
+    />
   </section>
 </template>
 
 <script setup lang="ts">
-import ExtrasCard from './ExtrasCard.vue';
+import ExtrasCard from './ExtrasCard.vue'
+import { getCrewMembers } from '../services/movingServices'
+import { onMounted, ref } from 'vue'
+import { useMovingStore } from '@/store/moving'
+
+const movingStore = useMovingStore()
+const needCrew = ref(false)
+const needInsaurance = ref(false)
+const crews = ref()
+
+onMounted(() => {
+  getCrewMembers().then((res) => (crews.value = res))
+})
+
+const selectedCrew = (value: string) => {
+  console.log(value)
+}
+
+const validationsBeforeNextStep = () => {}
+
+const nextStep = () => {}
 </script>

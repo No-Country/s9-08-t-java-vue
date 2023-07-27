@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/crew-members")
 @Tag(name = "Crew Members", description = "Manage Crew Members")
 public class CrewMemberController {

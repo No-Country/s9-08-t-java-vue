@@ -19,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/moving")
+@CrossOrigin
 @Tag(name = "Moving", description = "Manage Moving")
 public class MovingController {
     private final MovingServiceImpl movingService;

@@ -34,7 +34,8 @@ public class SecurityConfig {
                         "/webjars/**",
                         "/swagger-ui.html",
                         "/api/user/**",
-                        "/v3/api-docs/**"
+                        "/v3/api-docs/**",
+                        "api/test/**"
                 )
                 .permitAll()
                .antMatchers(

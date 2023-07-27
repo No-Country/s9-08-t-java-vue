@@ -1,5 +1,5 @@
 <template>
-  <div class="my-4 flex h-full w-full flex-col items-center gap-8 p-8">
+  <div class="my-4 flex h-full w-full flex-col items-start gap-8 p-8">
     <div class="flex h-max w-full items-center justify-center gap-8">
       <div class="flex w-2/4 flex-col gap-4 text-black">
         <MNDropdownInput
@@ -7,6 +7,7 @@
           :text="crewMembers"
           :text-class="'text-black text-2xl font-semibold'"
           :item-class="'text-black'"
+          @selected="(arg) => setCrewQuantity(Number(arg.split(' ')[0]))"
         />
         <p class="text-base font-light">
           El servicio de mudanza incluye solo un ayudante. ¡Adicione más, ahorre horas en su
@@ -18,7 +19,9 @@
           <h5 class="text-lg font-light text-black">usd $9.99</h5>
           <span class="text-sm font-light">por ayudante</span>
         </div>
-        <MNToggle :state="check" @state="(arg) => $emit('state', arg)"></MNToggle>
+        <div>
+          <p class="text-2xl font-bold text-primary-orange">{{ moving.crewMembers }}</p>
+        </div>
       </div>
     </div>
     <div class="flex h-max w-full items-center justify-center gap-8">
@@ -32,7 +35,7 @@
       </div>
       <div class="flex w-max items-center justify-center gap-8">
         <h5 class="text-lg font-light text-black">usd $19.99</h5>
-        <MNToggle :state="check" @state="(arg) => $emit('state', arg)"></MNToggle>
+        <MNToggle :state="check" @state="(arg) => (moving.insurance.value = arg)"></MNToggle>
       </div>
     </div>
   </div>
@@ -42,9 +45,15 @@
 import MNToggle from '@/components/common/MNToggle.vue'
 import MNDropdownInput from '@/components/common/MNDropdownInput.vue'
 import { ref } from 'vue'
+import { useMovingStore } from '@/store/moving'
+import { storeToRefs } from 'pinia'
 
-const crewMembers = ref('Ayudantes')
-defineEmits(['state'])
-
+const moving = storeToRefs(useMovingStore())
 const check = ref(false)
+const crewMembers = ref('Ayudantes')
+defineEmits(['state:insaurance', 'state:crew'])
+
+const setCrewQuantity = (crews: number) => {
+  moving.crewMembers.value = crews
+}
 </script>

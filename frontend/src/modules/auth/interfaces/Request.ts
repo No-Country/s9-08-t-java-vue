@@ -4,5 +4,5 @@ export interface ILoginRequest {
 }
 
 export interface IRegisterRequest extends ILoginRequest {
-  username: string
+  userName: string
 }

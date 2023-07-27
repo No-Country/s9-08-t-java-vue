@@ -6,4 +6,5 @@ export type IFleetCard = {
   info2: string
   selectable: boolean
   img: string
+  type: string
 }
