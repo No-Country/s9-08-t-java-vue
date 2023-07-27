@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent>
     <div>
-      <h2 class="text-lg font-semibold text-primary-orange">Nobre Completo</h2>
+      <h2 class="text-lg font-semibold text-primary-orange">Nombre Completo</h2>
       <p class="text-sm font-semibold text-blue-night">Nombre completo del titular de la tarjeta</p>
       <MNInput
         placeholder="Nombre completo"

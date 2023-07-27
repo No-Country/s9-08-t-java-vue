@@ -22,7 +22,8 @@ export default {
       },
       screens: {
         mv: '775px',
-        '-mv': { max: '775px' }
+        '-mv': { max: '775px' },
+        '-lg': { max: '1024px' }
       },
       borderRadius: {
         '4xl': '50px'
