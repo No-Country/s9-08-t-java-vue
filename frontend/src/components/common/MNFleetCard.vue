@@ -41,9 +41,11 @@
               : DEFAULT_BTN_NAMES.CONTRATAR
           "
           :class="`cursor-pointer rounded-lg bg-primary-orange py-1 ${
-            prop.selectable ? 'hover:brightness-90' : ' cursor-default bg-zinc-600 opacity-20'
+            prop.selectable && prop.type != VEHICLES.PICK_UP
+              ? 'hover:brightness-90'
+              : ' cursor-default bg-zinc-600 opacity-20'
           } ${prop.type == moving.vehicleType.value && btnFlagColor ? 'bg-green-400' : ''}`"
-          :disabled="prop.selectable == false"
+          :disabled="prop.selectable == false || prop.type == VEHICLES.PICK_UP"
           @click="toSelectVehicle"
         ></MNButton>
       </div>
@@ -72,6 +74,9 @@ const DEFAULT_BTN_NAMES = {
 }
 
 const toSelectVehicle = () => {
+  if (props.prop.type == VEHICLES.PICK_UP) {
+    return
+  }
   moving.vehicleType.value = props.prop.type
 }
 

@@ -11,7 +11,9 @@ export const VEHICLES = {
 }
 
 export const VEHICLES_PRICES: { [key: string]: number } = {
-  [VEHICLES.PICK_UP]: 50,
-  [VEHICLES.TRUCK]: 100,
-  [VEHICLES.HEAVY_TRUCK]: 150
+  [VEHICLES.PICK_UP]: 15,
+  [VEHICLES.TRUCK]: 20,
+  [VEHICLES.HEAVY_TRUCK]: 25
 }
+
+export const SCHEDULES_HOURS = 5
