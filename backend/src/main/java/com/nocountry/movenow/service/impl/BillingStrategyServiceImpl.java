@@ -1,6 +1,7 @@
 package com.nocountry.movenow.service.impl;
 
 import com.nocountry.movenow.model.BillingStrategy;
+import com.nocountry.movenow.model.Invoice;
 import com.nocountry.movenow.model.TableValues;
 import com.nocountry.movenow.repository.BillingStrategyRepository;
 import com.nocountry.movenow.repository.MovingRepository;
@@ -15,12 +16,14 @@ import java.util.Optional;
 public class BillingStrategyServiceImpl implements IBillingStrategyService {
 
     private final BillingStrategyRepository billingStrategyRepository;
+    private final InvoiceServiceImpl invoiceService;
 
 
 
     @Autowired
-    public BillingStrategyServiceImpl( BillingStrategyRepository billingStrategyRepository) {
+    public BillingStrategyServiceImpl( InvoiceServiceImpl invoiceService,BillingStrategyRepository billingStrategyRepository) {
         this.billingStrategyRepository = billingStrategyRepository;
+        this.invoiceService = invoiceService;
           }
 
 
@@ -42,6 +45,11 @@ public class BillingStrategyServiceImpl implements IBillingStrategyService {
         }
 
         billingStrategy.setFinalCost(calculatedCost);
+        Invoice invoice = new Invoice();
+
+        invoice.setBillingStrategy(billingStrategy);
+
+        invoiceService.save(invoice);
 
         return billingStrategyRepository.save(billingStrategy);
     }

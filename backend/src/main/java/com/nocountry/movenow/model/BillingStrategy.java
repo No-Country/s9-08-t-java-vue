@@ -36,7 +36,7 @@ public class BillingStrategy {
     @JoinColumn(name = "id_moving", referencedColumnName = "id")
     private Moving moving;
 
-    @OneToOne(mappedBy = "billingStrategy")
+    @OneToOne(mappedBy = "billingStrategy", cascade = CascadeType.PERSIST)
     @JsonIgnore
     private Invoice invoice;
 

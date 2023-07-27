@@ -9,6 +9,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -55,6 +56,8 @@ public class Moving {
     @OneToOne(mappedBy = "moving", cascade = CascadeType.PERSIST , orphanRemoval = true)
     @JsonIgnore
     private Schedule schedules;
+
+    private LocalDate date;
 
     @ManyToMany(mappedBy = "movings", cascade = CascadeType.PERSIST)
     private List<CrewMember> crew;

@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -17,7 +19,6 @@ public class Invoice {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    private BigDecimal price;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -29,7 +30,7 @@ public class Invoice {
     @JoinColumn(name = "id_moving", referencedColumnName = "id")
     private Moving moving;*/
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST , orphanRemoval = true)
     @JoinColumn(name="id_billing_strategy", referencedColumnName = "id")
     private BillingStrategy billingStrategy;
 
