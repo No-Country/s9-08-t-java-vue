@@ -87,27 +87,13 @@ public class MovingServiceImpl implements MovingService {
         // Set the user
         moving.setUser(user);
 
-        // Set BillingStrategy to the moving
+        // Extract hours from the shift
 
-        int hsQuantity = 1;
+        int hsQuantity = scheduleServiceImpl.getHoursFromShift(movingDTO.getShift());
 
-        // TODO : add a method to extract hours from the shift
-
-        System.out.println("movingDTO. get vehicle tipe = " + movingDTO.getVehicleType());
         // Create the BillingStrategy for the moving
         BillingStrategy billingStrategy = billingStrategyService.save(movingDTO.getCrewMembersNumber(), hsQuantity, movingDTO.getVehicleType(), movingDTO.getInsurance());
 
-    // Set the BillingStrategy to the moving
-       // moving.setBillingStrategy(billingStrategy);
-
-    //movingRepository.save(moving);
-
-
-    // Save all the schedules
-        //scheduleServiceImpl.save(schedule, moving.getId());
-
-    // Updating crew members by assigning the moving
-        //crewMemberService.updateAll(crewMembers, moving);
 
         return movingRepository.save(moving);
     }
