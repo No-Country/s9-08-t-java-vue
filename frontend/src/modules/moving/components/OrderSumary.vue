@@ -41,14 +41,14 @@
             <input type="radio" v-model="checkout.isVisa.value" :value="true" />
             <label class="flex items-center" for="">
               <img class="w-14" :src="visa" alt="" />
-              <p>Opcionde pago con Visa</p>
+              <p>Opcion de pago con Visa</p>
             </label>
           </div>
           <div class="flex gap-3">
             <input type="radio" v-model="checkout.isVisa.value" :value="false" />
             <label class="flex items-center" for="">
               <img class="w-14" :src="master" alt="" />
-              <p>Opcionde pago con Master Card</p>
+              <p>Opcion de pago con Master Card</p>
             </label>
           </div>
         </div>

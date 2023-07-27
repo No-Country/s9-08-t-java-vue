@@ -10,7 +10,7 @@ export const flota = [
     short: 'S10 CABINA SIMPLE',
     info1: 'Capacidad de carga hasta de 1000kg',
     info2: 'Disponible solo para envios',
-    selectable: true,
+    selectable: false,
     img: camioneta,
     type: VEHICLES.PICK_UP
   },
