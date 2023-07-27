@@ -19,15 +19,15 @@ public class MovingServiceImpl implements MovingService {
     private final UserServiceImpl userService;
     private final ScheduleServiceImpl scheduleServiceImpl;
     private final VehicleServiceImpl vehicleService;
-    private final BillingStrategyRepository billingStrategyRepository;
+    private final BillingStrategyServiceImpl billingStrategyService;
 
-    MovingServiceImpl( BillingStrategyRepository billingStrategyRepository , UserServiceImpl userRepository, ScheduleServiceImpl scheduleServiceImpl, MovingRepository movingRepository, CrewMemberServiceImpl crewMemberService, VehicleServiceImpl vehicleService) {
+    MovingServiceImpl( BillingStrategyServiceImpl billingStrategyService , UserServiceImpl userRepository, ScheduleServiceImpl scheduleServiceImpl, MovingRepository movingRepository, CrewMemberServiceImpl crewMemberService, VehicleServiceImpl vehicleService) {
         this.movingRepository = movingRepository;
         this.crewMemberService = crewMemberService;
         this.scheduleServiceImpl = scheduleServiceImpl;
         this.userService = userRepository;
         this.vehicleService = vehicleService;
-        this.billingStrategyRepository = billingStrategyRepository;
+        this.billingStrategyService = billingStrategyService;
     }
 
 
@@ -89,21 +89,25 @@ public class MovingServiceImpl implements MovingService {
 
         // Set BillingStrategy to the moving
 
-        int hsQuantity = 5;
+        int hsQuantity = 1;
 
         // TODO : add a method to extract hours from the shift
 
+        System.out.println("movingDTO. get vehicle tipe = " + movingDTO.getVehicleType());
         // Create the BillingStrategy for the moving
-        BillingStrategy billingStrategy = billingStrategyRepository.save(BillingStrategy.builder(movingDTO.getCrewMembersNumber(), hsQuantity, movingDTO.getVehicleType(), moving));
+        BillingStrategy billingStrategy = billingStrategyService.save(movingDTO.getCrewMembersNumber(), hsQuantity, movingDTO.getVehicleType(), movingDTO.getInsurance());
 
     // Set the BillingStrategy to the moving
-        moving.setBillingStrategy(billingStrategy);
+       // moving.setBillingStrategy(billingStrategy);
+
+    //movingRepository.save(moving);
+
 
     // Save all the schedules
-        scheduleServiceImpl.save(schedule, moving.getId());
+        //scheduleServiceImpl.save(schedule, moving.getId());
 
     // Updating crew members by assigning the moving
-        crewMemberService.updateAll(crewMembers, moving);
+        //crewMemberService.updateAll(crewMembers, moving);
 
         return movingRepository.save(moving);
     }

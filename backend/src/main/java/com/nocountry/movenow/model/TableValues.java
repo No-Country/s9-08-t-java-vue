@@ -17,7 +17,6 @@ public class TableValues {
 
     private Double crewPrice;
     private Double insurance;
-    private Double packagingPrice;
     private Double pickUpPrice;
     private Double truckPrice;
     private Double heavyTruckPrice;
@@ -27,7 +26,6 @@ public class TableValues {
     private TableValues() {
         // You can provide default values here or fetch them from a configuration file or database.
         crewPrice = 9.99;
-        packagingPrice = 0.0;
         insurance = 19.99;
         pickUpPrice = 15.0;
         truckPrice = 20.0;

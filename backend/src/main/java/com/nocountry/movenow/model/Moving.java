@@ -44,7 +44,7 @@ public class Moving {
     private Invoice invoice;*/
 
 
-    @OneToOne(mappedBy = "moving")
+    @OneToOne(mappedBy = "moving", cascade = CascadeType.PERSIST , orphanRemoval = true)
     @JsonIgnore
     private BillingStrategy billingStrategy;
 
@@ -52,11 +52,11 @@ public class Moving {
     @JsonIgnore
     private Comment comment;
 
-    @OneToOne(mappedBy = "moving", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToOne(mappedBy = "moving", cascade = CascadeType.PERSIST , orphanRemoval = true)
     @JsonIgnore
     private Schedule schedules;
 
-    @ManyToMany(mappedBy = "movings")
+    @ManyToMany(mappedBy = "movings", cascade = CascadeType.PERSIST)
     private List<CrewMember> crew;
 
 

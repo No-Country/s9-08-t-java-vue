@@ -17,8 +17,23 @@ public class BillingStrategyController {
     }
 
     @GetMapping("/cost")
-    public String cost(@Param("numberOfHelpers") int numberOfHelpers, @Param("hsQuantity") int hsQuantity, @Param("vehicleType") String vehicleType) {
+    public String cost(
+            @Param("numberOfHelpers") int numberOfHelpers,
+            @Param("hsQuantity") int hsQuantity,
+            @Param("vehicleType") String vehicleType ,
+            @Param("insurance") Boolean insurance
+    ) {
 
-        return "the cost is " + billingStrategyService.cost(numberOfHelpers, hsQuantity, vehicleType);
+        return "the cost is " + billingStrategyService.cost(numberOfHelpers, hsQuantity, vehicleType , insurance );
+    }
+
+    @GetMapping("/getprice")
+    public String cost(
+
+            @Param("vehicleType") String vehicleType
+
+    ) {
+
+        return "the cost is " + billingStrategyService.getVehiclePrice( vehicleType  );
     }
 }

@@ -29,6 +29,8 @@ public class BillingStrategy {
     private int hsQuantity;
     @Column(name="vehicle_type")
     private String vehicleType;
+    @Column
+    private Boolean insurance;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_moving", referencedColumnName = "id")
@@ -46,17 +48,13 @@ public class BillingStrategy {
     private Boolean softDelete  = Boolean.FALSE;
 
 
-    public BillingStrategy(int numberOfHelpers, int hsQuantity, String vehicleType, Moving moving) {
+    public BillingStrategy( int numberOfHelpers, int hsQuantity, String vehicleType, Boolean insurance) {
 
         this.numberOfHelpers = numberOfHelpers;
         this.hsQuantity = hsQuantity;
         this.vehicleType = vehicleType;
-        this.moving = moving;
+
+        this.insurance = insurance;
     }
 
-    public static BillingStrategy builder(int numberOfHelpers, int hsQuantity, String vehicleType, Moving moving) {
-
-        return new BillingStrategy(numberOfHelpers, hsQuantity, vehicleType, moving);
-
-    }
 }
