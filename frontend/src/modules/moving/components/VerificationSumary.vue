@@ -59,17 +59,14 @@
 </template>
 
 <script lang="ts" setup>
-import { VEHICLES_PRICES } from '@/lib/constants'
-import { useCheckoutStore } from '@/store/checkout'
+import { SCHEDULES_HOURS, VEHICLES_PRICES } from '@/lib/constants'
 import { useMovingStore } from '@/store/moving'
-import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 import { PRICES } from '../constants'
 
 const moving = useMovingStore()
-const checkout = storeToRefs(useCheckoutStore())
 
-const vehicle = ref(VEHICLES_PRICES[moving.vehicleType] * 3)
+const vehicle = ref(VEHICLES_PRICES[moving.vehicleType] * SCHEDULES_HOURS)
 const crewMembers = ref(PRICES.CREW * moving.crewMembers)
 const insurance = ref(moving.insurance ? PRICES.INSAURANCE : 0)
 const monto = ref(Number(vehicle.value + crewMembers.value + insurance.value).toFixed(2))

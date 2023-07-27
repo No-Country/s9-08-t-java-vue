@@ -7,7 +7,7 @@
       <div class="flex justify-between">
         <li><p class="font-bold text-primary-orange">Vehiculo</p></li>
         <li>
-          <p>${{ vehicle }} x hora</p>
+          <p>${{ VEHICLES_PRICES[moving.vehicleType] }} x {{ SCHEDULES_HOURS }} = ${{ vehicle }}</p>
         </li>
       </div>
       <div class="flex justify-between">
@@ -22,7 +22,7 @@
       </div>
       <div class="mt-2 flex justify-between">
         <li class="text-2xl">Total</li>
-        <li>${{ Number(vehicle + crewMembers + insurance).toFixed(2) }}</li>
+        <li>${{ monto }}</li>
       </div>
     </ul>
   </div>
@@ -61,7 +61,7 @@
 </template>
 
 <script lang="ts" setup>
-import { VEHICLES_PRICES } from '@/lib/constants'
+import { SCHEDULES_HOURS, VEHICLES_PRICES } from '@/lib/constants'
 import { PRICES } from '../constants'
 import { useMovingStore } from '@/store/moving'
 import { ref } from 'vue'
@@ -74,9 +74,10 @@ import { useCheckoutStore } from '@/store/checkout'
 
 const moving = useMovingStore()
 const checkout = storeToRefs(useCheckoutStore())
-const vehicle = ref(VEHICLES_PRICES[moving.vehicleType] * 3)
+const vehicle = ref(VEHICLES_PRICES[moving.vehicleType] * SCHEDULES_HOURS)
 const crewMembers = ref(PRICES.CREW * moving.crewMembers)
 const insurance = ref(moving.insurance ? PRICES.INSAURANCE : 0)
+const monto = ref(Number(vehicle.value + crewMembers.value + insurance.value).toFixed(2))
 
 const isVisa = ref(false)
 </script>

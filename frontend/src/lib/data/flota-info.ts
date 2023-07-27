@@ -16,7 +16,7 @@ export const flota = [
   },
   {
     id: 2,
-    name: 'CAMION',
+    name: 'CAMIÓN',
     short: 'S10 CABINA SIMPLE',
     info1: 'Capacidad de carga hasta de 1500kg',
     info2: 'Disponible solo para mudanzas',
@@ -26,8 +26,8 @@ export const flota = [
   },
   {
     id: 3,
-    name: 'CAMION',
-    short: 'S10 CABINA SIMPLE',
+    name: 'CAMIÓN PESADO',
+    short: 'MERCEDEZ FAMILIA 360',
     info1: 'Capacidad de carga mayor a 1500kg',
     info2: 'Disponible solo para mudanzas',
     selectable: true,
